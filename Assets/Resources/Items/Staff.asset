@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: Staff
+  m_EditorClassIdentifier: Assembly-CSharp::ItemResources
+  items:
+  - {fileID: 11400000, guid: a1f6649c1cf1dc341876820c3cb48abd, type: 2}
+  - {fileID: 11400000, guid: f71ac09f59e6d3d4a8e847bbe59e75c9, type: 2}
+  - {fileID: 11400000, guid: 6908e5f4306b6da4ebc9defb7e9d34e6, type: 2}
+  - {fileID: 11400000, guid: 4b95242d6c3f05f40afb9fb44e709b7e, type: 2}
+  - {fileID: 11400000, guid: 256b16b67507701428fa1a7235b6fe7a, type: 2}
+  - {fileID: 11400000, guid: 50c8689a39bc23d49989c75d25ecffb5, type: 2}
+  FullName: "\u041F\u041E\u0421\u041E\u0425"
+  ShortName: "\u041F\u041E\u0421\u041E\u0425"
+  icon: {fileID: 0}

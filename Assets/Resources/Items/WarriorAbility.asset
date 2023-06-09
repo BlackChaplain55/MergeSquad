@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: WarriorAbility
+  m_EditorClassIdentifier: Assembly-CSharp::ItemResources
+  items:
+  - {fileID: 11400000, guid: a0be7c09f3404a44d9fa8fd1eddd201b, type: 2}
+  - {fileID: 11400000, guid: 4e8438d669c1f294487e8ce088791f09, type: 2}
+  - {fileID: 11400000, guid: 8aa671e960d2d204a959efddec84b23d, type: 2}
+  - {fileID: 11400000, guid: 4d097de13493d49438b0a231be79319e, type: 2}
+  - {fileID: 11400000, guid: aa31a036ceee73542886b10740afd4be, type: 2}
+  - {fileID: 11400000, guid: 38e170b22487e134c81762ba03291543, type: 2}
+  FullName: "\u041D\u0410\u0412\u041A \u0412\u041E\u0418\u041D\u0410"
+  ShortName: "\u0412\u041E\u0418\u041D"
+  icon: {fileID: 0}

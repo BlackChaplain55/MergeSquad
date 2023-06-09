@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: Assembly-CSharp::ItemResources
+  items:
+  - {fileID: 11400000, guid: 216f5860964ade643b0f13465c47e796, type: 2}
+  - {fileID: 11400000, guid: 20f672af7f268b541a9fd7df2b4121bc, type: 2}
+  - {fileID: 11400000, guid: 4194dd775d612614cb21ddc4aa68553e, type: 2}
+  - {fileID: 11400000, guid: 61dae7d0a4e16cf49ba184e41245202d, type: 2}
+  - {fileID: 11400000, guid: c9bf4f72cad11a049ae1553ec68e0231, type: 2}
+  - {fileID: 11400000, guid: 640096a952bfb9c4f9c7df055c262c5e, type: 2}
+  FullName: "\u041C\u0415\u0427"
+  ShortName: "\u041C\u0415\u0427"
+  icon: {fileID: 0}

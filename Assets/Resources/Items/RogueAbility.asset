@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: RogueAbility
+  m_EditorClassIdentifier: Assembly-CSharp::ItemResources
+  items:
+  - {fileID: 11400000, guid: 64a93655ef4ebfc409846d7a280b054a, type: 2}
+  - {fileID: 11400000, guid: 8618a67784935f34ca01726fd65205a1, type: 2}
+  - {fileID: 11400000, guid: 67ba6c0cabd45e04f8c64374378b5784, type: 2}
+  - {fileID: 11400000, guid: 931d9c1bffba231438fea015c170962a, type: 2}
+  - {fileID: 11400000, guid: 1f2d96241c20d5e44b087aa3997d6e8f, type: 2}
+  - {fileID: 11400000, guid: 31f9ea62d67fdf644a35df4f1d3af34b, type: 2}
+  FullName: "\u041D\u0410\u0412\u042B\u041A \u0412\u041E\u0420\u0410"
+  ShortName: "\u0412\u041E\u0420"
+  icon: {fileID: 0}
