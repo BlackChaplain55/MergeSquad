@@ -48,15 +48,14 @@ public class MergeSystem : MonoBehaviour
             StopCoroutine(_carryRoutine);
 
         if (_carryingItemSlot == null) return;
+        if (_targetItemSlot == null) return;
         if (_carryingItemSlot.CurrentItem == null) return;
-        Debug.Log("_carryingItemSlot == slot : " + (_carryingItemSlot == slot));
 
         if (_carryingItemSlot == _targetItemSlot)
         {
             OnItemCarryFail(_carryingItemSlot);
             return;
         }
-        Debug.Log("target : " + _targetItemSlot);
         if (_targetItemSlot.CurrentItem == null)
         {
             Debug.Log(2);
