@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Bow 3
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: c36199860d8b3634bbda1c09fa4b1518, type: 3}
-  power: 5
+  Power: 0
+  Id: 2
+  Type: 2

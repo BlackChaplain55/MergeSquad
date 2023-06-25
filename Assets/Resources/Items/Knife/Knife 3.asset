@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Knife 3
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 1ff1175d56df9eb4f8cfa0ba429d9254, type: 3}
-  power: 5
-  Id: 0
-  Type: 0
-  ParentSlot: {fileID: 0}
+  Power: 0
+  Id: 2
+  Type: 3

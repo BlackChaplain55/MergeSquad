@@ -1,41 +1,60 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
+[RequireComponent(typeof(CanvasGroup))]
+public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public int Id;
-    public Item currentItem;
-    public SlotState state = SlotState.Empty;
+    [field: SerializeField] public ItemSO CurrentItem { get; private set; }
+    public event Action<Slot, bool> OnItemPressedChanged;
+    public event Action<Slot, bool> OnItemOverlapChanged;
+    private CanvasGroup _canvasGroup;
+    private ItemPresenter _itemPresenter;
+    public List<Text> texts;
+    public List<Image> imgs;
 
-    public void CreateItem(int id, MergeData.ItemTypes type) 
+    private void Awake()
     {
-        var itemGO = (GameObject)Instantiate(Resources.Load("GamePrefabs/Item"));
-
-        itemGO.transform.SetParent(this.transform);
-        itemGO.transform.localPosition = Vector3.zero;
-        itemGO.transform.localScale = Vector3.one;
-
-        currentItem = itemGO.GetComponent<Item>();
-        currentItem.Init(id, this, type);
-
-        ChangeStateTo(SlotState.Full);
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _itemPresenter = GetComponentInChildren<ItemPresenter>();
+        _itemPresenter.Clear();
     }
 
-    private void ChangeStateTo(SlotState targetState)
+    public void SetInteractable(bool flag)
     {
-        state = targetState;
+
+        _canvasGroup.interactable = flag;
+        //_canvasGroup.blocksRaycasts = flag;
+        foreach (var text in texts)
+            text.raycastTarget = flag;
+        foreach (var image in imgs)
+            image.raycastTarget = flag;
     }
 
-    public void ItemGrabbed()
+    public void SetItem(ItemSO item)
     {
-        Destroy(currentItem.gameObject);
-        ChangeStateTo(SlotState.Empty);
+        CurrentItem = item;
+        if (CurrentItem != null)
+            _itemPresenter.SetItem(item);
+        else
+            _itemPresenter.Clear();
     }
-}
 
-public enum SlotState
-{
-    Empty,
-    Full
+    public virtual bool TryPlace(Slot slot)
+    {
+        return CurrentItem == null;
+    }
+
+    public Transform GetItemTransform()
+    {
+        return _itemPresenter.transform;
+    }
+
+    public virtual void OnPointerDown(PointerEventData eventData) => OnItemPressedChanged?.Invoke(this, true);
+    public virtual void OnPointerUp(PointerEventData eventData) => OnItemPressedChanged?.Invoke(this, false);
+    public virtual void OnPointerEnter(PointerEventData eventData) => OnItemOverlapChanged?.Invoke(this, true);
+    public virtual void OnPointerExit(PointerEventData eventData) => OnItemOverlapChanged?.Invoke(this, false);
 }

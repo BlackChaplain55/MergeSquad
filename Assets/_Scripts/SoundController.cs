@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,34 +13,36 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioClip _mapTrack;
     [SerializeField] private AudioSource _audioSource;
 
-    void Start()
+    void Awake()
     {
         if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
     }
 
-    public void StartMusic()
+    public void StartMusic(int gameStateIndex)
     {
-        if (GameController.Game.GameState == GameController.GameStates.Menu)
+        StopMusic();
+
+        var clipsToPlay = new AudioClip[]
         {
-            _audioSource.clip = _menuTrack;
-            _audioSource.loop = true;
-            _audioSource.Play();
-        }else if (GameController.Game.GameState == GameController.GameStates.Map)
-        {
-            _audioSource.clip = _mapTrack;
-            _audioSource.loop = true;
-            _audioSource.Play();
-        }
-        else if (GameController.Game.GameState == GameController.GameStates.Map)
-        {
-            _audioSource.clip = _soundtracks[0];
-            _audioSource.loop = true;
-            _audioSource.Play();
-        }
+            _menuTrack,
+            _mapTrack,
+            _soundtracks[0]
+        };
+
+        _audioSource.clip = clipsToPlay[gameStateIndex];
+        _audioSource.Play();
+    }
+
+    public void StartMusic(AudioClip clip)
+    {
+        if (_audioSource == null) return;
+        StopMusic();
+        _audioSource.clip = clip;
+        _audioSource.Play();
     }
 
     public void StopMusic()
     {
-        _audioSource.Stop();
+        _audioSource?.Stop();
     }
 }

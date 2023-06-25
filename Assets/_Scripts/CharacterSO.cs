@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Character")]
@@ -12,7 +10,7 @@ public class CharacterSO : ScriptableObject
     public Skill AttackSkill;
     public Skill DefenceSkill;
     public int HP;
-    public MergeData.ItemTypes[] WeaponType;
-    public MergeData.ItemTypes[] SkillType;
+    public ItemTypes[] WeaponType;
+    public ItemTypes[] SkillType;
     public Sprite visual;
 }

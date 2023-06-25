@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Staff 4
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 7f69db0bd5da5274ebb6af3a3dfb7896, type: 3}
-  power: 9
-  Id: 0
-  Type: 0
-  ParentSlot: {fileID: 0}
+  Power: 0
+  Id: 3
+  Type: 5

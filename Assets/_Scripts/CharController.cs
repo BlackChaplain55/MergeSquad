@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,22 +40,14 @@ public class CharController : MonoBehaviour
         _HP = _maxHP;
         _charName = currentCharacter.CharName;
         _charNameField.text = _charName;
-        _weaponSlot.ItemTypes = currentCharacter.WeaponType;
-        _attackSlot.ItemTypes = currentCharacter.SkillType;
-        _defendSlot.ItemTypes = currentCharacter.SkillType;
+        //_weaponSlot.ItemTypes = currentCharacter.WeaponType;
+        //_attackSlot.ItemTypes = currentCharacter.SkillType;
+        //_defendSlot.ItemTypes = currentCharacter.SkillType;
         if(currentCharacter.visual != null) _portrait.sprite = currentCharacter.visual;
         if (!showSkillSlots)
         {
             _attackSlot.gameObject.SetActive(false);
             _defendSlot.gameObject.SetActive(false);
         }
-    }
-
-    public enum CharacterClasses{
-        Rogue,
-        Ranger,
-        Warrior,
-        Priest,
-        Wizard
     }
 }

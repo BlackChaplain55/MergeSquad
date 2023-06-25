@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Warrior 4
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: a8bf251dbc571c34c8cd8bbbb1f79319, type: 3}
-  power: 9
+  Power: 0
+  Id: 3
+  Type: 6

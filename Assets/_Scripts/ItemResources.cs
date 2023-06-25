@@ -4,8 +4,9 @@ using System.Collections.Generic;
 [CreateAssetMenu]
 public class ItemResources : ScriptableObject 
 {
-    public List<ItemSO> items = new List<ItemSO>();
+    public List<ItemSO> items;
     public string FullName;
     public string ShortName;
     public Sprite icon;
+
 }

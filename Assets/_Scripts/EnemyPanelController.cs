@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyPanelController : MonoBehaviour
@@ -14,8 +12,8 @@ public class EnemyPanelController : MonoBehaviour
         {
             GameObject newCharUI = Instantiate(_characterUI, transform);
             var newCharUIController = newCharUI.GetComponent<CharController>();
-            if(GameController.Game.GameState==GameController.GameStates.Map) newCharUIController.Init(currentCharacter,false);
-            else newCharUIController.Init(currentCharacter, true);
+            bool showSkillSlots = GameController.Game.GameState == GameStates.Map;
+            newCharUIController.Init(currentCharacter, showSkillSlots);
         }
     }
 }

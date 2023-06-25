@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -44,28 +42,28 @@ public class AudioSettings : MonoBehaviour
 
     private void HandleMusicVolChange(float vol)
     {
+        PlayerPrefs.SetInt(_musicVolumeParameter, Convert.ToInt32(vol * 1000));
+        PlayerPrefs.Save();
         _audioMixer.SetFloat(_musicVolumeParameter, Mathf.Log10(vol) * _volMultiplier);
     }
 
     private void HandleSoundVolChange(float vol)
     {
-        _audioMixer.SetFloat(_soundsVolumeParameter, Mathf.Log10(vol)*_volMultiplier);
+        PlayerPrefs.SetInt(_soundsVolumeParameter, Convert.ToInt32(vol * 1000));
+        PlayerPrefs.Save();
+        _audioMixer.SetFloat(_soundsVolumeParameter, Mathf.Log10(vol) * _volMultiplier);
     }
 
-    private 
-    void Start()
+    private void Start()
     {
-        _soundsVol.value = 0.8f;
-        _soundsVol.value = PlayerPrefs.GetFloat(_soundsVolumeParameter, _soundsVol.value);
+        _soundsVol.value = PlayerPrefs.GetInt(_soundsVolumeParameter, 1000) * 0.001f;
         _prevSoundVol = _soundsVol.value;
-        _musicVol.value = 0.8f;
-        _musicVol.value = PlayerPrefs.GetFloat(_musicVolumeParameter, _musicVol.value);
+        _musicVol.value = PlayerPrefs.GetInt(_musicVolumeParameter, 1000) * 0.001f;
         _prevMusicVol = _musicVol.value;
     }
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat(_soundsVolumeParameter, _soundsVol.value);
         _soundsVol.onValueChanged.RemoveAllListeners();
         _musicVol.onValueChanged.RemoveAllListeners();
         _soundToggle.onValueChanged.RemoveAllListeners();

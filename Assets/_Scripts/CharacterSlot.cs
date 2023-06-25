@@ -1,37 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CharacterSlot : MonoBehaviour
+public class CharacterSlot : Slot
 {
-    public int Id;
     public CharController Char;
-    public Item currentItem;
-    public MergeData.ItemTypes[] ItemTypes;
-    public SlotState state = SlotState.Empty;
+    public ItemTypes ItemType;
 
-    public void CreateItem(int id, MergeData.ItemTypes type) 
+    public override bool TryPlace(Slot slot)
     {
-        var itemGO = (GameObject)Instantiate(Resources.Load("GamePrefabs/Item"));
-        itemGO.transform.SetParent(this.transform);
-        itemGO.transform.localPosition = Vector3.zero;
-        itemGO.transform.localScale = Vector3.one;
-
-        currentItem = itemGO.GetComponent<Item>();
-        currentItem.Init(id, this, type);
-
-        ChangeStateTo(SlotState.Full);
-    }
-
-    private void ChangeStateTo(SlotState targetState)
-    {
-        state = targetState;
-    }
-
-    public void ItemGrabbed()
-    {
-        Destroy(currentItem.gameObject);
-        ChangeStateTo(SlotState.Empty);
+        return ItemType == slot.CurrentItem.Type && CurrentItem.Id < slot.CurrentItem.Id;
     }
 
     //private void ReceiveItem(int id, MergeData.ItemTypes type)
