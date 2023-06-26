@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 [CreateAssetMenu(fileName = "LevelRepository", menuName = "Scriptables/LevelRepository")]
 public class LevelRepository : ScriptableObject
@@ -14,18 +15,16 @@ public class LevelRepository : ScriptableObject
 
     private void OnValidate()
     {
-        bool fileExists = true;
         int i = 1;
+        LevelSO level = null;
         Levels = new List<LevelSO>();
         do
         {
-            LevelSO level = Resources.Load<LevelSO>("Levels/Level_" + i);
-            fileExists = level != null;
+            level = Resources.Load<LevelSO>("Levels/Level_" + i);
 
-            if (fileExists)
+            if (level != null)
                 Levels.Add(level);
             i++;
-
-        } while (fileExists);
+        } while (level != null);
     }
 }

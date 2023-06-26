@@ -9,4 +9,6 @@ public class ItemResources : ScriptableObject
     public string ShortName;
     public Sprite icon;
 
+
+    //Resources.Load<LevelSO>("Item" + i);
 }

@@ -5,30 +5,19 @@ using AYellowpaper.SerializedCollections;
 
 public class MergebleItemsSpawner : MonoBehaviour
 {
-    [SerializedDictionary("ItemType", "Chance")] public SerializedDictionary<ItemTypes, int> ItemTypeChances;
-
+    [field: SerializeField] public ItemTypesSpawnChance Chances { get; private set; }
     private int _totalItemChances = 0;
     private SlotSpawner _slotSpawner;
 
     private void OnValidate()
     {
-        if (ItemTypeChances != null && ItemTypeChances.Count > 0) return;
-
-        ItemTypes[] types = (ItemTypes[])Enum.GetValues(typeof(ItemTypes));
-        int typesCount = types.Length;
-        ItemTypeChances = new SerializedDictionary<ItemTypes, int>(typesCount);
-
-        for (int i = 0; i < typesCount; i++)
-        {
-            var itemType = types[i];
-            ItemTypeChances.Add(itemType, 0);
-        }
+        if (Chances == null)
+            Chances = Resources.Load<ItemTypesSpawnChance>("GameSettings/SpawnChances");
     }
 
     private void Awake()
     {
         MergeData.InitResources();
-        InitChancesDictionary();
         _slotSpawner = GetComponent<SlotSpawner>();
     }
 
@@ -46,11 +35,11 @@ public class MergebleItemsSpawner : MonoBehaviour
             int currentChanceAccum = 0;
 
             int typeIndex = 0;
-            Array itemTypes = Enum.GetValues(typeof(ItemTypes));
+            Array itemTypes = Enum.GetValues(typeof(ItemType));
 
             for (; typeIndex < itemTypes.Length; typeIndex++)
             {
-                currentChance = ItemTypeChances.GetValueOrDefault((ItemTypes)typeIndex);
+                currentChance = Chances[(ItemType)typeIndex];
                 currentChanceAccum += currentChance;
                 if (itemRandom <= currentChanceAccum)
                 {
@@ -62,7 +51,7 @@ public class MergebleItemsSpawner : MonoBehaviour
             var slot = GetSlotById(emptySlots[slotRandomId]);
             emptySlots.Remove(slotRandomId);
 
-            slot.SetItem(MergeData.itemsDictionary[(ItemTypes)typeIndex].items[0]);
+            slot.SetItem(MergeData.itemsDictionary[(ItemType)typeIndex].items[0]);
         }
     }
 
@@ -83,13 +72,5 @@ public class MergebleItemsSpawner : MonoBehaviour
     private Slot GetSlotById(int id)
     {
         return _slotSpawner.SlotDictionary[id];
-    }
-
-    private void InitChancesDictionary()
-    {
-        foreach(int chance in ItemTypeChances.Values)
-        {
-            _totalItemChances+= chance;
-        }
     }
 }

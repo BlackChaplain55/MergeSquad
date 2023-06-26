@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4162957430119166849}
   - component: {fileID: 4162957430119166848}
-  - component: {fileID: 4162957430119166850}
   - component: {fileID: 4162957430119166876}
   - component: {fileID: 1863160735336871049}
   - component: {fileID: 4162957430119166851}
@@ -48,29 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e1be06283a44649910122db5b00f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameState: 0
-  Settings: {fileID: 4162957430119166850}
-  Party: {fileID: 0}
-  SlotSpawner: {fileID: 0}
-  partyPanel: {fileID: 0}
+  <Settings>k__BackingField: {fileID: 11400000, guid: daeb537ed742024478522193d0a6d70c,
+    type: 2}
   gameProgress:
     UnlockedLevel: 1
     CurrentLevel: 1
---- !u!114 &4162957430119166850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4162957430119166855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eb20823c3b977d43b961ff37310e8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxItemLevel: 5
-  ItemsPerRound: 8
-  RoundTime: 10
 --- !u!114 &4162957430119166876
 MonoBehaviour:
   m_ObjectHideFlags: 0

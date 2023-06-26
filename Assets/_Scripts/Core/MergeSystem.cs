@@ -1,10 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MergeSystem : MonoBehaviour
@@ -48,7 +45,12 @@ public class MergeSystem : MonoBehaviour
             StopCoroutine(_carryRoutine);
 
         if (_carryingItemSlot == null) return;
-        if (_targetItemSlot == null) return;
+        if (_targetItemSlot == null)
+        {
+            OnItemCarryFail(_carryingItemSlot);
+            return;
+        }
+
         if (_carryingItemSlot.CurrentItem == null) return;
 
         if (_carryingItemSlot == _targetItemSlot)
@@ -56,13 +58,15 @@ public class MergeSystem : MonoBehaviour
             OnItemCarryFail(_carryingItemSlot);
             return;
         }
+
         if (_targetItemSlot.CurrentItem == null)
         {
-            Debug.Log(2);
             if (_targetItemSlot.TryPlace(_carryingItemSlot))
                 PlaceInEmptySlot(_carryingItemSlot, _targetItemSlot);
             else
                 OnItemCarryFail(_carryingItemSlot);
+
+            return;
         }
 
         if (TryMerge(_carryingItemSlot.CurrentItem, _targetItemSlot.CurrentItem))
@@ -75,7 +79,7 @@ public class MergeSystem : MonoBehaviour
     {
         if (_carryingItemSlot == slot) return;
 
-        slot.GetComponent<Image>().color = Color.red;
+        slot.GetComponent<Image>().color = Color.green;
 
         _targetItemSlot = slot;
     }
@@ -108,7 +112,6 @@ public class MergeSystem : MonoBehaviour
 
     private void PlaceInEmptySlot(Slot carryingItemSlot, Slot emptySlot)
     {
-        Debug.Log("sdfdsf" + emptySlot, emptySlot);
         emptySlot.SetItem(carryingItemSlot.CurrentItem);
         _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform);
         carryingItemSlot.SetItem(null);
@@ -121,6 +124,7 @@ public class MergeSystem : MonoBehaviour
         targetSlot.SetItem(MergeData.itemsDictionary[type].items[id]);
         _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform);
         carryingItemSlot.SetItem(null);
+        _carryingItemSlot.SetInteractable(true);
     }
 
     private void OnItemCarryFail(Slot slot)

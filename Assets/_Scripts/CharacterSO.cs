@@ -10,7 +10,7 @@ public class CharacterSO : ScriptableObject
     public Skill AttackSkill;
     public Skill DefenceSkill;
     public int HP;
-    public ItemTypes[] WeaponType;
-    public ItemTypes[] SkillType;
+    public ItemType[] WeaponType;
+    public ItemType[] SkillType;
     public Sprite visual;
 }

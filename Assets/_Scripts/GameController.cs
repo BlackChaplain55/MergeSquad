@@ -11,11 +11,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour 
 {
-    public static GameController Game { get; private set; }
     public event Action<int> OnSceneChanged;
-    public GameStates GameState;
-    public GameSettings Settings;
-    public SlotSpawner SlotSpawner;
+    public static GameController Game { get; private set; }
+    public GameStates GameState { get; private set; }   
+    public SlotSpawner SlotSpawner { get; private set; }
+    [field: SerializeField] public GameSettings Settings { get; private set; }
     public GameProgress GameProgress
     {
         get { return gameProgress; }

@@ -1,4 +1,4 @@
-public enum ItemTypes
+public enum ItemType
 {
     Armour,
     Sword,
@@ -10,5 +10,10 @@ public enum ItemTypes
     RangerAbility,
     RogueAbility,
     WizardAbility,
-    ClericAbility
+    ClericAbility,
+    ArmorCloth,
+    ArmorLeather,
+    ArmorHeavy,
+    FireMagick,
+    CurseMagick
 }

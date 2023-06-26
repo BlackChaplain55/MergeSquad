@@ -25,9 +25,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     public void SetInteractable(bool flag)
     {
-
         _canvasGroup.interactable = flag;
-        //_canvasGroup.blocksRaycasts = flag;
+        _canvasGroup.blocksRaycasts = flag;
         foreach (var text in texts)
             text.raycastTarget = flag;
         foreach (var image in imgs)
@@ -40,7 +39,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         if (CurrentItem != null)
             _itemPresenter.SetItem(item);
         else
+        {
+            _itemPresenter.transform.position = transform.position;
             _itemPresenter.Clear();
+        }
     }
 
     public virtual bool TryPlace(Slot slot)

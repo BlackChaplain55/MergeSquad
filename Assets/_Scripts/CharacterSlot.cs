@@ -3,7 +3,7 @@
 public class CharacterSlot : Slot
 {
     public CharController Char;
-    public ItemTypes ItemType;
+    public ItemType ItemType;
 
     public override bool TryPlace(Slot slot)
     {

@@ -18,7 +18,7 @@ public class ItemPresenter : MonoBehaviour
         }
     }
 
-    public void Init(int id, ItemTypes type)
+    public void Init(int id, ItemType type)
     {
         icon.sprite = MergeData.GetItemVisualById(type, id);
         levelText.text = id.ToString();
@@ -39,7 +39,7 @@ public class ItemPresenter : MonoBehaviour
         levelText.text = level.ToString();
     }
 
-    public void SetType(ItemTypes type)
+    public void SetType(ItemType type)
     {
         if (typeText == null) return;
 
