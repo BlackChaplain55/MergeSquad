@@ -2,10 +2,10 @@ public enum ItemType
 {
     Armour,
     Sword,
-    Bow,
+    OldBow,
     Knife,
     Mace,
-    Staff,
+    OldStaff,
     WarriorAbility,
     RangerAbility,
     RogueAbility,
@@ -14,6 +14,9 @@ public enum ItemType
     ArmorCloth,
     ArmorLeather,
     ArmorHeavy,
-    FireMagick,
-    CurseMagick
+    Melee,
+    Bow,
+    Staff,
+    FireMagic,
+    CurseMagic
 }

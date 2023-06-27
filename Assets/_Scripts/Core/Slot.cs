@@ -13,8 +13,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public event Action<Slot, bool> OnItemOverlapChanged;
     private CanvasGroup _canvasGroup;
     private ItemPresenter _itemPresenter;
-    public List<Text> texts;
-    public List<Image> imgs;
+    public List<TextMeshProUGUI> textsRaycast;
+    public List<Image> imgsRaycast;
 
     private void Awake()
     {
@@ -27,9 +27,9 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         _canvasGroup.interactable = flag;
         _canvasGroup.blocksRaycasts = flag;
-        foreach (var text in texts)
+        foreach (var text in textsRaycast)
             text.raycastTarget = flag;
-        foreach (var image in imgs)
+        foreach (var image in imgsRaycast)
             image.raycastTarget = flag;
     }
 

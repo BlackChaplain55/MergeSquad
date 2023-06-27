@@ -10,7 +10,7 @@ public class MergeSystem : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private float coroutinesTimeStep;
     private Coroutine _carryRoutine;
-    private int carryingDelta=10;
+    private int carryingDelta = 10;
     private Slot _carryingItemSlot;
     private Slot _targetItemSlot;
     private Transform _itemTransform;
@@ -31,6 +31,8 @@ public class MergeSystem : MonoBehaviour
     {
         if (_carryRoutine != null)
             StopCoroutine(_carryRoutine);
+
+        if (slot.CurrentItem == null) return;
 
         slot.SetInteractable(false);
         _itemTransform = slot.GetItemTransform();
@@ -115,6 +117,7 @@ public class MergeSystem : MonoBehaviour
         emptySlot.SetItem(carryingItemSlot.CurrentItem);
         _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform);
         carryingItemSlot.SetItem(null);
+        _carryingItemSlot.SetInteractable(true);
     }
 
     private void OnItemMergedWithTarget(Slot carryingItemSlot, Slot targetSlot)
@@ -129,15 +132,18 @@ public class MergeSystem : MonoBehaviour
 
     private void OnItemCarryFail(Slot slot)
     {
+        float animationLifeTime = 0.5f;
         slot.SetInteractable(false);
         var itemTransform = slot.GetItemTransform();
-        DOTween.Sequence()
-            .Append(itemTransform.DOMove(slot.transform.position, 0.5f))
-            .onComplete = () =>
+
+        itemTransform.DOMove(slot.transform.position, animationLifeTime);
+
+        DOVirtual.DelayedCall(animationLifeTime,
+            () =>
             {
                 slot.GetItemTransform().SetParent(slot.transform);
                 slot.SetInteractable(true);
-            };
+            });
     }
 
     private Vector3 GetPointerPosition(bool isCamera)

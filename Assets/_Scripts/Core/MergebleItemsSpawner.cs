@@ -19,6 +19,11 @@ public class MergebleItemsSpawner : MonoBehaviour
     {
         MergeData.InitResources();
         _slotSpawner = GetComponent<SlotSpawner>();
+
+        foreach (var item in Chances.ItemTypeChances)
+        {
+            _totalItemChances += item.Value;
+        }
     }
 
     public void PlaceRandomItem()
@@ -33,13 +38,17 @@ public class MergebleItemsSpawner : MonoBehaviour
             int itemRandom = UnityEngine.Random.Range(0, _totalItemChances);
             int currentChance = 0;
             int currentChanceAccum = 0;
-
+            int previousChanceAccum = 0;
             int typeIndex = 0;
-            Array itemTypes = Enum.GetValues(typeof(ItemType));
 
-            for (; typeIndex < itemTypes.Length; typeIndex++)
+            var chances = Chances.ItemTypeChances;
+            int chancesCount = chances.Count;
+            var keys = new List<ItemType>(chances.Keys);
+            ItemType key = default;
+            for (; typeIndex < chancesCount; typeIndex++)
             {
-                currentChance = Chances[(ItemType)typeIndex];
+                key = keys[typeIndex];
+                currentChance = chances[key];
                 currentChanceAccum += currentChance;
                 if (itemRandom <= currentChanceAccum)
                 {
@@ -50,8 +59,8 @@ public class MergebleItemsSpawner : MonoBehaviour
             int slotRandomId = UnityEngine.Random.Range(0, emptySlots.Count);
             var slot = GetSlotById(emptySlots[slotRandomId]);
             emptySlots.Remove(slotRandomId);
-
-            slot.SetItem(MergeData.itemsDictionary[(ItemType)typeIndex].items[0]);
+            var item = MergeData.itemsDictionary[key].GetItem(0);
+            slot.SetItem(item);
         }
     }
 

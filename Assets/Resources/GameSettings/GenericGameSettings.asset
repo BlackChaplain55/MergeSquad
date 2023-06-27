@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb20823c3b977d43b961ff37310e8bb, type: 3}
   m_Name: GenericGameSettings
   m_EditorClassIdentifier: 
-  MaxItemLevel: 5
+  MaxItemLevel: 4
   ItemsPerRound: 3
   RoundTime: 10

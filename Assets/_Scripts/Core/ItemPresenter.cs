@@ -1,18 +1,19 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemPresenter : MonoBehaviour
 {
     [SerializeField] private Image icon;
-    [SerializeField] private Text levelText;
-    [SerializeField] private Text typeText;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI typeText;
 
     private void OnValidate()
     {
         icon ??= GetComponent<Image>();
         if (levelText == null || typeText == null)
         {
-            Text[] texts = GetComponents<Text>();
+            TextMeshProUGUI[] texts = GetComponents<TextMeshProUGUI>();
             levelText ??= texts[0];
             typeText ??= texts[1];
         }
@@ -36,7 +37,7 @@ public class ItemPresenter : MonoBehaviour
     {
         if (levelText == null) return;
 
-        levelText.text = level.ToString();
+        levelText.text = (++level).ToString();
     }
 
     public void SetType(ItemType type)

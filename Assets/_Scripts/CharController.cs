@@ -4,10 +4,10 @@ using UnityEngine.UI;
 public class CharController : MonoBehaviour
 {
     [SerializeField] private string _charName;
-    [SerializeField] private CharacterSlot _armourSlot;
-    [SerializeField] private CharacterSlot _weaponSlot;
-    [SerializeField] private CharacterSlot _attackSlot;
-    [SerializeField] private CharacterSlot _defendSlot;
+    [SerializeField] private EquipmentSlot _armourSlot;
+    [SerializeField] private EquipmentSlot _weaponSlot;
+    [SerializeField] private EquipmentSlot _attackSlot;
+    [SerializeField] private EquipmentSlot _defendSlot;
 
     [SerializeField] private Text _charNameField;
     [SerializeField] private Text _hpText;

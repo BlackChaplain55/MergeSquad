@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: ArmorCloth
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: b0ae086a6a245f542bdc20f2e3f98a54, type: 2}
+  - {fileID: 11400000, guid: 8ab2669c2e8198b47a0b3798bda4eaf8, type: 2}
+  - {fileID: 11400000, guid: 7a0cc74f162d0274c92d7e7f71a28ac2, type: 2}
+  - {fileID: 11400000, guid: bbd19593181da8b49a5654cf4564718f, type: 2}
+  - {fileID: 11400000, guid: 850aebd1783a27741a24f74e038c89d7, type: 2}
+  FullName: "\u041B\u0435\u0433\u043A\u0430\u044F \u0431\u0440\u043E\u043D\u044F"
+  ShortName: "\u041B\u0435\u0433. \u0411\u0440."
+  icon: {fileID: 0}

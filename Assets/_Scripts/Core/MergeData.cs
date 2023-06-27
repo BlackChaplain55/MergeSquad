@@ -15,6 +15,8 @@ public static class MergeData
             ItemResources gameResources = Resources.Load<ItemResources>("Items/"+ type.ToString());
             itemsDictionary.Add(type, gameResources);
         };
+
+        Debug.Log(itemsDictionary[ItemType.CurseMagic].GetItem(0).Type.ToString());
     }
 
     public static Sprite GetItemVisualById(ItemType type, int itemId) => 

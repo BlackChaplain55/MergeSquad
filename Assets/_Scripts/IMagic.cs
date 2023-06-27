@@ -1,4 +1,4 @@
-public interface ISkill
+public interface IMagic
 {
     public ItemType Type { get; }
 
