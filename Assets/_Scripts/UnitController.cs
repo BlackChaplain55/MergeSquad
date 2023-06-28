@@ -70,7 +70,6 @@ public class UnitController : MonoBehaviour
         if (currentUnitList != null)
         {
             minDistance = 10000;
-            //closestEnemy = currentUnitList[0];
             foreach (Unit currentEnemy in currentUnitList)
             {
                 if (currentEnemy.State != UnitState.Die)

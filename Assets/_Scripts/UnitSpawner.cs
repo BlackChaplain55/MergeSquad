@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using AYellowpaper.SerializedCollections;
 
 [RequireComponent(typeof(UnitController))]
 
 public class UnitSpawner : MonoBehaviour
 {
-
-    [SerializeField] public GameObject[] UnitTamplates;
     [SerializeField] public GameObject[] EnemyTamplates;
+    [SerializeField] public GameObject[] Lines { get; private set; }
+    [SerializedDictionary("Unit type","Prefab")] public SerializedDictionary<UnitTypes, GameObject> _unitTemplatesDictionary;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private Transform _enemySpawnPoint;
     [SerializeField] private UnitController _unitController;
@@ -17,19 +18,25 @@ public class UnitSpawner : MonoBehaviour
     private void Start()
     {
         if (_unitController == null) _unitController = GetComponent<UnitController>();
+        Lines = new GameObject[CombatManager.Combat.linesCount];
+        for(int i=0; i< CombatManager.Combat.linesCount; i++)
+        {
+            Lines[i] = new GameObject();
+            Lines[i].transform.parent = transform;
+        }
     }
 
-        [Button]
-    private void SpawnRandomUnit()
+    public GameObject GetUnitPrefab(UnitTypes type)
     {
-        int randomUnit = Random.Range(0, UnitTamplates.Length - 1);
-        int randomEnemy = Random.Range(0, EnemyTamplates.Length - 1);
-        Spawn(UnitTamplates[randomUnit]);
-        Spawn(EnemyTamplates[randomEnemy]);
+        return _unitTemplatesDictionary.GetValueOrDefault(type);
     }
 
+    public Transform GetLine(int line)
+    {
+        return Lines[line].transform;
+    }
 
-    private void Spawn(GameObject unitObject)
+    public void Spawn(GameObject unitObject)
     {
         Unit unit = unitObject.GetComponent<Unit>();
         Transform spawnPoint;

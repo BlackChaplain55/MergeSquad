@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
   - component: {fileID: 316418287257407149}
+  - component: {fileID: 8723000053511683824}
   m_Layer: 5
   m_Name: EnemyWarrior
   m_TagString: Untagged
@@ -117,6 +118,9 @@ MonoBehaviour:
   <isEnemy>k__BackingField: 1
   State: 0
   currentEnemy: {fileID: 0}
+  _view: {fileID: 0}
+  _projectiles: {fileID: 0}
+  _unitSpawner: {fileID: 0}
 --- !u!114 &316418287257407149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +133,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4353d243d4ae3d04db4262fec3b4a462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 0}
+  _image: {fileID: 0}
+  _unit: {fileID: 0}
+--- !u!114 &8723000053511683824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425036865094653353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787d4bd43c3608b428e6b0d3e5af8497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePool: []
+  _unit: {fileID: 0}

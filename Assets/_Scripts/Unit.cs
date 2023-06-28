@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitView))]
+[RequireComponent(typeof(UnitProjectile))]
 
 public class Unit : MonoBehaviour
 {
@@ -13,15 +14,15 @@ public class Unit : MonoBehaviour
     public float Position { get; private set; }
     public int Line { get; private set; }
     public int Level { get; private set; }
-    public int Damage { get; private set; }
-    public int AttackSpeed { get; private set; }
+    public float Damage { get; private set; }
+    public float AttackSpeed { get; private set; }
     
     public UnitState State;
     public Unit currentEnemy;
 
-    private UnitView _view;
-    //private UnitController _unitController;
-    private UnitSpawner _unitSpawner;
+    [SerializeField]  private UnitView _view;
+    [SerializeField]  private UnitProjectile _projectiles;
+    [SerializeField]  private UnitSpawner _unitSpawner;
 
     public Unit(bool isEnemy = false)
     {
@@ -31,8 +32,19 @@ public class Unit : MonoBehaviour
     public void Init(UnitSpawner unitSpawner)
     {
         _unitSpawner = unitSpawner;
-        _view = GetComponent<UnitView>();
-        Level = 1;
+        if (_view == null) _view = GetComponent<UnitView>();
+        if (_projectiles == null) _projectiles = GetComponent<UnitProjectile>();
+        if (_unitData.RangedAttack&&_projectiles!=null)
+        {
+            _projectiles.InitPool();
+        }
+        else
+        {
+            _projectiles.enabled = false;
+        }
+        Level = 0;
+        Damage = _unitData.Damage;
+        AttackSpeed = _unitData.AttackSpeed;
         Spawn();
     }
 
@@ -42,17 +54,25 @@ public class Unit : MonoBehaviour
         Line = Random.Range(0, CombatManager.Combat.linesCount);
         _health = _unitData.HP+_unitData.HPModifier*Level;
         _view.ChangeAnimation(State);
+        _view.SetAttackSpeed(AttackSpeed);
         transform.position = _unitSpawner.GetSpawnPoint(isEnemy);
-        transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
+        transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, -1*Line));
         Position = transform.position.x;
         _view.FadeIn();
+    }
+
+    public void RaiseLevel()
+    {
+        Level++;
+        Damage = _unitData.Damage + Level * _unitData.DamageModifier;
+        AttackSpeed = _unitData.AttackSpeed + Level * _unitData.AttackSpeedModifier;
     }
 
     public void MoveUnit()
     {
         var direction = 1;
         if (isEnemy) direction = -1;
-        State = UnitState.Attacking;
+        State = UnitState.Walking;
         _view.ChangeAnimation(State);
         transform.Translate(new Vector3(_unitData.WalkSpeed*CombatManager.Combat.walkSpeedMultiplier*direction, 0, 0));
         Position = transform.position.x;
@@ -63,9 +83,17 @@ public class Unit : MonoBehaviour
         _view.ChangeAnimation(UnitState.Attacking);
     }
 
+    public void AttackRanged()
+    {
+        _projectiles.ThrowProjectile();
+    }
+
     public void DealDamage()
     {
-        if (currentEnemy != null) currentEnemy.TakeDamage(_unitData.Damage);
+        if (currentEnemy != null)
+        {
+            currentEnemy.TakeDamage(_unitData.Damage);        
+        }
     }
 
     public void TakeDamage(float damage)
@@ -119,7 +147,10 @@ public enum UnitTypes
 {
     Warrior,
     Archer,
-    Wizard
+    Wizard,
+    Elite,
+    Boss,
+    Player
 }
 
 public enum UnitState
