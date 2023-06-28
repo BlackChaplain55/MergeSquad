@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: ClericAbility 4
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 9d3ca6f29171f8b4c89d9490f9c514a7, type: 3}
-  power: 9
-  Id: 0
-  Type: 0
-  ParentSlot: {fileID: 0}
+  Power: 0
+  Id: 3
+  Type: 10

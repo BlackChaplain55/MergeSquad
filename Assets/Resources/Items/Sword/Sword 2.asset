@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Sword 2
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 789e518168d493d4396ec984b1b5bcb3, type: 3}
-  power: 2
+  Power: 0
+  Id: 1
+  Type: 1

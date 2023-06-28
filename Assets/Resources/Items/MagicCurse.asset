@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970abdfc10c6c4a20bf8568ee869bbbf, type: 3}
+  m_Name: MagicCurse
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: 0b926594c0efb174db53ffb248f0e4d7, type: 2}
+  - {fileID: 11400000, guid: a74b2ea0d30d5d84d8b581a51ef8a040, type: 2}
+  - {fileID: 11400000, guid: aed0847449d3ff94381457036cb5df45, type: 2}
+  - {fileID: 11400000, guid: 08850452dd5636c41b482a1bdb5a212d, type: 2}
+  - {fileID: 11400000, guid: 4e43ae406863e0641bf331aacc48d14d, type: 2}
+  FullName: "\u0427\u0435\u0440\u043D\u0430\u044F \u041C\u0430\u0433\u0438\u044F"
+  ShortName: "\u0427\u0435\u0440. \u041C\u0430\u0433."
+  icon: {fileID: 0}

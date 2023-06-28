@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -8,8 +6,6 @@ using UnityEngine.UI;
 public class AudioSettings : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
-    [SerializeField] private string _soundsVolumeParameter = "SoundsVol";
-    [SerializeField] private string _musicVolumeParameter = "MusicVol";
     [SerializeField] private Slider _soundsVol;
     [SerializeField] private Slider _musicVol;
     [SerializeField] private Toggle _soundToggle;
@@ -44,28 +40,32 @@ public class AudioSettings : MonoBehaviour
 
     private void HandleMusicVolChange(float vol)
     {
-        _audioMixer.SetFloat(_musicVolumeParameter, Mathf.Log10(vol) * _volMultiplier);
+        string volumeParameter = VolumeParameters.MusicVolumeParameter;
+        PlayerPrefs.SetInt(volumeParameter, Convert.ToInt32(vol * 1000));
+        PlayerPrefs.Save();
+        _audioMixer.SetFloat(volumeParameter, Mathf.Log10(vol) * _volMultiplier);
     }
 
     private void HandleSoundVolChange(float vol)
     {
-        _audioMixer.SetFloat(_soundsVolumeParameter, Mathf.Log10(vol)*_volMultiplier);
+        string volumeParameter = VolumeParameters.SoundsVolumeParameter;
+        PlayerPrefs.SetInt(volumeParameter, Convert.ToInt32(vol * 1000));
+        PlayerPrefs.Save();
+        _audioMixer.SetFloat(volumeParameter, Mathf.Log10(vol) * _volMultiplier);
     }
 
-    private 
-    void Start()
+    private void Start()
     {
-        _soundsVol.value = 0.8f;
-        _soundsVol.value = PlayerPrefs.GetFloat(_soundsVolumeParameter, _soundsVol.value);
+        string musicParameter = VolumeParameters.MusicVolumeParameter;
+        string soundsParameter = VolumeParameters.MusicVolumeParameter;
+        _soundsVol.value = PlayerPrefs.GetInt(soundsParameter, 1000) * 0.001f;
         _prevSoundVol = _soundsVol.value;
-        _musicVol.value = 0.8f;
-        _musicVol.value = PlayerPrefs.GetFloat(_musicVolumeParameter, _musicVol.value);
+        _musicVol.value = PlayerPrefs.GetInt(musicParameter, 1000) * 0.001f;
         _prevMusicVol = _musicVol.value;
     }
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat(_soundsVolumeParameter, _soundsVol.value);
         _soundsVol.onValueChanged.RemoveAllListeners();
         _musicVol.onValueChanged.RemoveAllListeners();
         _soundToggle.onValueChanged.RemoveAllListeners();

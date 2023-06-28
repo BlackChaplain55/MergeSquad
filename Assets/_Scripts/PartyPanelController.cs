@@ -5,16 +5,20 @@ using UnityEngine;
 public class PartyPanelController : MonoBehaviour
 {
     [SerializeField] private GameObject _characterUI;
+    [SerializeField] private PartyController party;
+
+    private void OnValidate()
+    {
+        if (_characterUI == null) _characterUI = Resources.Load<GameObject>("GamePrefabs/CharacterUI");
+    }
 
     public void Init()
     {
-        if (_characterUI == null) _characterUI = Resources.Load<GameObject>("GamePrefabs/CharacterUI");
-        foreach (CharacterSO currentCharacter in GameController.Game.Party.Characters)
+        foreach (CharacterSO currentCharacter in party.Characters)
         {
             GameObject newCharUI = Instantiate(_characterUI, transform);
             var newCharUIController = newCharUI.GetComponent<CharController>();
-            if(GameController.Game.GameState==GameController.GameStates.Map) newCharUIController.Init(currentCharacter,false);
-            else newCharUIController.Init(currentCharacter, true);
+            newCharUIController.Init(currentCharacter, GameController.Game.GameState != GameStates.Map);
         }
     }
 }

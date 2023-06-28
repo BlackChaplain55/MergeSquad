@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _restartButton: {fileID: 2041350522205578961}
   _blackScreen: {fileID: 3729411989873745316}
-  _bell: {fileID: 0}
+  _bell: {fileID: 8300000, guid: c34a8096df855fc45bdb5ed00e1ba0b7, type: 3}
 --- !u!114 &331691427712227282
 MonoBehaviour:
   m_ObjectHideFlags: 0

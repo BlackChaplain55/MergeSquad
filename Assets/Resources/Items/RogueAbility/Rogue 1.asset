@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Rogue 1
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: fd6ab744a13821741bae075ba578bce0, type: 3}
-  power: 1
+  Power: 0
+  Id: 0
+  Type: 8

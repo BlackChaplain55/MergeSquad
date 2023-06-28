@@ -1,0 +1,23 @@
+public enum ItemType
+{
+    Armour,
+    Sword,
+    OldBow,
+    Knife,
+    Mace,
+    OldStaff,
+    WarriorAbility,
+    RangerAbility,
+    RogueAbility,
+    WizardAbility,
+    ClericAbility,
+    ArmorCloth,
+    ArmorLeather,
+    ArmorHeavy,
+    Melee,
+    Bow,
+    Staff,
+    MagicFire,
+    MagicCurse,
+    MagicRage
+}

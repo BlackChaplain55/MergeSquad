@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -11,23 +10,23 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private Image _blackScreen;
     [SerializeField] private AudioClip _bell;
-    private void onEnable()
+    private void OnEnable()
     {
-        switch (GameController.Game.GameState)
-        {
-            case GameController.GameStates.Menu: _restartButton.interactable = false; break;
-            case GameController.GameStates.Map: _restartButton.interactable = false;  break;
-            case GameController.GameStates.Combat: _restartButton.interactable = true; break;
-        }
+        if (GameController.Game == null) return;
+
+        bool isInCombatState = GameController.Game.GameState == GameStates.Combat;
+
+        _restartButton.interactable = isInCombatState;
     }
 
     public void StartGame()
     {
-        StartScene(GameController.GameStates.Map, _bell);
+        StartScene(GameStates.Map, _bell);
     }
 
-    public void StartScene(GameController.GameStates state, AudioClip? clip)
+    public void StartScene(GameStates state, AudioClip clip)
     {
+        GameController.Game.StopMusic();
         AudioSource audioSource = GetComponent<AudioSource>();
         if (clip != null) audioSource.clip = clip;
         float delay = audioSource.clip.length;
@@ -37,7 +36,7 @@ public class Menu : MonoBehaviour
         StartCoroutine(DelayedStart(delay, state));
     }
 
-    private IEnumerator DelayedStart(float delay, GameController.GameStates state)
+    private IEnumerator DelayedStart(float delay, GameStates state)
     {
         yield return new WaitForSeconds(delay);
         GameController.Game.LoadScene(state);
