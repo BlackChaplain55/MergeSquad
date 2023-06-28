@@ -9,4 +9,6 @@ public class ArtifactSO : ScriptableObject
     public float MultiplierPerPiece;
     public ItemType ItemType;
     public UnitType UnitType;
+    public UnitParameterType UnitParameterType;
+    public ItemParameterType ItemParameterType;
 }

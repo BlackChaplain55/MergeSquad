@@ -2,10 +2,12 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MergeSystem : MonoBehaviour
 {
+    [SerializeField] private InputReader input;
     [SerializeField] private SlotSpawner slotSpawner;
     [SerializeField] private Canvas canvas;
     [SerializeField] private float coroutinesTimeStep;
@@ -18,13 +20,7 @@ public class MergeSystem : MonoBehaviour
 
     private void Start()
     {
-        OnClickCancelled += () => OnItemDroped(_targetItemSlot);
-    }
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonUp(0))
-            OnClickCancelled?.Invoke();
+        input.ClickEvents[InputActionPhase.Canceled] += () => OnItemDroped(_targetItemSlot);
     }
 
     public void OnItemSelected(Slot slot)
@@ -159,5 +155,11 @@ public class MergeSystem : MonoBehaviour
         }
         pointerPosition.z = 0;
         return pointerPosition;
+    }
+
+    private void OnValidate()
+    {
+        if (input == null)
+            input = Resources.Load<InputReader>("Input/GenericInputReader");
     }
 }

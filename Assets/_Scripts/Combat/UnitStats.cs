@@ -9,7 +9,7 @@ public struct UnitStats : IUnitStatsProvider
     public int Level { get; set; }
     public int Health { get; set; }
 
-    public UnitStats(int level, int health, UnitSO data)
+    public UnitStats(int level, int health, UnitData data)
     {
         Level = level;
         Health = health;

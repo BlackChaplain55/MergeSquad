@@ -1,7 +1,7 @@
 public enum UnitType
 {
     Hero,
-    SwordsMan,
+    Warior,
     Archer,
     Wizard
 }

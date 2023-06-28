@@ -17,6 +17,7 @@ public enum ItemType
     Melee,
     Bow,
     Staff,
-    FireMagic,
-    CurseMagic
+    MagicFire,
+    MagicCurse,
+    MagicRage
 }

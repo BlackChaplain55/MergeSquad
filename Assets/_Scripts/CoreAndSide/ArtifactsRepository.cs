@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ArtifactsRepository : MonoBehaviour
 {
-    public static SerializedDictionary<UnitType, SerializedDictionary<UnitParameterType, ArtifactSO>> UnitArtifactsData { get; private set; }
-    public static Dictionary<UnitType, Dictionary<UnitParameterType, Artifact>> UnitArtifacts;
-    public static SerializedDictionary<ItemType, SerializedDictionary<ItemParameterType, ArtifactSO>> ItemArtifactsData { get; private set; }
-    public static Dictionary<ItemType, Dictionary<ItemParameterType, Artifact>> ItemArtifacts;
+    public static SerializedDictionary<UnitType, ArtifactSO[]> UnitArtifactsData { get; private set; }
+    public static Dictionary<UnitType, Artifact[]> UnitArtifacts;
+    public static SerializedDictionary<ItemType, ArtifactSO[]> ItemArtifactsData { get; private set; }
+    public static Dictionary<ItemType, Artifact[]> ItemArtifacts;
     private void Awake()
     {
         var savedUnitArtifacts = GameController.Game.GameProgress.UnitArtifacts;
@@ -16,12 +16,12 @@ public class ArtifactsRepository : MonoBehaviour
         if (savedUnitArtifacts != null && savedUnitArtifacts.Count > 0)
             UnitArtifacts = savedUnitArtifacts;
         else
-            FillArtifacts<SerializedDictionary<UnitType, SerializedDictionary<UnitParameterType, ArtifactSO>>, Dictionary<UnitType, Dictionary<UnitParameterType, Artifact>>, UnitType, UnitParameterType>( UnitArtifactsData, UnitArtifacts );
+            FillArtifacts<SerializedDictionary<UnitType, ArtifactSO[]>, Dictionary<UnitType, Artifact[]>, UnitType>(UnitArtifactsData, UnitArtifacts);
         
         if (savedItemArtifacts != null && savedItemArtifacts.Count > 0)
             ItemArtifacts = savedItemArtifacts;
         else
-            FillArtifacts<SerializedDictionary<ItemType, SerializedDictionary<ItemParameterType, ArtifactSO>>, Dictionary<ItemType, Dictionary<ItemParameterType, Artifact>>, ItemType, ItemParameterType>(ItemArtifactsData, ItemArtifacts);
+            FillArtifacts<SerializedDictionary<ItemType, ArtifactSO[]>, Dictionary<ItemType, Artifact[]>, ItemType>(ItemArtifactsData, ItemArtifacts);
     }
     public List<Artifact> this[ItemType type]
     {
@@ -31,21 +31,17 @@ public class ArtifactsRepository : MonoBehaviour
     {
         get { return this[type]; }
     }
-    private void FillArtifacts<F, T, U, I>(F from, T to)
+    private void FillArtifacts<F, T, U>(F from, T to)
         where U : System.Enum
-        where I : System.Enum
-        where F : SerializedDictionary<U, SerializedDictionary<I, ArtifactSO>>
-        where T : Dictionary<U, Dictionary<I, Artifact>>
+        where F : SerializedDictionary<U, ArtifactSO[]>
+        where T : Dictionary<U, Artifact[]>
     {
-        foreach (var byType in from)
+        foreach (var artifactByType in from)
         {
-            var newDict = new Dictionary<I, Artifact>();
-            to.Add(byType.Key, newDict);
-            foreach (var art in from[byType.Key])
+            to.Add(artifactByType.Key, new Artifact[from[artifactByType.Key].Length]);
+            foreach (var artifactByParameter in from[artifactByType.Key])
             {
-                {
-                    to[byType.Key].Add(art.Key, new Artifact(0, art.Value));
-                }
+                new Artifact(0, artifactByParameter);
             }
         }
     }

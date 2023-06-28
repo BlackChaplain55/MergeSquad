@@ -1,10 +1,12 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 
 [Serializable]
-public struct GameProgress : INotifyPropertyChanged
+public class GameProgress : INotifyPropertyChanged
 {
     public int UnlockedLevel
     {
@@ -16,23 +18,23 @@ public struct GameProgress : INotifyPropertyChanged
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
-    public Dictionary<UnitType, Dictionary<UnitParameterType, Artifact>> UnitArtifacts;
-    public Dictionary<ItemType, Dictionary<ItemParameterType, Artifact>> ItemArtifacts;
+    [SerializedDictionary(nameof(UnitType), nameof(Artifact))] public SerializedDictionary<UnitType, Artifact[]> UnitArtifacts;
+    [SerializedDictionary(nameof(ItemType), nameof(Artifact))] public SerializedDictionary<ItemType, Artifact[]> ItemArtifacts;
     public event PropertyChangedEventHandler PropertyChanged;
-    private int _unlockedLevel;
-    private int _currentLevel;
+    [SerializeField] private int _unlockedLevel;
+    [SerializeField] private int _currentLevel;
 
     public GameProgress(
         int unlockedLevel = 1,
         int currentLevel = 1,
-        Dictionary<UnitType, Dictionary<UnitParameterType, Artifact>> unitArtifacts = null,
-        Dictionary<ItemType, Dictionary<ItemParameterType, Artifact>> itemArtifacts = null)
+        Dictionary<UnitType, Artifact[]> unitArtifacts = null,
+        Dictionary<ItemType, Artifact[]> itemArtifacts = null)
     {
         _unlockedLevel = unlockedLevel;
         _currentLevel = currentLevel;
         PropertyChanged = null;
-        UnitArtifacts = unitArtifacts;
-        ItemArtifacts = itemArtifacts;
+        UnitArtifacts = new SerializedDictionary<UnitType, Artifact[]>(unitArtifacts);
+        ItemArtifacts = new SerializedDictionary<ItemType, Artifact[]>(itemArtifacts);
     }
 
     public void OnPropertyChanged([CallerMemberName] string name = null)
