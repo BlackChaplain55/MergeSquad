@@ -611,7 +611,7 @@ RectTransform:
   m_Children:
   - {fileID: 1648781538}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -785,7 +785,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575730698
 MonoBehaviour:
@@ -1064,7 +1064,44 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae,
         type: 2}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _mapTrack
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _menuTrack
+      value: 
+      objectReference: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae,
+        type: 2}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 4162957428270029677}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _soundtracks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
+        type: 3}
+      propertyPath: _soundtracks.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
     m_RemovedComponents:
     - {fileID: 4162957430119166850, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
     - {fileID: 8810271266957725345, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
+--- !u!82 &4162957428270029677 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8642106774913183280, guid: 0412b4b23eac2e84c814cd2bb224e957,
+    type: 3}
+  m_PrefabInstance: {fileID: 4162957428270029676}
+  m_PrefabAsset: {fileID: 0}
