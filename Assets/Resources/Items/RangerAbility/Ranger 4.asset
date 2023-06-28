@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Ranger 4
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b4b81cadbfd16c445962122b4d2d0e20, type: 3}
-  power: 9
+  Power: 0
+  Id: 3
+  Type: 7

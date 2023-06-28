@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Armour 2
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 17790c504822a7041b2cb232729c9b19, type: 3}
-  power: 2
+  Power: 0
+  Id: 1
+  Type: 0

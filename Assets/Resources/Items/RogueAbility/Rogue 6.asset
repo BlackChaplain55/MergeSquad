@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Rogue 6
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: e7d34ab4812252a4fb5a4e8c09dcf639, type: 3}
-  power: 30
-  Id: 0
-  Type: 0
-  ParentSlot: {fileID: 0}
+  Power: 0
+  Id: 5
+  Type: 8
