@@ -14,11 +14,11 @@ public class Unit : MonoBehaviour
     public int Line { get; private set; }
     public int Level { get; private set; }
 
-    public Coroutine AttackRoutine;
     public UnitState State;
     public Unit currentEnemy;
 
     private UnitView _view;
+    private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
 
     private UnitStats _stats;
@@ -40,6 +40,11 @@ public class Unit : MonoBehaviour
         weaponStats = new ItemLevelDecorator(weaponStats, _stats.Level);
         weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
         UnitStats = new CombineUnitItemDecorator(UnitStats, weaponStats, armorStats);
+    }
+
+    public Unit(bool isEnemy = false)
+    {
+        State = UnitState.Waiting;
     }
 
     public void Init(UnitSpawner unitSpawner, int level = 1)

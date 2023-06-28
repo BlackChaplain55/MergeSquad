@@ -7,6 +7,11 @@ public class UnitController : MonoBehaviour
     [SerializeField] public List<Unit> UnitsList { get; private set; }
     [SerializeField] public List<Unit> EnemyList { get; private set; }
     [SerializeField] public float walkSpeedModifier { get; private set; }
+// Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
     private void Awake()
     {
@@ -14,10 +19,29 @@ public class UnitController : MonoBehaviour
         EnemyList = new List<Unit>();
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         UpdateUnits(UnitsList);
         UpdateUnits(EnemyList);
+    }
+
+    private void UpdateUnits(List<Unit> unitList)
+    {
+        foreach(Unit unit in unitList)
+        {
+            var closestEnemy = GetClosestEnemy(unit);
+            var distance = GetDistance(unit,closestEnemy);
+            if (distance > unit.GetAttackDistance()&&unit.State!=UnitState.Die)
+            {
+                unit.MoveUnit();
+            }
+            else if (distance <= unit.GetAttackDistance() && unit.State != UnitState.Die)
+            {
+                unit.Attack();
+                unit.currentEnemy = closestEnemy;
+            }
+        }
     }
 
     public void AddUnitToList(Unit unit)
@@ -30,55 +54,33 @@ public class UnitController : MonoBehaviour
         if (unit.isEnemy) EnemyList.Remove(unit); else UnitsList.Remove(unit);
     }
 
-    private void UpdateUnits(List<Unit> unitList)
-    {
-        foreach (Unit unit in unitList)
-        {
-            if (unit.State == UnitState.Die)
-                continue;
-
-            var closestEnemy = GetClosestEnemy(unit);
-            var distance = GetDistance(unit, closestEnemy);
-            var attackDistance = unit.GetAttackDistance();
-            if (distance > attackDistance)
-            {
-                unit.MoveUnit();
-                if (unit.AttackRoutine != null)
-                    StopCoroutine(unit.AttackRoutine);
-            }
-            else if (distance <= attackDistance)
-            {
-                unit.AttackRoutine = StartCoroutine(unit.Attack(closestEnemy));
-            }
-        }
-    }
-
     private Unit GetClosestEnemy(Unit unit)
     {
+        var minDistance = 0f;
         Unit closestEnemy = null;
         List<Unit> currentUnitList = null;
-        if (EnemyList.Count > 0)
+        if (!unit.isEnemy&&EnemyList.Count > 0)
         {
-            currentUnitList = unit.isEnemy ? UnitsList : EnemyList;
+            currentUnitList = EnemyList;      
         }
         else if (unit.isEnemy && UnitsList.Count > 0)
         {
             currentUnitList = UnitsList;
         }
-        if (currentUnitList == null) return closestEnemy;
-
-        float minDistance = 10000;
-        //closestEnemy = currentUnitList[0];
-        foreach (Unit currentEnemy in currentUnitList)
+        if (currentUnitList != null)
         {
-            if (currentEnemy.State != UnitState.Die)
-                continue;
-
-            float currentDistance = GetDistance(currentEnemy, unit);
-            if (currentDistance < minDistance)
+            minDistance = 10000;
+            foreach (Unit currentEnemy in currentUnitList)
             {
-                minDistance = currentDistance;
-                closestEnemy = currentEnemy;
+                if (currentEnemy.State != UnitState.Die)
+                {
+                    var currentDistance = GetDistance(currentEnemy, unit);
+                    if (currentDistance < minDistance)
+                    {
+                        minDistance = currentDistance;
+                        closestEnemy = currentEnemy;
+                    }
+                }
             }
         }
         return closestEnemy;
@@ -86,7 +88,7 @@ public class UnitController : MonoBehaviour
 
     private float GetDistance(Unit unit1, Unit unit2)
     {
-        if (unit1 == null || unit2 == null)
+        if(unit1==null||unit2 == null)
         {
             return 10000;
         }
