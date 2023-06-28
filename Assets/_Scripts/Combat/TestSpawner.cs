@@ -24,14 +24,14 @@ public class TestSpawner : MonoBehaviour
     [Button]
     private void SpawnArcher()
     {
-        var unitPrefab = Spawner.GetUnitPrefab(UnitTypes.Archer);
+        var unitPrefab = Spawner.GetUnitPrefab(UnitType.Archer);
         if (unitPrefab != null) Spawner.Spawn(unitPrefab);
     }
 
     [Button]
     private void SpawnWarrior()
     {
-        var unitPrefab = Spawner.GetUnitPrefab(UnitTypes.Warrior);
+        var unitPrefab = Spawner.GetUnitPrefab(UnitType.Warrior);
         if (unitPrefab != null) Spawner.Spawn(unitPrefab);
     }
 }

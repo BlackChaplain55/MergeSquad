@@ -8,9 +8,9 @@ using AYellowpaper.SerializedCollections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializedDictionary("Unit type", "Prefab")] public SerializedDictionary<UnitTypes, GameObject> _enemyTemplatesDictionary;
-    [SerializeField] private List<UnitTypes> _spawnUnitSequence;
-    [SerializeField] private List<UnitTypes> _spawnDelaySequence;
+    [SerializedDictionary("Unit type", "Prefab")] public SerializedDictionary<UnitType, GameObject> _enemyTemplatesDictionary;
+    [SerializeField] private List<UnitType> _spawnUnitSequence;
+    [SerializeField] private List<UnitType> _spawnDelaySequence;
     [SerializeField] private UnitSpawner _unitSpawner;
     private int _currentSpawnedEnemy;
 
@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
     }
 
-    public GameObject GetUnitPrefab(UnitTypes type)
+    public GameObject GetUnitPrefab(UnitType type)
     {
         return _enemyTemplatesDictionary.GetValueOrDefault(type);
     }
