@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4162957430119166849}
   - component: {fileID: 4162957430119166848}
-  - component: {fileID: 4162957430119166850}
   - component: {fileID: 4162957430119166876}
-  - component: {fileID: 8810271266957725345}
   - component: {fileID: 4162957430119166851}
   m_Layer: 0
   m_Name: GameController
@@ -48,30 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e1be06283a44649910122db5b00f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuScene:
-    m_Handle: 0
-  _mapScene:
-    m_Handle: 0
-  _combatScene:
-    m_Handle: 0
-  GameState: 0
-  Settings: {fileID: 4162957430119166850}
-  Party: {fileID: 0}
---- !u!114 &4162957430119166850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4162957430119166855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7eb20823c3b977d43b961ff37310e8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxItemLevel: 5
-  ItemsPerRound: 8
-  RoundTime: 10
+  <Settings>k__BackingField: {fileID: 11400000, guid: daeb537ed742024478522193d0a6d70c,
+    type: 2}
+  gameProgress:
+    UnitArtifacts:
+      _serializedList: []
+    ItemArtifacts:
+      _serializedList: []
+    _unlockedLevel: 0
+    _currentLevel: 0
 --- !u!114 &4162957430119166876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,29 +67,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f2fd08e5770db478644cf99ebc17bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae, type: 2}
   _soundtracks:
   - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
   _menuTrack: {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
   _mapTrack: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
   _audioSource: {fileID: 4162957430119166851}
---- !u!114 &8810271266957725345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4162957430119166855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7432c761ce704194d85284c1699b4f98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Characters:
-  - {fileID: 11400000, guid: fd78d05053439a84cb1043fe9494c90f, type: 2}
-  - {fileID: 11400000, guid: 2808845d2f876ae40874d8289cef5ec0, type: 2}
-  - {fileID: 11400000, guid: 37ee49934fdd27747b1b7c9e71fc81f1, type: 2}
-  - {fileID: 11400000, guid: c742d5f6baf5f8243a165ac47f91afff, type: 2}
-  - {fileID: 11400000, guid: 74a507bce80e43e448e950646a5e5c43, type: 2}
 --- !u!82 &4162957430119166851
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,49 +11,48 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour 
 {
-    [SerializeField] private PartyPanelController _partyPanel;
+    public event Action<int> OnSceneChanged;
+    public static GameController Game { get; private set; }
+    public GameStates GameState { get; private set; }   
+    public SlotSpawner SlotSpawner { get; private set; }
+    [field: SerializeField] public GameSettings Settings { get; private set; }
+    public GameProgress GameProgress
+    {
+        get { return gameProgress; }
+        set
+        {
+            gameProgress = value;
+            OnGameProgressChanged?.Invoke(this.GameProgress);
+        }
+    }
+    public event Action<GameProgress> OnGameProgressChanged;
 
-    public static GameController Game;
-    public GameStates GameState;
-    public GameSettings Settings;
-    public PartyController Party;
-    public MergeConroller Merge;
-
+    [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
+
+    public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
+    public void StartMusic(AudioClip clip) => _sound?.StartMusic(clip);
+    public void StopMusic() => _sound?.StopMusic();
+
+    public void LoadScene(GameStates state) => SceneManager.LoadScene((int)state);
+
+    private void OnValidate()
+    {
+        if (_sound == null) _sound = GetComponent<SoundController>();
+    }
 
     private void Awake()
     {
-        GameState = GameStates.Menu;
-        SceneManager.activeSceneChanged += ActiveSceneChanged;
+        GameState = (GameStates)SceneManager.GetActiveScene().buildIndex;
+        if (Settings == null)
+            Settings = GetComponent<GameSettings>();
+
+        GameProgress savedProgress = default;
+        if (SaveSystem.Instance.TryLoadGame("saves", out savedProgress))
+            gameProgress = savedProgress;
     }
 
-    private void OnDestroy()
-    {
-        SceneManager.activeSceneChanged -= ActiveSceneChanged;
-    }
-
-    private void ActiveSceneChanged(Scene arg0, Scene arg1)
-    {
-        switch (arg1.buildIndex)
-        {
-            case 0:
-                GameState = GameStates.Menu;
-                EventBus.onSceneChange?.Invoke(0);
-                break;
-            case 1:
-                GameState = GameStates.Map;
-                if (_partyPanel != null&&Game!=null) _partyPanel.Init();
-                EventBus.onSceneChange?.Invoke(1);
-                break;
-            case 2:
-                GameState = GameStates.Combat;
-                EventBus.onSceneChange?.Invoke(2);
-                break;
-        }
-        if (_sound != null) _sound.StartMusic();
-    }
-
-    private void Start() {
+    private IEnumerator Start() {
         Application.targetFrameRate = 60;
         if (Game == null)
         {
@@ -61,39 +63,38 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (Party == null) Party = GetComponent<PartyController>();
-        if (_sound == null) _sound = GetComponent<SoundController>();
-        _sound.StartMusic();
-        if (_partyPanel!=null) _partyPanel.Init();
-    }
 
-    public void StopMusic()
-    {
-        _sound.StopMusic();
-    }
-
-    public void LoadScene(GameStates state)
-    {
-        _sound.StopMusic();
-        if (state == GameStates.Map)
+        _sound?.StartMusic((int)Game.GameState);
+        
+        SceneManager.activeSceneChanged += ChangeSceneState;
+        OnSceneChanged += _new => Awake();
+        OnSceneChanged += StartMusic;
+    
+        WaitForSeconds wait = new WaitForSeconds(15);
+        while (true)
         {
-            SceneManager.LoadScene(1);
+            SaveSystem.Instance.TrySaveGame("saves", gameProgress);
+            yield return wait;
         }
-        else if (state == GameStates.Menu)
-        {
-            SceneManager.LoadScene(0);
-        }
-        else if (state == GameStates.Combat)
-        {
-            SceneManager.LoadScene(2);
-        }     
     }
 
-    public enum GameStates
+    private void ChangeSceneState(Scene oldScene, Scene newScene)
     {
-        Menu,
-        Map,
-        Combat,
-        Unknown
+        GameState = (GameStates)newScene.buildIndex;
+
+        _sound?.StartMusic(newScene.buildIndex);
+        OnSceneChanged?.Invoke(newScene.buildIndex);
+    }
+
+    public void LoadLevel(LevelSO data)
+    {
+        StartMusic(data.loadClip);
+        LoadScene(GameStates.Combat);
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= ChangeSceneState;
+        OnSceneChanged = null;
     }
 }

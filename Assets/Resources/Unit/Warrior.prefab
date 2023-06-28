@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 425036865094653358}
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
-  - component: {fileID: 316418287257407149}
-  - component: {fileID: 1062143630923593463}
+  - component: {fileID: 627054748663159265}
+  - component: {fileID: 3028579063535424224}
   m_Layer: 5
   m_Name: Warrior
   m_TagString: Untagged
@@ -118,10 +118,7 @@ MonoBehaviour:
   <isEnemy>k__BackingField: 0
   State: 0
   currentEnemy: {fileID: 0}
-  _view: {fileID: 316418287257407149}
-  _projectiles: {fileID: 0}
-  _unitSpawner: {fileID: 0}
---- !u!114 &316418287257407149
+--- !u!114 &627054748663159265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,13 +127,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4353d243d4ae3d04db4262fec3b4a462, type: 3}
+  m_Script: {fileID: 11500000, guid: ad4331a1372acea43919aae45c0f8233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _image: {fileID: 0}
-  _unit: {fileID: 0}
---- !u!114 &1062143630923593463
+  _anim: {fileID: 425036865094653359}
+  _image: {fileID: 425036865094653358}
+  _unit: {fileID: 425036865094653356}
+  _walkingSprite: {fileID: -1353810123, guid: f3088cde7fc9fab40b5e5687729fa790, type: 3}
+  _waitingsprite: {fileID: 0}
+  _attackSprite: {fileID: 186055045, guid: 92a1aa707a0160e418bb80a4961decdf, type: 3}
+  _dieSprite: {fileID: -1039686410, guid: b2702c9f52de423468cfeac35d112e71, type: 3}
+--- !u!114 &3028579063535424224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,8 +146,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787d4bd43c3608b428e6b0d3e5af8497, type: 3}
+  m_Script: {fileID: 11500000, guid: 7632bfd325eca2f4b9e44831492ac673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePool: []
   _unit: {fileID: 0}
+  _poolSize: 5
+  _projectileTemplate: {fileID: 0}

@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 425036865094653358}
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
-  - component: {fileID: 316418287257407149}
-  - component: {fileID: 5421309797201062398}
+  - component: {fileID: 627054748663159265}
+  - component: {fileID: 5861501197907443490}
   m_Layer: 5
   m_Name: DwarfArcher
   m_TagString: Untagged
@@ -118,10 +118,7 @@ MonoBehaviour:
   <isEnemy>k__BackingField: 1
   State: 0
   currentEnemy: {fileID: 0}
-  _view: {fileID: 0}
-  _projectiles: {fileID: 0}
-  _unitSpawner: {fileID: 0}
---- !u!114 &316418287257407149
+--- !u!114 &627054748663159265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,17 +127,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4353d243d4ae3d04db4262fec3b4a462, type: 3}
+  m_Script: {fileID: 11500000, guid: ad4331a1372acea43919aae45c0f8233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _image: {fileID: 0}
-  _unit: {fileID: 0}
+  _anim: {fileID: 425036865094653359}
+  _image: {fileID: 425036865094653358}
+  _unit: {fileID: 425036865094653356}
   _walkingSprite: {fileID: 1905407756, guid: 90a2ff43c79d3d14caa36091746fdae6, type: 3}
   _waitingsprite: {fileID: 0}
   _attackSprite: {fileID: 21300000, guid: 415216b3fa9e0574aa55b63a2bc7a101, type: 3}
   _dieSprite: {fileID: 21300000, guid: e2d75670304d4d84c823c653e3678fa6, type: 3}
---- !u!114 &5421309797201062398
+--- !u!114 &5861501197907443490
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787d4bd43c3608b428e6b0d3e5af8497, type: 3}
+  m_Script: {fileID: 11500000, guid: 7632bfd325eca2f4b9e44831492ac673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePool: []

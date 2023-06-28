@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee351210b241b2b4cb6b036d3cd2f05f, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  <HP>k__BackingField: 150
-  <Damage>k__BackingField: 10
+  <Type>k__BackingField: 1
+  <BaseHealth>k__BackingField: 0
+  <BaseAttack>k__BackingField: 0
   <AttackSpeed>k__BackingField: 1
   <WalkSpeed>k__BackingField: 1.8
   <AttackDistance>k__BackingField: 120
   <MultiAttack>k__BackingField: 0
-  <RangedAttack>k__BackingField: 0
-  <Type>k__BackingField: 0
   <RespawnTime>k__BackingField: 5
-  <AttackSpeedModifier>k__BackingField: 0.25
-  <DamageModifier>k__BackingField: 0.25
-  <HPModifier>k__BackingField: 0.25
+  <AttackPerLevel>k__BackingField: 0
+  <HealthPerLevel>k__BackingField: 0
+  <MainSprite>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 0}

@@ -10,16 +10,17 @@ public class Skill : ScriptableObject
     public string SkillName;
     public float Effect;
     public float CriticalChance;
+}
 
-    public enum SkillTypes
-    {
-        Damage,
-        AreaDamage,
-        Armour,
-        Heal,
-        AreaHeal,
-        DamageOverTime,
-        Weakness,
-        Blessing
-    }
+[System.Serializable]
+public enum SkillTypes
+{
+    Damage,
+    AreaDamage,
+    Armour,
+    Heal,
+    AreaHeal,
+    DamageOverTime,
+    Weakness,
+    Blessing
 }
