@@ -38,7 +38,7 @@ public class UnitController : MonoBehaviour
             }
             else if (distance <= unit.GetAttackDistance() && unit.State != UnitState.Die)
             {
-                unit.Attack();
+                //unit.Attack();
                 unit.currentEnemy = closestEnemy;
             }
         }
