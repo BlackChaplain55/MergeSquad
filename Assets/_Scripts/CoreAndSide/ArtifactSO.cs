@@ -1,14 +1,9 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-[CreateAssetMenu(fileName = "NewArtifact", menuName = "Scriptables/Artifact")]
 public class ArtifactSO : ScriptableObject
 {
+    public Sprite Icon;
     public int MaxCount;
     public float MultiplierPerPiece;
-    public ItemType ItemType;
-    public UnitType UnitType;
-    public UnitParameterType UnitParameterType;
-    public ItemParameterType ItemParameterType;
 }

@@ -2,34 +2,31 @@ using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArtifactsRepository : MonoBehaviour
+[CreateAssetMenu(menuName = "Scriptables/ArtifactsRepository")]
+public class ArtifactsRepository : ScriptableObject
 {
-    public static SerializedDictionary<UnitType, ArtifactSO[]> UnitArtifactsData { get; private set; }
-    public static Dictionary<UnitType, Artifact[]> UnitArtifacts;
-    public static SerializedDictionary<ItemType, ArtifactSO[]> ItemArtifactsData { get; private set; }
-    public static Dictionary<ItemType, Artifact[]> ItemArtifacts;
-    private void Awake()
+    [SerializedDictionary(nameof(UnitType), nameof(Artifact))]
+    public SerializedDictionary<UnitType, Artifact[]> UnitArtifactsData;
+    [SerializedDictionary(nameof(ItemType), nameof(Artifact))]
+    public SerializedDictionary<ItemType, Artifact[]> ItemArtifactsData;
+    public Artifact[] this[UnitType type]
     {
-        var savedUnitArtifacts = GameController.Game.GameProgress.UnitArtifacts;
-        var savedItemArtifacts = GameController.Game.GameProgress.ItemArtifacts;
-
+        get { return UnitArtifactsData[type]; }
+    }
+    public Artifact[] this[ItemType type]
+    {
+        get { return ItemArtifactsData[type]; }
+    }
+    public void Init
+        (
+        SerializedDictionary<UnitType, Artifact[]> savedUnitArtifacts,
+        SerializedDictionary<ItemType, Artifact[]> savedItemArtifacts
+        )
+    {
         if (savedUnitArtifacts != null && savedUnitArtifacts.Count > 0)
-            UnitArtifacts = savedUnitArtifacts;
-        else
-            FillArtifacts<SerializedDictionary<UnitType, ArtifactSO[]>, Dictionary<UnitType, Artifact[]>, UnitType>(UnitArtifactsData, UnitArtifacts);
-        
+            UnitArtifactsData = savedUnitArtifacts;
         if (savedItemArtifacts != null && savedItemArtifacts.Count > 0)
-            ItemArtifacts = savedItemArtifacts;
-        else
-            FillArtifacts<SerializedDictionary<ItemType, ArtifactSO[]>, Dictionary<ItemType, Artifact[]>, ItemType>(ItemArtifactsData, ItemArtifacts);
-    }
-    public List<Artifact> this[ItemType type]
-    {
-        get { return this[type]; }
-    }
-    public List<Artifact> this[UnitType type]
-    {
-        get { return this[type]; }
+            ItemArtifactsData = savedItemArtifacts;
     }
     private void FillArtifacts<F, T, U>(F from, T to)
         where U : System.Enum

@@ -1,34 +1,88 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 [System.Serializable]
-public struct UnitStats : IUnitStatsProvider
+public struct UnitStats : INotifyPropertyChanged
 {
     public UnitType Type { get; set; }
-    public int MaxHealth { get; set; }
-    public int HealthPerLevel { get; set; }
-    public int Attack { get; set; }
-    public int AttackPerLevel { get; set;}
-    public int Level { get; set; }
-    public int Health { get; set; }
-
-    public UnitStats(int level, int health, UnitData data)
+    public int Attack
     {
-        Level = level;
-        Health = health;
-        Type = data.Type;
-        MaxHealth = data.MaxHealth;
-        HealthPerLevel = data.HealthPerLevel;
-        Attack = data.Attack;
-        AttackPerLevel = data.AttackPerLevel;
+        get { return _attack; }
+        set
+        {
+            _attack = value;
+            OnPropertyChanged();
+        }
+    }
+    public int MaxHealth
+    {
+        get { return _maxHealth; }
+        set
+        {
+            _maxHealth = value;
+            OnPropertyChanged();
+        }
+    }
+    public float AttackSpeed
+    {
+        get { return _attackSpeed; }
+        set
+        {
+            _attackSpeed = value;
+            OnPropertyChanged();
+        }
+    }
+    public int UpgradeCost
+    {
+        get { return _upgradeCost; }
+        set
+        {
+            _upgradeCost = value;
+            OnPropertyChanged();
+        }
     }
 
-    public float GetStats(UnitParameterType parameterType)
+    public event PropertyChangedEventHandler PropertyChanged;
+    private int _attack;
+    private int _maxHealth;
+    private float _attackSpeed;
+    private int _upgradeCost;
+
+    public UnitStats(UnitData data)
+    {
+        Type = data.Type;
+        _attackSpeed = data.AttackSpeed;
+        _attack = 0;
+        _maxHealth = 0;
+        _upgradeCost = 0;
+        PropertyChanged = null;
+    }
+
+
+    public UnitStats SetSnapshot(IUnitStatsProvider statsProvider)
+    {
+        Attack = (int)statsProvider.GetStats(UnitParameterType.Attack);
+        AttackSpeed = (int)statsProvider.GetStats(UnitParameterType.AttackSpeed);
+        MaxHealth = (int)statsProvider.GetStats(UnitParameterType.MaxHealth);
+        UpgradeCost = (int)statsProvider.GetStats(UnitParameterType.UpgradeCost);
+
+        return this;
+    }
+
+    public void ReCompute(UnitParameterType parameterType, IUnitStatsProvider statsProvider)
     {
         switch (parameterType)
         {
-            case UnitParameterType.MaxHealth: return MaxHealth;
-            case UnitParameterType.Attack: return Attack;
-            case UnitParameterType.AttackPerLevel: return AttackPerLevel;
-            case UnitParameterType.HealthPerLevel: return HealthPerLevel;
-            default: return -1;
+            case UnitParameterType.Attack: Attack = (int)statsProvider.GetStats(parameterType); break;
+            case UnitParameterType.AttackSpeed: AttackSpeed = (int)statsProvider.GetStats(parameterType); break;
+            case UnitParameterType.MaxHealth: MaxHealth = (int)statsProvider.GetStats(parameterType); break;
+            case UnitParameterType.UpgradeCost: UpgradeCost = (int)statsProvider.GetStats(parameterType); break;
+            default: break;
         }
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

@@ -1,45 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitView))]
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, INotifyPropertyChanged
 {
-    [SerializeField] private UnitData _unitData;
-    [SerializeField] private float _health;
     [field:SerializeField] public bool isEnemy { get; private set; }
-
+    public EquipmentSO WeaponSO { get; private set; }
+    public EquipmentSO ArmorSO { get; private set; }
+    public UnitStats UnitStats { get; private set; }
     public float Position { get; private set; }
     public int Line { get; private set; }
-    public int Level { get; private set; }
+    public UnitData UnitReadonlyData
+    {
+        get { return _unitData; }
+        set { _unitData = value; }
+    }
+    public int Level
+    {
+        get { return _level; }
+        set
+        {
+            _level = value;
+            OnPropertyChanged();
+        }
+    }
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            OnPropertyChanged();
+        }
+    }
 
     public UnitState State;
     public Unit currentEnemy;
 
+    [SerializeField] private UnitData _unitData;
+    [SerializeField] private float _health;
+    [SerializeField] private int _level;
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
 
-    private UnitStats _stats;
-    public EquipmentSO WeaponSO { get; private set; }
-    public EquipmentSO ArmorSO { get; private set; }
-    public IUnitStatsProvider UnitStats { get; private set; }
+    private IUnitStatsProvider _statsProvider;
+
+    public event PropertyChangedEventHandler PropertyChanged;
 
     private void Awake()
     {
         IItemStatsProvider weaponStats = WeaponSO;
         IItemStatsProvider armorStats = ArmorSO;
-        _stats = new UnitStats(1, _unitData.MaxHealth, _unitData);
-        Artifact[] artifacts = ArtifactsRepository.UnitArtifacts[_stats.Type];
+        var artifactsRepo = GameController.Game.ArtifactsRepository;
+        Artifact[] artifacts = artifactsRepo[UnitStats.Type];
 
-        UnitStats = new UnitLevelDecorator(_stats, _stats.Level);
-        UnitStats = new ArtifactUnitDecorator(UnitStats, artifacts);
-        armorStats = new ItemLevelDecorator(armorStats, _stats.Level);
-        armorStats = new ArtifactItemDecorator(armorStats, artifacts);
-        weaponStats = new ItemLevelDecorator(weaponStats, _stats.Level);
-        weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
-        UnitStats = new CombineUnitItemDecorator(UnitStats, weaponStats, armorStats);
+        Level = 1;
+        //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
+        _statsProvider = new UnitLevelDecorator(_unitData, this);
+        //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
+        armorStats = new ArmorLevelDecorator(this);
+        //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
+        weaponStats = new WeaponLevelDecorator(this);
+        _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
+        UnitStats = new UnitStats(_unitData);
+        UnitStats = UnitStats.SetSnapshot(_statsProvider);
+        Health = UnitStats.MaxHealth;
     }
 
     public Unit(bool isEnemy = false)
@@ -47,12 +77,27 @@ public class Unit : MonoBehaviour
         State = UnitState.Waiting;
     }
 
-    public void Init(UnitSpawner unitSpawner, int level = 1)
+    public void Init(UnitSpawner unitSpawner)
     {
         _unitSpawner = unitSpawner;
         _view = GetComponent<UnitView>();
-        _stats.Level = level;
         Spawn();
+    }
+
+    public void SetWeapon(EquipmentSO weapon)
+    {
+        WeaponSO = weapon;
+        UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
+        UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
+    }
+
+    public void SetArmor(EquipmentSO armor)
+    {
+        ArmorSO = armor;
+        float prevMaxHealth = UnitStats.MaxHealth;
+        UnitStats = UnitStats.SetSnapshot(_statsProvider);
+        float healthBonus = Mathf.Clamp(UnitStats.MaxHealth - prevMaxHealth, 0, float.MaxValue);
+        Health = Mathf.Clamp(Health + healthBonus, 0, UnitStats.MaxHealth);
     }
 
     public void Spawn()
@@ -76,28 +121,33 @@ public class Unit : MonoBehaviour
         Position = transform.position.x;
     }
 
+    public void Attack()
+    {
+        _view.ChangeAnimation(UnitState.Attacking);
+    }
+
+    /*
     public IEnumerator Attack(Unit target)
     {
-        WaitForSeconds wait = new WaitForSeconds(_unitData.AttackSpeed);
+        currentEnemy = target;
         while (true)
         {
-            currentEnemy = target;
             _view.ChangeAnimation(UnitState.Attacking);
-            DealDamage();
-            yield return wait;
+            yield return new WaitForSeconds(UnitStats.AttackSpeed);
         }
     }
+    */
 
     public void DealDamage()
     {
-        if (currentEnemy != null) currentEnemy.TakeDamage(_unitData.Attack);
+        if (currentEnemy != null) currentEnemy.TakeDamage(UnitStats.Attack);
     }
 
     public void TakeDamage(float damage)
     {
         if (damage < 0) return;
-        _health -= damage;
-        if (_health < 0)
+        Health -= damage;
+        if (Health < 0)
         {
             BeginDying();
         }
@@ -112,6 +162,17 @@ public class Unit : MonoBehaviour
     {
         EventBus.onUnitDeath?.Invoke(this);
         _view.FadeOutAndRespawn();  
+    }
+
+    public void Upgrade()
+    {
+        Level++;
+        float prevMaxHealth = UnitStats.MaxHealth;
+        UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
+        UnitStats.ReCompute(UnitParameterType.MaxHealth, _statsProvider);
+        UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
+        UnitStats.ReCompute(UnitParameterType.UpgradeCost, _statsProvider);
+        Health += UnitStats.MaxHealth - prevMaxHealth;
     }
 
     public void Respawn()
@@ -135,5 +196,10 @@ public class Unit : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    private void OnPropertyChanged([CallerMemberName] string name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

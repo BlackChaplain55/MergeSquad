@@ -13,14 +13,20 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <BaseHealth>k__BackingField: 0
-  <BaseAttack>k__BackingField: 0
-  <AttackSpeed>k__BackingField: 1
+  <BaseHealth>k__BackingField: 100
+  <BaseAttack>k__BackingField: 10
+  <AttackSpeed>k__BackingField: 2
+  <AttackSpeedPerLevel>k__BackingField: 0.05
   <WalkSpeed>k__BackingField: 1.8
   <AttackDistance>k__BackingField: 120
+  <SummonCost>k__BackingField: 40
+  <BaseUpgradeCost>k__BackingField: 10
+  <UpgradeCostPerLevel>k__BackingField: 1
   <MultiAttack>k__BackingField: 0
   <RespawnTime>k__BackingField: 5
-  <AttackPerLevel>k__BackingField: 0
-  <HealthPerLevel>k__BackingField: 0
-  <MainSprite>k__BackingField: {fileID: 0}
-  <Icon>k__BackingField: {fileID: 0}
+  <AttackPerLevel>k__BackingField: 2
+  <HealthPerLevel>k__BackingField: 2
+  <MainSprite>k__BackingField: {fileID: 21300000, guid: 3766389e137c821449a4c27b6f81b842,
+    type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: d53bb544bed2e334e8088aa61d14e181,
+    type: 3}

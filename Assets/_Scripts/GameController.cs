@@ -11,8 +11,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour 
 {
-    public event Action<int> OnSceneChanged;
     public static GameController Game { get; private set; }
+    [field: SerializeField]public ArtifactsRepository ArtifactsRepository { get; private set; }
     public GameStates GameState { get; private set; }   
     public SlotSpawner SlotSpawner { get; private set; }
     [field: SerializeField] public GameSettings Settings { get; private set; }
@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
         }
     }
     public event Action<GameProgress> OnGameProgressChanged;
+    public event Action<int> OnSceneChanged;
 
     [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
@@ -50,6 +51,8 @@ public class GameController : MonoBehaviour
         GameProgress savedProgress = default;
         if (SaveSystem.Instance.TryLoadGame("saves", out savedProgress))
             gameProgress = savedProgress;
+
+        ArtifactsRepository?.Init(savedProgress.UnitArtifacts, savedProgress.ItemArtifacts);
     }
 
     private IEnumerator Start() {

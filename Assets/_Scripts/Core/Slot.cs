@@ -11,6 +11,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [field: SerializeField] public ItemSO CurrentItem { get; private set; }
     public event Action<Slot, bool> OnItemPressedChanged;
     public event Action<Slot, bool> OnItemOverlapChanged;
+    public event Action<ItemSO> OnItemReceived;
     private CanvasGroup _canvasGroup;
     private ItemPresenter _itemPresenter;
     public List<TextMeshProUGUI> textsRaycast;
@@ -37,7 +38,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         CurrentItem = item;
         if (CurrentItem != null)
+        {
             _itemPresenter.SetItem(item);
+            OnItemReceived(item);
+        }
         else
         {
             _itemPresenter.transform.position = transform.position;

@@ -5,43 +5,38 @@ using System.Collections.Generic;
 
 public class SquadPresenter : MonoBehaviour
 {
-    [SerializeField] private EquipmentSlot equipmentSlotTemplate;
-    [SerializeField] private List<UnitPresenter> UnitSlots;
-    [SerializeField] private Squad squad;
-    public int EmptySlots { get; private set; }
+    [SerializeField] private GameObject unitPresenterSlotTemplate;
+    [SerializeField] private GameObject unitPresenterParent;
+    [SerializeField] private UnitController unitController;
+    [SerializeField] private Dictionary<Unit, UnitPresenter> UnitSlots;
 
-    private void Awake()
+    private void OnValidate()
     {
-        squad.Units.CollectionChanged += OnUnitsChanged;
+        if (unitController == null)
+            unitController = FindObjectOfType<UnitController>();
+    }
+
+    private void Start()
+    {
+        unitController.UnitsList.CollectionChanged += OnUnitsChanged;
+        UnitSlots = new Dictionary<Unit, UnitPresenter>();
     }
 
     public void Add(Unit unit)
     {
-        if (EmptySlots <= 0)
-        { return; }
+        var unitGO = Instantiate(unitPresenterSlotTemplate, unitPresenterParent.transform);
+        UnitPresenter presenter = unitGO.GetComponent<UnitPresenter>();
 
-        EmptySlots--;
-        for (int i = 0; i < UnitSlots.Count; i++)
-        {
-            if (UnitSlots[i].Unit == null)
-            {
-                UnitSlots[i].SetUnit(unit);
-                break;
-            }
-        }
+        presenter.SetUnit(unit);
+        UnitSlots.Add(unit, presenter);
     }
 
     public void Remove(Unit unit)
     {
-        EmptySlots++;
-        foreach (var slot in UnitSlots)
-        {
-            if (slot.Unit == unit)
-            {
-                slot.Clear();
-                break;
-            }
-        }
+        Debug.LogWarning("Вырежь дестрой, замени на пул объектов");
+        UnitSlots[unit].Clear();
+        Destroy(UnitSlots[unit].gameObject);
+        UnitSlots.Remove(unit);
     }
 
     private void OnUnitsChanged(object sender, NotifyCollectionChangedEventArgs e)

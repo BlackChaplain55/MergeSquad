@@ -15,6 +15,6 @@ public class Artifact
 
     public virtual float GetStats(float rawStat) => rawStat * BaseData.MultiplierPerPiece * Count;
 
-    public bool HasImpact(ItemSO item) => BaseData.ItemType == item.Type;
-    public bool HasImpact(UnitData unit) => BaseData.UnitType == unit.Type;
+    public bool HasImpact(ItemSO item) => (BaseData as ArtifactItemSO).ItemType == item.Type;
+    public bool HasImpact(UnitData unit) => (BaseData as ArtifactUnitSO).UnitType == unit.Type;
 }

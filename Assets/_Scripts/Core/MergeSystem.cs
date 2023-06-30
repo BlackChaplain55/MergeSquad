@@ -16,7 +16,6 @@ public class MergeSystem : MonoBehaviour
     private Slot _carryingItemSlot;
     private Slot _targetItemSlot;
     private Transform _itemTransform;
-    private Action OnClickCancelled;
 
     private void Start()
     {

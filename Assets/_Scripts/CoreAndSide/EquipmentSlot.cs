@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class EquipmentSlot : Slot
 {
@@ -9,4 +11,7 @@ public class EquipmentSlot : Slot
     {
         return ItemType == slot.CurrentItem.Type && CurrentItem.Id < slot.CurrentItem.Id;
     }
+
+    public override void OnPointerDown(PointerEventData eventData)
+    {}
 }

@@ -3,5 +3,7 @@ public enum UnitType
     Hero,
     Warrior,
     Archer,
-    Wizard
+    Wizard,
+    Elite,
+    Boss
 }

@@ -14,8 +14,8 @@ public class ItemPresenter : MonoBehaviour
         if (levelText == null || typeText == null)
         {
             TextMeshProUGUI[] texts = GetComponents<TextMeshProUGUI>();
-            levelText ??= texts[0];
-            typeText ??= texts[1];
+            //levelText ??= texts[0];
+            //typeText ??= texts[1];
         }
     }
 
@@ -57,8 +57,8 @@ public class ItemPresenter : MonoBehaviour
 
     public void Clear()
     {
-        levelText.text = null;
-        typeText.text = null;
+        levelText?.SetText(string.Empty);
+        typeText?.SetText(string.Empty);
         SetIcon(null);
     }
 }
