@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
   - component: {fileID: 627054748663159265}
-  - component: {fileID: 3843655586529170021}
   m_Layer: 5
   m_Name: DwarfWarrior
   m_TagString: Untagged
@@ -113,11 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a964463686814b748ab25f073a512754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitData: {fileID: 11400000, guid: 5b047ffd622ab504c820bdfbcb973ec2, type: 2}
-  _health: 0
   <isEnemy>k__BackingField: 1
   State: 0
   currentEnemy: {fileID: 0}
+  _unitData: {fileID: 11400000, guid: 5b047ffd622ab504c820bdfbcb973ec2, type: 2}
+  _health: 0
+  _level: 0
 --- !u!114 &627054748663159265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,19 +137,3 @@ MonoBehaviour:
   _waitingsprite: {fileID: 0}
   _attackSprite: {fileID: 21300000, guid: a4bec3d7a58d4a24bb552c9b20e8ddfa, type: 3}
   _dieSprite: {fileID: 21300000, guid: 817be77435622354183e115439eca015, type: 3}
---- !u!114 &3843655586529170021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425036865094653353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7632bfd325eca2f4b9e44831492ac673, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectilePool: []
-  _unit: {fileID: 0}
-  _poolSize: 5
-  _projectileTemplate: {fileID: 0}

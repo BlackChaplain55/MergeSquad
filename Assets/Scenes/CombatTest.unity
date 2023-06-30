@@ -976,17 +976,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4162957430119166848, guid: 0412b4b23eac2e84c814cd2bb224e957,
-        type: 3}
-      propertyPath: _partyPanel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4162957430119166848, guid: 0412b4b23eac2e84c814cd2bb224e957,
-        type: 3}
-      propertyPath: <Settings>k__BackingField
-      value: 
-      objectReference: {fileID: 11400000, guid: daeb537ed742024478522193d0a6d70c,
-        type: 2}
     - target: {fileID: 4162957430119166849, guid: 0412b4b23eac2e84c814cd2bb224e957,
         type: 3}
       propertyPath: m_RootOrder
@@ -1042,33 +1031,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4162957430119166851, guid: 0412b4b23eac2e84c814cd2bb224e957,
-        type: 3}
-      propertyPath: Loop
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4162957430119166851, guid: 0412b4b23eac2e84c814cd2bb224e957,
-        type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: -1916124118900888408, guid: 501b25cfb3455a44faf2b1439303b3ae,
-        type: 2}
     - target: {fileID: 4162957430119166855, guid: 0412b4b23eac2e84c814cd2bb224e957,
         type: 3}
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    - target: {fileID: 4162957430119166876, guid: 0412b4b23eac2e84c814cd2bb224e957,
-        type: 3}
-      propertyPath: _audioMixer
-      value: 
-      objectReference: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae,
-        type: 2}
     - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
         type: 3}
       propertyPath: _mapTrack
       value: 
-      objectReference: {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
+      objectReference: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
     - target: {fileID: 4434540432924603984, guid: 0412b4b23eac2e84c814cd2bb224e957,
         type: 3}
       propertyPath: _menuTrack
@@ -1094,10 +1066,8 @@ PrefabInstance:
         type: 3}
       propertyPath: _soundtracks.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
-    m_RemovedComponents:
-    - {fileID: 4162957430119166850, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
-    - {fileID: 8810271266957725345, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
+      objectReference: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0412b4b23eac2e84c814cd2bb224e957, type: 3}
 --- !u!82 &4162957428270029677 stripped
 AudioSource:

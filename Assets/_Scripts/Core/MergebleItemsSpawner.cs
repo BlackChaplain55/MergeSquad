@@ -18,6 +18,7 @@ public class MergebleItemsSpawner : MonoBehaviour
     private void Awake()
     {
         MergeData.InitResources();
+        EventBus.onUnitDeath += unit =>PlaceRandomItem();
         _slotSpawner = GetComponent<SlotSpawner>();
 
         foreach (var item in Chances.ItemTypeChances)

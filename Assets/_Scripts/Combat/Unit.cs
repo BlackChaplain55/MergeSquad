@@ -54,8 +54,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     private void Awake()
     {
-        IItemStatsProvider weaponStats = WeaponSO;
-        IItemStatsProvider armorStats = ArmorSO;
+        IItemStatsProvider weaponStats;
+        IItemStatsProvider armorStats;
         var artifactsRepo = GameController.Game.ArtifactsRepository;
         Artifact[] artifacts = artifactsRepo[UnitStats.Type];
 
@@ -81,6 +81,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         _unitSpawner = unitSpawner;
         _view = GetComponent<UnitView>();
+        if (TryGetComponent<UnitProjectile>(out _projectiles)) _projectiles.InitPool();
         Spawn();
     }
 
@@ -115,7 +116,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         var direction = 1;
         if (isEnemy) direction = -1;
-        State = UnitState.Attacking;
+        State = UnitState.Walking;
         _view.ChangeAnimation(State);
         transform.Translate(new Vector3(_unitData.WalkSpeed*CombatManager.Combat.walkSpeedMultiplier*direction, 0, 0));
         Position = transform.position.x;
@@ -124,6 +125,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public void Attack()
     {
         _view.ChangeAnimation(UnitState.Attacking);
+    }
+
+    public void AttackRanged()
+    {
+        if(_projectiles!=null) _projectiles.ThrowProjectile();
     }
 
     /*

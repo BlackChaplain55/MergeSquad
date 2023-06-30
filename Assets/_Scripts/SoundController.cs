@@ -26,6 +26,7 @@ public class SoundController : MonoBehaviour
         var clipsToPlay = new AudioClip[]
         {
             _menuTrack,
+            _menuTrack,
             _mapTrack,
             _soundtracks[0]
         };
