@@ -14,4 +14,9 @@ public class EquipmentSlot : Slot
 
     public override void OnPointerDown(PointerEventData eventData)
     {}
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("HOVER!");
+    }
 }

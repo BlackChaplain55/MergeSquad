@@ -40,7 +40,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         if (CurrentItem != null)
         {
             _itemPresenter.SetItem(item);
-            OnItemReceived(item);
+            OnItemReceived?.Invoke(item);
         }
         else
         {

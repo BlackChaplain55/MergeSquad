@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GenericGameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 4
-  ItemsPerRound: 3
+  ItemsPerRound: 1
   RoundTime: 10

@@ -12,15 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee351210b241b2b4cb6b036d3cd2f05f, type: 3}
   m_Name: DwarfArcher
   m_EditorClassIdentifier: 
-  <HP>k__BackingField: 100
-  <Damage>k__BackingField: 10
+  <Type>k__BackingField: 2
+  <BaseHealth>k__BackingField: 100
+  <BaseAttack>k__BackingField: 10
   <AttackSpeed>k__BackingField: 1
-  <WalkSpeed>k__BackingField: 1.5
+  <AttackSpeedPerLevel>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 10
   <AttackDistance>k__BackingField: 1000
+  <SummonCost>k__BackingField: 0
+  <BaseUpgradeCost>k__BackingField: 0
+  <UpgradeCostPerLevel>k__BackingField: 0
   <MultiAttack>k__BackingField: 0
-  <RangedAttack>k__BackingField: 1
-  <Type>k__BackingField: 1
   <RespawnTime>k__BackingField: 5
-  <AttackSpeedModifier>k__BackingField: 0.25
-  <DamageModifier>k__BackingField: 0.25
-  <HPModifier>k__BackingField: 0.25
+  <AttackPerLevel>k__BackingField: 0
+  <HealthPerLevel>k__BackingField: 0
+  <MainSprite>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 0}
+  <ArmorType>k__BackingField: 0
+  <WeaponType>k__BackingField: 0

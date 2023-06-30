@@ -50,9 +50,11 @@ public class GameController : MonoBehaviour
 
         GameProgress savedProgress = default;
         if (SaveSystem.Instance.TryLoadGame("saves", out savedProgress))
+        {
             gameProgress = savedProgress;
-
-        ArtifactsRepository?.Init(savedProgress.UnitArtifacts, savedProgress.ItemArtifacts);
+            ArtifactsRepository?.Init(gameProgress.UnitArtifacts, gameProgress.ItemArtifacts);
+        }
+            
     }
 
     private IEnumerator Start() {

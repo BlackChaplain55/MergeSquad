@@ -17,7 +17,7 @@ MonoBehaviour:
   <BaseAttack>k__BackingField: 10
   <AttackSpeed>k__BackingField: 2
   <AttackSpeedPerLevel>k__BackingField: 0.05
-  <WalkSpeed>k__BackingField: 1.8
+  <WalkSpeed>k__BackingField: 8
   <AttackDistance>k__BackingField: 120
   <SummonCost>k__BackingField: 40
   <BaseUpgradeCost>k__BackingField: 10
@@ -30,3 +30,5 @@ MonoBehaviour:
     type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: d53bb544bed2e334e8088aa61d14e181,
     type: 3}
+  <ArmorType>k__BackingField: 13
+  <WeaponType>k__BackingField: 14

@@ -21,6 +21,7 @@ public class UnitShop : MonoBehaviour
     private void Awake()
     {
         var unitTemplates = spawner._unitTemplatesDictionary;
+        Souls = 500;
 
         foreach (var unitType in unitTemplates)
         {
