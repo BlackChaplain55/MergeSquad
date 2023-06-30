@@ -12,10 +12,10 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour 
 {
     public static GameController Game { get; private set; }
-    public event Action<int> OnSceneChanged;
-    public GameStates GameState;
-    public GameSettings Settings;
-    public SlotSpawner SlotSpawner;
+    [field: SerializeField]public ArtifactsRepository ArtifactsRepository { get; private set; }
+    public GameStates GameState { get; private set; }   
+    public SlotSpawner SlotSpawner { get; private set; }
+    [field: SerializeField] public GameSettings Settings { get; private set; }
     public GameProgress GameProgress
     {
         get { return gameProgress; }
@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
         }
     }
     public event Action<GameProgress> OnGameProgressChanged;
+    public event Action<int> OnSceneChanged;
 
     [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
@@ -47,7 +48,11 @@ public class GameController : MonoBehaviour
         if (Settings == null)
             Settings = GetComponent<GameSettings>();
 
-        TryLoadGame("saves");
+        GameProgress savedProgress = default;
+        if (SaveSystem.Instance.TryLoadGame("saves", out savedProgress))
+            gameProgress = savedProgress;
+
+        ArtifactsRepository?.Init(savedProgress.UnitArtifacts, savedProgress.ItemArtifacts);
     }
 
     private IEnumerator Start() {
@@ -71,7 +76,7 @@ public class GameController : MonoBehaviour
         WaitForSeconds wait = new WaitForSeconds(15);
         while (true)
         {
-            TrySaveGame("saves");
+            SaveSystem.Instance.TrySaveGame("saves", gameProgress);
             yield return wait;
         }
     }
@@ -90,64 +95,9 @@ public class GameController : MonoBehaviour
         LoadScene(GameStates.Combat);
     }
 
-    private bool TryLoadGame(string saveName)
-    {
-        //Debug.Log("Persistent data path : " + Application.persistentDataPath);
-        string savePath = $"{Application.persistentDataPath}/{saveName}.json";
-        if (File.Exists(savePath))
-        {
-            string saveData = File.ReadAllText(savePath);
-            try
-            {
-                //GameProgress = JsonConvert.DeserializeObject<GameProgress>(saveData);
-                GameProgress = JsonUtility.FromJson<GameProgress>(saveData);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError("Saved data in file cannot be converted to GameProgress : " + e);
-            }
-            return false;
-        }
-        else
-            { return false; }
-    }
-
-    private bool TrySaveGame(string saveName)
-    {
-        string savePath = $"{Application.persistentDataPath}/{saveName}.json";
-        using (var fileStream = new FileStream(savePath, FileMode.OpenOrCreate))
-        {
-            //byte[] data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_gameProgress));
-            byte[] data = Encoding.UTF8.GetBytes(JsonUtility.ToJson(gameProgress));
-            fileStream.Write(data);
-        }
-        return true;
-    }
-
     private void OnDestroy()
     {
         SceneManager.activeSceneChanged -= ChangeSceneState;
         OnSceneChanged = null;
-    }
-}
-
-[Serializable]
-public struct GameProgress : INotifyPropertyChanged
-{
-    public int UnlockedLevel;
-    public int CurrentLevel;
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public GameProgress(int unlockedLevel = 1, int currentLevel = 1)
-    {
-        UnlockedLevel = unlockedLevel;
-        CurrentLevel = currentLevel;
-        PropertyChanged = null;
-    }
-
-    public void OnPropertyChanged([CallerMemberName] string name = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

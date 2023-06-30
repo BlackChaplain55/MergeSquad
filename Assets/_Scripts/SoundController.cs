@@ -8,6 +8,7 @@ using UnityEngine.Audio;
 
 public class SoundController : MonoBehaviour
 {
+    [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioClip[] _soundtracks;
     [SerializeField] private AudioClip _menuTrack;
     [SerializeField] private AudioClip _mapTrack;
@@ -44,5 +45,15 @@ public class SoundController : MonoBehaviour
     public void StopMusic()
     {
         _audioSource?.Stop();
+    }
+
+    private void SetSavedVolume()
+    {
+        string soundParameter = VolumeParameters.SoundsVolumeParameter;
+        string musicParameter = VolumeParameters.MusicVolumeParameter;
+        float soundsVol = PlayerPrefs.GetInt(soundParameter, 1000) * 0.001f;
+        float musicVol = PlayerPrefs.GetInt(musicParameter, 1000) * 0.001f;
+        _audioMixer.SetFloat(soundParameter, soundsVol);
+        _audioMixer.SetFloat(musicParameter, musicVol);
     }
 }

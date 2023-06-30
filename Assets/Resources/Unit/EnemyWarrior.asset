@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee351210b241b2b4cb6b036d3cd2f05f, type: 3}
+  m_Name: EnemyWarrior
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
+  <BaseHealth>k__BackingField: 100
+  <BaseAttack>k__BackingField: 10
+  <AttackSpeed>k__BackingField: 2
+  <AttackSpeedPerLevel>k__BackingField: 0.05
+  <WalkSpeed>k__BackingField: 1.8
+  <AttackDistance>k__BackingField: 120
+  <SummonCost>k__BackingField: 0
+  <BaseUpgradeCost>k__BackingField: 0
+  <UpgradeCostPerLevel>k__BackingField: 0
+  <MultiAttack>k__BackingField: 0
+  <RespawnTime>k__BackingField: 10
+  <AttackPerLevel>k__BackingField: 2
+  <HealthPerLevel>k__BackingField: 2
+  <MainSprite>k__BackingField: {fileID: 21300000, guid: 663ca0512506c1c4fb300136e2b90294,
+    type: 3}
+  <Icon>k__BackingField: {fileID: 0}

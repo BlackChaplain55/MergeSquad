@@ -1,0 +1,21 @@
+public enum UnitParameterType
+{
+    MaxHealth,
+    Attack,
+    AttackSpeed,
+    BaseAttackSpeed,
+    AttackSpeedPerLevel,
+    BaseAttack,
+    BaseHealth,
+    AttackDistance,
+    WalkSpeed,
+    Level,
+    Health,
+    SummonCost,
+    BaseUpgradeCost,
+    UpgradeCost,
+    UpgradeCostPerLevel,
+    RespawnTime,
+    AttackPerLevel,
+    HealthPerLevel,
+}
