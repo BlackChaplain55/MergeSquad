@@ -10,6 +10,7 @@ public class MergeSystem : MonoBehaviour
     [SerializeField] private InputReader input;
     [SerializeField] private SlotSpawner slotSpawner;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Camera _camera;
     [SerializeField] private float coroutinesTimeStep;
     private Coroutine _carryRoutine;
     private int carryingDelta = 10;
@@ -66,6 +67,15 @@ public class MergeSystem : MonoBehaviour
             return;
         }
 
+        if (_targetItemSlot is EquipmentSlot)
+        {
+            if (_targetItemSlot.TryPlace(_carryingItemSlot))
+                PlaceInEmptySlot(_carryingItemSlot, _targetItemSlot);
+            else
+                OnItemCarryFail(_carryingItemSlot);
+            return;
+        }
+
         if (TryMerge(_carryingItemSlot.CurrentItem, _targetItemSlot.CurrentItem))
             OnItemMergedWithTarget(_carryingItemSlot, _targetItemSlot);
         else
@@ -93,7 +103,8 @@ public class MergeSystem : MonoBehaviour
 
         while (true)
         {
-            itemTransform.position = GetPointerPosition(true);
+            Vector3 pointer = GetPointerPosition(true);
+            itemTransform.position = new Vector3(pointer.x, pointer.y, itemTransform.position.z);
 
             yield return wait;
         }
@@ -110,7 +121,7 @@ public class MergeSystem : MonoBehaviour
     private void PlaceInEmptySlot(Slot carryingItemSlot, Slot emptySlot)
     {
         emptySlot.SetItem(carryingItemSlot.CurrentItem);
-        _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform);
+        _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform, false);
         carryingItemSlot.SetItem(null);
         _carryingItemSlot.SetInteractable(true);
     }
@@ -120,7 +131,7 @@ public class MergeSystem : MonoBehaviour
         int id = carryingItemSlot.CurrentItem.Id + 1;
         var type = carryingItemSlot.CurrentItem.Type;
         targetSlot.SetItem(MergeData.itemsDictionary[type].items[id]);
-        _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform);
+        _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform, false);
         carryingItemSlot.SetItem(null);
         _carryingItemSlot.SetInteractable(true);
     }
@@ -146,7 +157,7 @@ public class MergeSystem : MonoBehaviour
         float canvasMultiplier = 1 / (canvas.scaleFactor * 2);
         Vector3 pointerPosition = Input.mousePosition;
         if (isCamera)
-            pointerPosition = Camera.main.ScreenToWorldPoint(pointerPosition);
+            pointerPosition = _camera.ScreenToWorldPoint(pointerPosition);
         else
         {
             pointerPosition.x = pointerPosition.x - Screen.width * canvasMultiplier;
@@ -160,5 +171,7 @@ public class MergeSystem : MonoBehaviour
     {
         if (input == null)
             input = Resources.Load<InputReader>("Input/GenericInputReader");
+        if (_camera == null)
+            _camera = Camera.main;
     }
 }

@@ -21,7 +21,8 @@ public class UnitShop : MonoBehaviour
     private void Awake()
     {
         var unitTemplates = spawner._unitTemplatesDictionary;
-        Souls = 500;
+        Souls = GameController.Game.Settings.StartSouls;
+        EventBus.onUnitDeath += unit => { if (unit.isEnemy) Souls += 5; };
 
         foreach (var unitType in unitTemplates)
         {

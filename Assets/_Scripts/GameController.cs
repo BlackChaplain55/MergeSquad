@@ -44,6 +44,16 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        if (Game == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Game = this;
+        }
+        else if (Game != this)
+        {
+            Destroy(gameObject);
+        }
+
         GameState = (GameStates)SceneManager.GetActiveScene().buildIndex;
         if (Settings == null)
             Settings = GetComponent<GameSettings>();
@@ -59,15 +69,6 @@ public class GameController : MonoBehaviour
 
     private IEnumerator Start() {
         Application.targetFrameRate = 60;
-        if (Game == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            Game = this;
-        }
-        else if (Game != this)
-        {
-            Destroy(gameObject);
-        }
 
         _sound?.StartMusic((int)Game.GameState);
         
