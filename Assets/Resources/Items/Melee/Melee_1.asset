@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee_1
   m_EditorClassIdentifier: 
   Id: 0
-  Power: 3
+  Power: 10
   ItemSprite: {fileID: 21300000, guid: 2feb0401609e7b74e8fe96fd513743cf, type: 3}
   Type: 14
-  DeathTimer: 30
+  DeathTimer: 10

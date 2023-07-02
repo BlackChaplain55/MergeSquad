@@ -12,6 +12,9 @@ public class ArmorLevelDecorator : ItemLevelDecorator
         else if (_unit.ArmorSO == null)
             return 0;
         else
-            return _unit.ArmorSO.GetStats(parameterType) * _unit.ArmorSO.Id;
+        {
+            int armorLevel = _unit.ArmorSO.Id + 1;
+            return _unit.ArmorSO.GetStats(parameterType) * armorLevel;
+        }
     }
 }

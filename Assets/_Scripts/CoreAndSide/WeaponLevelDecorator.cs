@@ -12,6 +12,9 @@ public class WeaponLevelDecorator : ItemLevelDecorator
         else if (_unit.WeaponSO == null)
             return 0;
         else
-            return _unit.WeaponSO.GetStats(parameterType) * _unit.WeaponSO.Id;
+        {
+            int weaponLevel = _unit.WeaponSO.Id + 1;
+            return _unit.WeaponSO.GetStats(parameterType) * weaponLevel;
+        }
     }
 }

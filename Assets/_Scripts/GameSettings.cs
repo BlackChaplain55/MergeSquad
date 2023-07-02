@@ -6,4 +6,5 @@ public class GameSettings : ScriptableObject
     public int MaxItemLevel;
     public int ItemsPerRound;
     public float RoundTime;
+    public int StartSouls;
 }
