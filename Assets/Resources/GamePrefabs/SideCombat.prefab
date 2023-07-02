@@ -600,6 +600,7 @@ GameObject:
   - component: {fileID: 7816340718038077846}
   - component: {fileID: 7816340718038077847}
   - component: {fileID: 7816340718038077843}
+  - component: {fileID: 299294998}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -691,6 +692,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Spawner: {fileID: 7816340718038077847}
+--- !u!114 &299294998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816340718038077833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ebe86c6e1d14994c8c5956563f9012d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitSpawner: {fileID: 7816340718038077847}
+  _unitConroller: {fileID: 0}
+  _bosses:
+  - {fileID: 7947785522787575407}
+  _currentBoss: {fileID: 0}
+  _hero: {fileID: 0}
+  levelPosition: 0
 --- !u!1 &7816340718238004728
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +722,9 @@ GameObject:
   - component: {fileID: 7816340718238004487}
   - component: {fileID: 7816340718238004485}
   - component: {fileID: 7816340718238004486}
+  - component: {fileID: 1455897236}
+  - component: {fileID: 1455897234}
+  - component: {fileID: 1455897235}
   m_Layer: 5
   m_Name: Hero
   m_TagString: Untagged
@@ -729,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -815, y: 156}
+  m_AnchoredPosition: {x: -752, y: 149}
   m_SizeDelta: {x: 438.95087, y: 685.71423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7816340718238004485
@@ -770,6 +793,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1455897236
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816340718238004728}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1455897234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816340718238004728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a964463686814b748ab25f073a512754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <isEnemy>k__BackingField: 0
+  State: 1
+  currentEnemy: {fileID: 0}
+  _unitData: {fileID: 11400000, guid: 7d5bddf21efa55948b197f559f0ebed8, type: 2}
+  _health: 0
+  _level: 0
+  _host: {fileID: 0}
+--- !u!114 &1455897235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7816340718238004728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4331a1372acea43919aae45c0f8233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anim: {fileID: 1455897236}
+  _image: {fileID: 0}
+  _unit: {fileID: 0}
+  _walkingSprite: {fileID: 0}
+  _waitingsprite: {fileID: 0}
+  _attackSprite: {fileID: 0}
+  _dieSprite: {fileID: 0}
 --- !u!1001 &6495498492671121809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -890,8 +972,14 @@ PrefabInstance:
     - target: {fileID: 425036865094653353, guid: 6c3789fea1d32f541bfaec5b9d49dd42,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 425036865094653356, guid: 6c3789fea1d32f541bfaec5b9d49dd42,
+        type: 3}
+      propertyPath: _unitData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ad10b8de4dcd3a45abbf84f3873a3ab,
+        type: 2}
     - target: {fileID: 425036865094653358, guid: 6c3789fea1d32f541bfaec5b9d49dd42,
         type: 3}
       propertyPath: m_Sprite
@@ -928,8 +1016,13 @@ MonoBehaviour:
         type: 3}
   _spawnUnitSequence: 010000000100000002000000
   _spawnDelaySequence:
-  - 0
-  _unitSpawner: {fileID: 0}
+  - 2
+  - 2
+  - 2
+  - 10
+  - 2
+  - 2
+  _unitSpawner: {fileID: 7816340718038077847}
 --- !u!224 &6900268550625610809 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 425036865094653352, guid: 6c3789fea1d32f541bfaec5b9d49dd42,
