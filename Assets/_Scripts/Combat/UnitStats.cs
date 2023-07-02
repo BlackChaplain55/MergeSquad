@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 
 [System.Serializable]
 public struct UnitStats : INotifyPropertyChanged
@@ -59,14 +60,12 @@ public struct UnitStats : INotifyPropertyChanged
     }
 
 
-    public UnitStats SetSnapshot(IUnitStatsProvider statsProvider)
+    public void SetSnapshot(IUnitStatsProvider statsProvider)
     {
         Attack = (int)statsProvider.GetStats(UnitParameterType.Attack);
         AttackSpeed = (int)statsProvider.GetStats(UnitParameterType.AttackSpeed);
         MaxHealth = (int)statsProvider.GetStats(UnitParameterType.MaxHealth);
         UpgradeCost = (int)statsProvider.GetStats(UnitParameterType.UpgradeCost);
-
-        return this;
     }
 
     public void ReCompute(UnitParameterType parameterType, IUnitStatsProvider statsProvider)

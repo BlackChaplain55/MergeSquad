@@ -15,3 +15,4 @@ MonoBehaviour:
   MaxItemLevel: 4
   ItemsPerRound: 1
   RoundTime: 10
+  StartSouls: 100

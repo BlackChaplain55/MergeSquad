@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [field:SerializeField] public bool isEnemy { get; private set; }
     public EquipmentSO WeaponSO { get; private set; }
     public EquipmentSO ArmorSO { get; private set; }
-    public UnitStats UnitStats { get; private set; }
+    public UnitStats UnitStats { get { return _unitStats; } }
     public float Position { get; private set; }
     public int Line { get; private set; }
     public UnitData UnitReadonlyData
@@ -48,10 +48,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
+    [SerializeField] private UnitStats _unitStats;
 
     private IUnitStatsProvider _statsProvider;
 
     public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyBeforeChanged;
 
     private void Awake()
     {
@@ -71,8 +73,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
         weaponStats = new WeaponLevelDecorator(this);
         _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
-        UnitStats = new UnitStats(_unitData);
-        UnitStats = UnitStats.SetSnapshot(_statsProvider);
+        _unitStats = new UnitStats(_unitData);
+        _unitStats.SetSnapshot(_statsProvider);
         Health = UnitStats.MaxHealth;
     }
 
@@ -92,19 +94,22 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Spawn();
     }
 
+    public ref UnitStats GetUnitStatsRef() => ref _unitStats;
+
     public void SetWeapon(EquipmentSO weapon)
     {
         WeaponSO = weapon;
-        UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
-        UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
         _view.SetAttackSpeed(UnitStats.AttackSpeed);
+        //UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
+        //UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
+        _unitStats.SetSnapshot(_statsProvider);
     }
 
     public void SetArmor(EquipmentSO armor)
     {
         ArmorSO = armor;
         float prevMaxHealth = UnitStats.MaxHealth;
-        UnitStats = UnitStats.SetSnapshot(_statsProvider);
+        _unitStats.SetSnapshot(_statsProvider);
         float healthBonus = Mathf.Clamp(UnitStats.MaxHealth - prevMaxHealth, 0, float.MaxValue);
         Health = Mathf.Clamp(Health + healthBonus, 0, UnitStats.MaxHealth);
     }
@@ -173,12 +178,13 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public void Upgrade()
     {
         Level++;
-        float prevMaxHealth = UnitStats.MaxHealth;
-        UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
-        UnitStats.ReCompute(UnitParameterType.MaxHealth, _statsProvider);
-        UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
-        UnitStats.ReCompute(UnitParameterType.UpgradeCost, _statsProvider);
-        Health += UnitStats.MaxHealth - prevMaxHealth;
+        float prevMaxHealth = _unitStats.MaxHealth;
+        _unitStats.SetSnapshot(_statsProvider);
+        //UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
+        //UnitStats.ReCompute(UnitParameterType.MaxHealth, _statsProvider);
+        //UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
+        //UnitStats.ReCompute(UnitParameterType.UpgradeCost, _statsProvider);
+        Health += _unitStats.MaxHealth - prevMaxHealth;
     }
 
     public void Respawn()
