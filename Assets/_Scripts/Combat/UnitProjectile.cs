@@ -22,14 +22,17 @@ public class UnitProjectile : MonoBehaviour
     }
     public void ThrowProjectile()
     {
-        foreach(GameObject projectileObject in _projectilePool )
+        if (_unit.currentEnemy != null)
         {
-            if (!projectileObject.activeSelf)
+            foreach (GameObject projectileObject in _projectilePool)
             {
-                var projectile = projectileObject.GetComponent<Projectile>();
-                projectile.gameObject.SetActive(true);
-                projectile.Init(gameObject,_unit.currentEnemy.gameObject);
-                break;
+                if (!projectileObject.activeSelf)
+                {
+                    var projectile = projectileObject.GetComponent<Projectile>();
+                    projectile.gameObject.SetActive(true);
+                    projectile.Init(gameObject, _unit.currentEnemy.gameObject);
+                    break;
+                }
             }
         }
     }

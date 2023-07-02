@@ -10,22 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee351210b241b2b4cb6b036d3cd2f05f, type: 3}
-  m_Name: EnemyWarrior
+  m_Name: DwarfArcher
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 1
+  <Type>k__BackingField: 2
   <BaseHealth>k__BackingField: 100
   <BaseAttack>k__BackingField: 10
-  <AttackSpeed>k__BackingField: 2
-  <AttackSpeedPerLevel>k__BackingField: 0.05
-  <WalkSpeed>k__BackingField: 1.8
-  <AttackDistance>k__BackingField: 120
+  <AttackSpeed>k__BackingField: 1
+  <AttackSpeedPerLevel>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 0.01
+  <AttackDistance>k__BackingField: 1.5
   <SummonCost>k__BackingField: 0
   <BaseUpgradeCost>k__BackingField: 0
   <UpgradeCostPerLevel>k__BackingField: 0
   <MultiAttack>k__BackingField: 0
-  <RespawnTime>k__BackingField: 10
-  <AttackPerLevel>k__BackingField: 2
-  <HealthPerLevel>k__BackingField: 2
-  <MainSprite>k__BackingField: {fileID: 21300000, guid: 663ca0512506c1c4fb300136e2b90294,
-    type: 3}
+  <RespawnTime>k__BackingField: 5
+  <AttackPerLevel>k__BackingField: 0
+  <HealthPerLevel>k__BackingField: 0
+  <MainSprite>k__BackingField: {fileID: 0}
   <Icon>k__BackingField: {fileID: 0}
+  <ArmorType>k__BackingField: 0
+  <WeaponType>k__BackingField: 0

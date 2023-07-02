@@ -30,7 +30,7 @@ public class UnitController : MonoBehaviour
             var distance = GetDistance(unit,closestEnemy);
             if (distance > unit.GetAttackDistance()&&unit.State!=UnitState.Die)
             {
-                unit.MoveUnit();
+                if(unit.UnitReadonlyData.WalkSpeed>0) unit.MoveUnit();
             }
             else if (distance <= unit.GetAttackDistance() && unit.State != UnitState.Die)
             {

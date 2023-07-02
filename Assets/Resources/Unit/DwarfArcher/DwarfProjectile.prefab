@@ -93,5 +93,5 @@ MonoBehaviour:
   _archerUnit: {fileID: 0}
   _targetUnit: {fileID: 0}
   _target: {fileID: 0}
-  _speed: 200
-  _ballisticHeight: 80
+  _speed: 1.2
+  _ballisticHeight: 0.1
