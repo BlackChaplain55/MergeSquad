@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
   - component: {fileID: 627054748663159265}
-  - component: {fileID: 5738824515006134301}
   m_Layer: 5
-  m_Name: EnemyWarrior
+  m_Name: DwarfWarriorElite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,16 +30,16 @@ RectTransform:
   m_GameObject: {fileID: 425036865094653353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -4, y: 4, z: 4}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -657, y: 26}
-  m_SizeDelta: {x: 120, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 349, y: 211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &425036865094653357
 CanvasRenderer:
@@ -63,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.06132078, b: 0.06132078, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -90,7 +89,7 @@ Animator:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 91ac618586e88c242b5d9c726dc84bcb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 191fc290b483f074fa4bb0342d196b3a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -113,11 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a964463686814b748ab25f073a512754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitData: {fileID: 11400000, guid: 6ac34db5e869f114fa39f9cefa8e0765, type: 2}
-  _health: 0
   <isEnemy>k__BackingField: 1
-  State: 0
+  State: 1
   currentEnemy: {fileID: 0}
+  _unitData: {fileID: 11400000, guid: 5b047ffd622ab504c820bdfbcb973ec2, type: 2}
+  _health: 0
+  _level: 0
 --- !u!114 &627054748663159265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,26 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4331a1372acea43919aae45c0f8233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _anim: {fileID: 0}
-  _image: {fileID: 0}
-  _unit: {fileID: 0}
-  _walkingSprite: {fileID: 0}
+  _anim: {fileID: 425036865094653359}
+  _image: {fileID: 425036865094653358}
+  _unit: {fileID: 425036865094653356}
+  _walkingSprite: {fileID: 21300000, guid: 663ca0512506c1c4fb300136e2b90294, type: 3}
   _waitingsprite: {fileID: 0}
-  _attackSprite: {fileID: 0}
-  _dieSprite: {fileID: 0}
---- !u!114 &5738824515006134301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425036865094653353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7632bfd325eca2f4b9e44831492ac673, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectilePool: []
-  _unit: {fileID: 0}
-  _poolSize: 5
-  _projectileTemplate: {fileID: 0}
+  _attackSprite: {fileID: 21300000, guid: a4bec3d7a58d4a24bb552c9b20e8ddfa, type: 3}
+  _dieSprite: {fileID: 21300000, guid: 817be77435622354183e115439eca015, type: 3}

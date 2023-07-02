@@ -44,6 +44,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] private UnitData _unitData;
     [SerializeField] private float _health;
     [SerializeField] private int _level;
+    [SerializeField] private Unit _host;
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
@@ -56,8 +57,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         IItemStatsProvider weaponStats;
         IItemStatsProvider armorStats;
-        var artifactsRepo = GameController.Game.ArtifactsRepository;
-        Artifact[] artifacts = artifactsRepo[UnitStats.Type];
+        if (GameController.Game != null)
+        {
+            var artifactsRepo = GameController.Game.ArtifactsRepository;
+            Artifact[] artifacts = artifactsRepo[UnitStats.Type];
+        }
 
         Level = 1;
         //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
@@ -80,7 +84,10 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public void Init(UnitSpawner unitSpawner)
     {
         _unitSpawner = unitSpawner;
+        transform.parent.parent.TryGetComponent<Unit>(out _host);
+        Health = _unitData.BaseHealth;
         _view = GetComponent<UnitView>();
+        _view.SetAttackSpeed(_unitData.AttackSpeed);
         if (TryGetComponent<UnitProjectile>(out _projectiles)) _projectiles.InitPool();
         Spawn();
     }
@@ -90,6 +97,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         WeaponSO = weapon;
         UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
         UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
+        _view.SetAttackSpeed(UnitStats.AttackSpeed);
     }
 
     public void SetArmor(EquipmentSO armor)
@@ -103,11 +111,14 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Spawn()
     {
+        if (_host == null) return;
+        if (_host.State == UnitState.Die) return;
         State = UnitState.Walking;
+        Health = UnitStats.MaxHealth;
         Line = Random.Range(0, CombatManager.Combat.linesCount);
         _view.ChangeAnimation(State);
-        transform.position = _unitSpawner.GetSpawnPoint(isEnemy);
-        transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
+        transform.position = _unitSpawner.GetSpawnPoint(Line,isEnemy).position;
+        //transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
         Position = transform.position.x;
         _view.FadeIn();
     }
@@ -132,18 +143,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         if(_projectiles!=null) _projectiles.ThrowProjectile();
     }
 
-    /*
-    public IEnumerator Attack(Unit target)
-    {
-        currentEnemy = target;
-        while (true)
-        {
-            _view.ChangeAnimation(UnitState.Attacking);
-            yield return new WaitForSeconds(UnitStats.AttackSpeed);
-        }
-    }
-    */
-
     public void DealDamage()
     {
         if (currentEnemy != null) currentEnemy.TakeDamage(UnitStats.Attack);
@@ -153,8 +152,9 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         if (damage < 0) return;
         Health -= damage;
-        if (Health < 0)
+        if (Health <= 0)
         {
+            Health = 0;
             BeginDying();
         }
     }
