@@ -17,6 +17,7 @@ public class LevelProgress : MonoBehaviour
     {
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
         if (_unitConroller == null) _unitConroller = GetComponent<UnitController>();
+        EventBus.onUnitDeath += CheckBossDeath;
         Init();
     }
 
@@ -36,6 +37,11 @@ public class LevelProgress : MonoBehaviour
     {
         _hero.Init(_unitSpawner);
         _unitConroller.AddUnitToList(_hero);
+    }
+
+    private void CheckBossDeath(Unit unit)
+    {
+
     }
 
     public void InitCurrentBoss()

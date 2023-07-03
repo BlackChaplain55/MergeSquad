@@ -40,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
             if (_UnitIndex >= _spawnUnitSequence.Count) _UnitIndex = 0;
             StartCoroutine(SpawnWithDelay());
         }
-        
     }
 
     private void Spawn(GameObject unitObject)
