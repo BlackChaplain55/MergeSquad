@@ -25,7 +25,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _itemPresenter = GetComponentInChildren<ItemPresenter>();
-        _itemPresenter.Clear();
+        //_itemPresenter.Clear();
     }
 
     public void SetInteractable(bool flag)

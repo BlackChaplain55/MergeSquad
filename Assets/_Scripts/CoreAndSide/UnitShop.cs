@@ -22,7 +22,7 @@ public class UnitShop : MonoBehaviour
     {
         var unitTemplates = spawner._unitTemplatesDictionary;
         Souls = GameController.Game.Settings.StartSouls;
-        EventBus.onUnitDeath += unit => { if (unit.isEnemy) Souls += 5; };
+        EventBus.OnUnitDeath += unit => { if (unit.isEnemy) Souls += 5; };
 
         foreach (var unitType in unitTemplates)
         {

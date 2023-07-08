@@ -32,7 +32,7 @@ public class LevelProgress : MonoBehaviour
     {
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
         if (_unitConroller == null) _unitConroller = GetComponent<UnitController>();
-        EventBus.onBossDeath += BossDeath;
+        EventBus.OnBossDeath += BossDeath;
         Init();
     }
 
@@ -85,7 +85,7 @@ public class LevelProgress : MonoBehaviour
         transform.parent.localPosition = new Vector2(-_levelPosition, 0);  
     }
 
-    private void BossDeath(Unit unit)
+    private void BossDeath()
     {
         _levelStep++;
         
@@ -99,7 +99,7 @@ public class LevelProgress : MonoBehaviour
         }
         else
         {
-            EventBus.onFinalBossDeath?.Invoke();
+            EventBus.OnFinalBossDeath?.Invoke();
         }
         
     }

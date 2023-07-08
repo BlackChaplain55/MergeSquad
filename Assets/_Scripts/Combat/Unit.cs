@@ -208,11 +208,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         if (_unitData.Type == UnitType.Hero)
         {
-            EventBus.onHeroDeath?.Invoke();
+            EventBus.OnHeroDeath?.Invoke();
         }
         else
         {
-            EventBus.onUnitDeath?.Invoke(this);
+            EventBus.OnUnitDeath?.Invoke(this);
             _view.FadeOutAndRespawn();
         }
     }
@@ -227,7 +227,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Respawn()
     {
-        if (!_isBoss) StartCoroutine(RespawnCooldown()); else EventBus.onBossDeath?.Invoke(this);
+        if (!_isBoss) StartCoroutine(RespawnCooldown()); else EventBus.OnBossDeath?.Invoke();
     }
 
     private void BeginDying()
