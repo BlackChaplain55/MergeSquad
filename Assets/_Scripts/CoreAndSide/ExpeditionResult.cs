@@ -16,7 +16,7 @@ public class ExpeditionResult : MonoBehaviour
     private void Start()
     {
         EventBus.OnHeroDeath += Defeat;
-        EventBus.OnBossDeath += Victory;
+        EventBus.OnFinalBossDeath += Victory;
         acceptResultButton?.onClick.AddListener(LoadMeta);
     }
 

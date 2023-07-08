@@ -116,7 +116,9 @@ public class UnitPresenter : MonoBehaviour
         {
             Unit?.SetWeapon(equipment);
             weapon.ResetDeathTimer(equipment);
+            return;
         }
+        Unit.SetWeapon(null);
     }
 
     private void Armor_OnItemReceived(ItemSO item)
@@ -125,7 +127,9 @@ public class UnitPresenter : MonoBehaviour
         {
             Unit?.SetArmor(equipment);
             armor.ResetDeathTimer(equipment);
+            return;
         }
+        Unit.SetArmor(null);
     }
 
     public void Clear()

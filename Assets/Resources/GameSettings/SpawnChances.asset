@@ -15,18 +15,18 @@ MonoBehaviour:
   ItemTypeChances:
     _serializedList:
     - Key: 11
-      Value: 14
+      Value: 0
     - Key: 12
-      Value: 15
+      Value: 0
     - Key: 13
       Value: 14
     - Key: 14
       Value: 18
     - Key: 15
-      Value: 12
+      Value: 0
     - Key: 16
-      Value: 11
+      Value: 0
     - Key: 17
-      Value: 14
+      Value: 0
     - Key: 18
-      Value: 14
+      Value: 0

@@ -7,9 +7,11 @@ public class CombatManager : MonoBehaviour
     [field: SerializeField] public int linesCount;
     [field: SerializeField] public float linesSpacing;
     [field: SerializeField] public float walkSpeedMultiplier;
+    [field: SerializeField] public float walkSpeedDiviation;
+    [field: SerializeField] public float AttackDistanceDiviation;
     public static CombatManager Combat;
+    public bool IsGame;
     
-    // Start is called before the first frame update
     private void Awake()
     {
         if (Combat == null)
@@ -21,11 +23,7 @@ public class CombatManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        IsGame = true;
     }
 }

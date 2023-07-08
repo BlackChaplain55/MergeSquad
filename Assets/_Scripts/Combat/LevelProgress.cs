@@ -78,7 +78,7 @@ public class LevelProgress : MonoBehaviour
         {
             if (unit.UnitReadonlyData.Type != UnitType.Hero)
             {
-                unit.transform.Translate(-_hero.UnitReadonlyData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier, 0, 0);
+                unit.transform.Translate(-_hero.UnitReadonlyData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier*Time.deltaTime, 0, 0);
                 unit.UpdatePosition(unit.transform.position.x);
             }
         }
@@ -93,7 +93,7 @@ public class LevelProgress : MonoBehaviour
         _heroMoving = true;
         ArmyMoving = false;
         _hero.SetMove(_heroMoving);
-        if (_levelStep> _bossesTemplates.Count)
+        if (_levelStep< _bossesTemplates.Count)
         {
             InitCurrentBoss();
         }
