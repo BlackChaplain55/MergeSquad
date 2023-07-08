@@ -32,7 +32,7 @@ public class LevelProgress : MonoBehaviour
     {
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
         if (_unitConroller == null) _unitConroller = GetComponent<UnitController>();
-        EventBus.onBossDeath += BossDeath;
+        EventBus.OnBossDeath += BossDeath;
         Init();
     }
 
@@ -78,14 +78,14 @@ public class LevelProgress : MonoBehaviour
         {
             if (unit.UnitReadonlyData.Type != UnitType.Hero)
             {
-                unit.transform.Translate(-_hero.UnitReadonlyData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier, 0, 0);
+                unit.transform.Translate(-_hero.UnitReadonlyData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier*Time.deltaTime, 0, 0);
                 unit.UpdatePosition(unit.transform.position.x);
             }
         }
         transform.parent.localPosition = new Vector2(-_levelPosition, 0);  
     }
 
-    private void BossDeath(Unit unit)
+    private void BossDeath()
     {
         _levelStep++;
         
@@ -93,13 +93,13 @@ public class LevelProgress : MonoBehaviour
         _heroMoving = true;
         ArmyMoving = false;
         _hero.SetMove(_heroMoving);
-        if (_levelStep> _bossesTemplates.Count)
+        if (_levelStep< _bossesTemplates.Count)
         {
             InitCurrentBoss();
         }
         else
         {
-            EventBus.onFinalBossDeath?.Invoke();
+            EventBus.OnFinalBossDeath?.Invoke();
         }
         
     }

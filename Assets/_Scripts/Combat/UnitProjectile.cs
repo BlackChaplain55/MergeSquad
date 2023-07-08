@@ -8,6 +8,7 @@ public class UnitProjectile : MonoBehaviour
     [SerializeField] private Unit _unit;
     [SerializeField] private int _poolSize=5;
     [SerializeField] private GameObject _projectileTemplate;
+    [SerializeField] private Transform _shootPoint;
 
     public void InitPool()
     {
@@ -30,7 +31,7 @@ public class UnitProjectile : MonoBehaviour
                 {
                     var projectile = projectileObject.GetComponent<Projectile>();
                     projectile.gameObject.SetActive(true);
-                    projectile.Init(gameObject, _unit.currentEnemy.gameObject);
+                    projectile.Init(gameObject, _unit.currentEnemy.gameObject, _shootPoint);
                     break;
                 }
             }

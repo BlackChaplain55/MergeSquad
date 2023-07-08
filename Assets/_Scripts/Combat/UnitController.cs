@@ -14,11 +14,17 @@ public class UnitController : MonoBehaviour
 
     [SerializeField] private LevelProgress _levelProgress;
 
+    [SerializeField] private float _secondsToUpgrade;
+    [SerializeField] private int _maxLevel;
+    private bool _upgradeEnabled;
+
     private void Awake()
     {
         UnitsList = new ObservableCollection<Unit>();
         EnemyList = new ObservableCollection<Unit>();
         if (_levelProgress == null) _levelProgress = GetComponent<LevelProgress>();
+        _upgradeEnabled = true;
+        StartCoroutine(UpgradeEnemies());
     }
 
     void Update()
@@ -33,11 +39,12 @@ public class UnitController : MonoBehaviour
         {
             var closestEnemy = GetClosestEnemy(unit);
             var distance = GetDistance(unit,closestEnemy);
-            if (distance > unit.GetAttackDistance()&&unit.State!=UnitState.Die)
+            if (distance > unit.GetAttackDistance()&&unit.State!=UnitState.Die||(unit.UnitReadonlyData.Type == UnitType.Hero&&_levelProgress.IsHeroMoving))
             {
                 if (unit.CanMove)
                 {
-                    if (unit.Position < _levelProgress.HeroLocalPosition) _levelProgress.ArmyMoving = true;
+                    if (unit.Position < _levelProgress.HeroLocalPosition)
+                        _levelProgress.ArmyMoving = true;
                     if (_levelProgress.ArmyMoving)
                     {
                         unit.MoveUnit();
@@ -63,6 +70,19 @@ public class UnitController : MonoBehaviour
             {
                 unit.Attack();
                 unit.currentEnemy = closestEnemy;
+            }
+        }
+    }
+
+    public IEnumerator UpgradeEnemies()
+    {
+        while (_upgradeEnabled)
+        {
+            yield return new WaitForSeconds(_secondsToUpgrade);
+            foreach (Unit unit in EnemyList)
+            {
+                if (unit.Level<_maxLevel)
+                    unit.Upgrade();
             }
         }
     }

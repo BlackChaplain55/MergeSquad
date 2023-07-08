@@ -14,13 +14,20 @@ public class Projectile : MonoBehaviour
     private float _archerX;
     private float _targetX;
 
-    public void Init(GameObject archer, GameObject target)
+    public void Init(GameObject archer, GameObject target, Transform? shootPoint=null)
     {
         _archer = archer;
         _target = target;
         _archerUnit = archer.GetComponent<Unit>();
         _targetUnit = target.GetComponent<Unit>();
-        transform.position = _archer.transform.position;
+        if (shootPoint != null)
+        {
+            transform.position = shootPoint.position;
+        }
+        else
+        {
+            transform.position = _archer.transform.position;
+        }
     }
 
     private void Update()

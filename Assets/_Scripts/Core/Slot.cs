@@ -44,13 +44,14 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         if (CurrentItem != null)
         {
             _itemPresenter.SetItem(item);
-            OnItemReceived?.Invoke(item);
+           
         }
         else
         {
             _itemPresenter.transform.position = transform.position;
             _itemPresenter.Clear();
         }
+        OnItemReceived?.Invoke(item);
     }
 
     public virtual bool TryPlace(Slot slot)

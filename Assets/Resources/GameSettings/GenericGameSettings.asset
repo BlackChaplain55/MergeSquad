@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: GenericGameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 4
-  ItemsPerRound: 1
+  ItemsPerRound: 3
   RoundTime: 10
-  StartSouls: 100
+  StartSouls: 1000
   HPPerLevel:
     _serializedList:
     - Key: 11

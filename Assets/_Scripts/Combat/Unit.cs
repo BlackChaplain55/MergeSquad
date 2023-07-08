@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public UnitStats UnitStats { get { return _unitStats; } }
     [field: SerializeField] public float Position { get; private set; }
     public int Line { get; private set; }
+    public float AttackDistance { get; private set; }
     public UnitData UnitReadonlyData
     {
         get { return _unitData; }
@@ -94,6 +95,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         _view = GetComponent<UnitView>();
         _view.SetAttackSpeed(_unitData.AttackSpeed);
         _view.SetIdleSpeed();
+        var attackDistanceDiviation = Random.Range(-CombatManager.Combat.AttackDistanceDiviation, CombatManager.Combat.AttackDistanceDiviation);
+        AttackDistance = _unitData.AttackDistance + attackDistanceDiviation;
         if (TryGetComponent<UnitProjectile>(out _projectiles)) _projectiles.InitPool();
         Position = transform.position.x;
         if (TryGetComponent<EnemySpawner>(out var _EnemySpawner))
@@ -128,13 +131,14 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         _unitStats.SetSnapshot(_statsProvider);
         float healthBonus = Mathf.Clamp(UnitStats.MaxHealth - prevMaxHealth, 0, float.MaxValue);
         Health = Mathf.Clamp(Health + healthBonus, 0, UnitStats.MaxHealth);
+        _view.UpdateHealth(Health/UnitStats.MaxHealth);
     }
 
     public void Spawn()
     {
         if (_host == null) return;
         if (_host.State == UnitState.Die) return;
-        State = UnitState.Walking;
+        State = UnitState.Waiting;
         Health = UnitStats.MaxHealth;
         Line = Random.Range(0, CombatManager.Combat.linesCount);
         _view.ChangeAnimation(State);
@@ -142,6 +146,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         transform.position = transform.parent.position;
         //transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
         Position = transform.position.x;
+        UpdatePosition(transform.position.x);
         _view.UpdateHealth(1);
         _view.FadeIn();
     }
@@ -152,7 +157,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         if (isEnemy) direction = -1;
         State = UnitState.Walking;
         _view.ChangeAnimation(State);
-        transform.Translate(new Vector3(_unitData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier * direction, 0, 0));
+        //var speedDiviation = Random.Range(-CombatManager.Combat.walkSpeedDiviation, -CombatManager.Combat.walkSpeedDiviation);
+        transform.Translate(new Vector3(_unitData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier * direction*Time.deltaTime, 0, 0));
         UpdatePosition(transform.position.x);
     }
 
@@ -201,18 +207,20 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public float GetAttackDistance()
     {
-        return _unitData.AttackDistance;
+        //return _unitData.AttackDistance;
+        return AttackDistance;
     }
 
     public void Die()
     {
         if (_unitData.Type == UnitType.Hero)
         {
-            EventBus.onHeroDeath?.Invoke();
+            EventBus.OnHeroDeath?.Invoke();
         }
         else
         {
-            EventBus.onUnitDeath?.Invoke(this);
+            EventBus.OnUnitDeath?.Invoke(this);
+            if (isEnemy) Upgrade();
             _view.FadeOutAndRespawn();
         }
     }
@@ -227,7 +235,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Respawn()
     {
-        if (!_isBoss) StartCoroutine(RespawnCooldown()); else EventBus.onBossDeath?.Invoke(this);
+        if (!_isBoss) StartCoroutine(RespawnCooldown());
+        else
+        {
+            EventBus.OnBossDeath?.Invoke();
+            Destroy(gameObject);
+        }
     }
 
     private void BeginDying()
