@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class CombineUnitItemDecorator : IUnitStatsProvider
 {
@@ -20,11 +21,26 @@ public class CombineUnitItemDecorator : IUnitStatsProvider
 
     public virtual float GetStats(UnitParameterType parameterType)
     {
-        if (parameterType == UnitParameterType.Attack)
-            return _unit.GetStats(parameterType) + _weapon.GetStats(ItemParameterType.Power);
-        else if (parameterType == UnitParameterType.MaxHealth)
-            return _unit.GetStats(parameterType) + _armor.GetStats(ItemParameterType.Power);
+        float original = _unit.GetStats(parameterType);
+        float initValue = 1;
 
-        return _unit.GetStats(parameterType);
+        if (parameterType == UnitParameterType.Attack)
+        {
+            float weaponAttack = initValue + _weapon.GetStats(ItemParameterType.Attack);
+            float armorAttack = initValue + _armor.GetStats(ItemParameterType.Attack);
+            return original * weaponAttack * armorAttack;
+        }
+        else if (parameterType == UnitParameterType.MaxHealth)
+        {
+            float bonus = initValue + _armor.GetStats(ItemParameterType.HP);
+            return original * bonus;
+        }
+        else if (parameterType == UnitParameterType.AttackSpeed)
+        {
+            float bonus = initValue + _weapon.GetStats(ItemParameterType.AttackSpeed);
+            return original * bonus;
+        }
+
+        return original;
     }
 }

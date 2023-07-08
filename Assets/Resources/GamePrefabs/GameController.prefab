@@ -166,7 +166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 0}
-  _soundtracks: []
+  _soundtracks:
+  - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
+  - {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+  - {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
   _menuTrack: {fileID: 0}
   _mapTrack: {fileID: 0}
   _audioSource: {fileID: 0}

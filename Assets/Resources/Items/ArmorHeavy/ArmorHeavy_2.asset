@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ArmorHeavy_2
   m_EditorClassIdentifier: 
   Id: 1
-  Power: 6
+  Power: 1.2
   ItemSprite: {fileID: 21300000, guid: abcbb1c667157fa4ea5e32b8d49b5493, type: 3}
   Type: 13
-  DeathTimer: 45
+  DeathTimer: 15
+  BaseHP: 0.2
+  BaseAttack: 0.1
+  BaseAttackSpeed: 1

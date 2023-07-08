@@ -16,3 +16,46 @@ MonoBehaviour:
   ItemsPerRound: 1
   RoundTime: 10
   StartSouls: 100
+  HPPerLevel:
+    _serializedList:
+    - Key: 11
+      Value: 0.2
+    - Key: 12
+      Value: 0.175
+    - Key: 13
+      Value: 0.15
+    - Key: 14
+      Value: 0
+    - Key: 15
+      Value: 0
+    - Key: 16
+      Value: 0
+  AttackPerLevel:
+    _serializedList:
+    - Key: 11
+      Value: 0.1
+    - Key: 12
+      Value: 0.075
+    - Key: 13
+      Value: 0.05
+    - Key: 14
+      Value: 0.1
+    - Key: 15
+      Value: 0.12
+    - Key: 16
+      Value: 0.14
+  AttackSpeedPerLevel:
+    _serializedList:
+    - Key: 11
+      Value: 1
+    - Key: 12
+      Value: 1
+    - Key: 13
+      Value: 1
+    - Key: 14
+      Value: 0.97
+    - Key: 15
+      Value: 0.98
+    - Key: 16
+      Value: 0.985
+  ItemsDeathTimerPerLevel: 4

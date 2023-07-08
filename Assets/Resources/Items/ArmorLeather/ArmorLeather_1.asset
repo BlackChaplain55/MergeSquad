@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ArmorLeather_1
   m_EditorClassIdentifier: 
   Id: 0
-  Power: 3
+  Power: 1.2
   ItemSprite: {fileID: 21300000, guid: a14f95611abef80419d334e71aa99325, type: 3}
   Type: 12
-  DeathTimer: 30
+  DeathTimer: 15
+  BaseHP: 0.2
+  BaseAttack: 0.1
+  BaseAttackSpeed: 1
