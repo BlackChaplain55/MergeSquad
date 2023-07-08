@@ -208,8 +208,15 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Die()
     {
-        EventBus.onUnitDeath?.Invoke(this);
-        _view.FadeOutAndRespawn();  
+        if (_unitData.Type == UnitType.Hero)
+        {
+            EventBus.onHeroDeath?.Invoke();
+        }
+        else
+        {
+            EventBus.onUnitDeath?.Invoke(this);
+            _view.FadeOutAndRespawn();
+        }
     }
 
     public void Upgrade()

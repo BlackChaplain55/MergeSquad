@@ -93,7 +93,15 @@ public class LevelProgress : MonoBehaviour
         _heroMoving = true;
         ArmyMoving = false;
         _hero.SetMove(_heroMoving);
-        InitCurrentBoss();
+        if (_levelStep> _bossesTemplates.Count)
+        {
+            InitCurrentBoss();
+        }
+        else
+        {
+            EventBus.onFinalBossDeath?.Invoke();
+        }
+        
     }
 
     public void InitCurrentBoss()

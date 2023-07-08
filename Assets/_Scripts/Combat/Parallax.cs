@@ -40,8 +40,7 @@ public class Parallax : MonoBehaviour
         //if (Position.x == _width)
         //{
         //    UpdateRect();
-        //}
-        
+        //}   
     }
 
     [ExecuteInEditMode()]
