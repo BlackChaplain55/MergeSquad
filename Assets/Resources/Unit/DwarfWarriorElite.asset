@@ -18,7 +18,7 @@ MonoBehaviour:
   <AttackSpeed>k__BackingField: 1
   <AttackSpeedPerLevel>k__BackingField: 1
   <WalkSpeed>k__BackingField: 0
-  <AttackDistance>k__BackingField: 0.008
+  <AttackDistance>k__BackingField: 0.2
   <SummonCost>k__BackingField: 1
   <BaseUpgradeCost>k__BackingField: 1
   <UpgradeCostPerLevel>k__BackingField: 1

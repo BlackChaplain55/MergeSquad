@@ -23,7 +23,7 @@ MonoBehaviour:
   <BaseUpgradeCost>k__BackingField: 0
   <UpgradeCostPerLevel>k__BackingField: 0
   <MultiAttack>k__BackingField: 0
-  <RespawnTime>k__BackingField: 5
+  <RespawnTime>k__BackingField: 30
   <AttackPerLevel>k__BackingField: 0
   <HealthPerLevel>k__BackingField: 0
   <MainSprite>k__BackingField: {fileID: 0}

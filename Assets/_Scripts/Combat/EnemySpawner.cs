@@ -7,13 +7,16 @@ using AYellowpaper.SerializedCollections;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializedDictionary("Unit type", "Prefab")] public SerializedDictionary<UnitType, GameObject> _enemyTemplatesDictionary;
+    [SerializeField] public List<GameObject> SpawnPoints;
     [SerializeField] private List<UnitType> _spawnUnitSequence;
     [SerializeField] private List<float> _spawnDelaySequence;
     [SerializeField] private UnitSpawner _unitSpawner;
+
     private int _UnitIndex;
     private int _DelayIndex;
 
     private int _currentSpawnedEnemy;
+
 
     private void Awake()
     {
@@ -25,6 +28,11 @@ public class EnemySpawner : MonoBehaviour
     public GameObject GetUnitPrefab(UnitType type)
     {
         return _enemyTemplatesDictionary.GetValueOrDefault(type);
+    }
+
+    public void SetSpawner(UnitSpawner spawner)
+    {
+        _unitSpawner = spawner;
     }
 
     private IEnumerator SpawnWithDelay()
