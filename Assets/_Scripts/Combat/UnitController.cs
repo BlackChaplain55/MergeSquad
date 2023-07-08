@@ -4,16 +4,21 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(LevelProgress))]
+
 public class UnitController : MonoBehaviour
 {
     [SerializeField] public ObservableCollection<Unit> UnitsList { get; private set; }
     [SerializeField] public ObservableCollection<Unit> EnemyList { get; private set; }
     [SerializeField] public float walkSpeedModifier { get; private set; }
 
+    [SerializeField] private LevelProgress _levelProgress;
+
     private void Awake()
     {
         UnitsList = new ObservableCollection<Unit>();
         EnemyList = new ObservableCollection<Unit>();
+        if (_levelProgress == null) _levelProgress = GetComponent<LevelProgress>();
     }
 
     void Update()
@@ -30,9 +35,31 @@ public class UnitController : MonoBehaviour
             var distance = GetDistance(unit,closestEnemy);
             if (distance > unit.GetAttackDistance()&&unit.State!=UnitState.Die)
             {
-                if(unit.UnitReadonlyData.WalkSpeed>0) unit.MoveUnit();
+                if (unit.CanMove)
+                {
+                    if (unit.Position < _levelProgress.HeroLocalPosition) _levelProgress.ArmyMoving = true;
+                    if (_levelProgress.ArmyMoving)
+                    {
+                        unit.MoveUnit();
+                        //Debug.Log(unit.gameObject.ToString() + " Position " + unit.Position);
+                    }
+                    else if (unit.UnitReadonlyData.Type == UnitType.Hero)
+                    {
+                        unit.MoveUnit();
+                    }
+                    else
+                    {
+                        unit.SetIdle();
+                        unit.UpdatePosition(unit.transform.position.x);
+                    }
+                }     
+                else
+                {
+                    unit.SetIdle();
+                    unit.UpdatePosition(unit.transform.position.x);
+                }
             }
-            else if (distance <= unit.GetAttackDistance() && unit.State != UnitState.Die)
+            else if (distance <= unit.GetAttackDistance() && unit.State != UnitState.Die&& !_levelProgress.IsHeroMoving)
             {
                 unit.Attack();
                 unit.currentEnemy = closestEnemy;

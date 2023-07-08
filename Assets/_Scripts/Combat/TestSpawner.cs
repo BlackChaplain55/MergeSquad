@@ -7,6 +7,7 @@ public class TestSpawner : MonoBehaviour
 {
 
     [SerializeField] public UnitSpawner Spawner;
+    [SerializeField] public Unit SomeUnit;
     // Start is called before the first frame update
 
     private void Start()
@@ -33,5 +34,12 @@ public class TestSpawner : MonoBehaviour
     {
         var unitPrefab = Spawner.GetUnitPrefab(UnitType.Warrior);
         if (unitPrefab != null) Spawner.Spawn(unitPrefab);
+    }
+
+    [Button]
+
+    private void DealDamage() 
+    {
+        SomeUnit.TakeDamage(1000);
     }
 }

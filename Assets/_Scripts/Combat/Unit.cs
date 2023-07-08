@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public EquipmentSO WeaponSO { get; private set; }
     public EquipmentSO ArmorSO { get; private set; }
     public UnitStats UnitStats { get { return _unitStats; } }
-    public float Position { get; private set; }
+    [field: SerializeField] public float Position { get; private set; }
     public int Line { get; private set; }
     public UnitData UnitReadonlyData
     {
@@ -40,6 +40,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public UnitState State;
     public Unit currentEnemy;
+    [field: SerializeField] public bool CanMove { get; private set; }
 
     [SerializeField] private UnitData _unitData;
     [SerializeField] private float _health;
@@ -48,6 +49,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
+    private bool _isBoss;
+
     [SerializeField] private UnitStats _unitStats;
 
     private IUnitStatsProvider _statsProvider;
@@ -90,7 +93,22 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Health = _unitData.BaseHealth;
         _view = GetComponent<UnitView>();
         _view.SetAttackSpeed(_unitData.AttackSpeed);
+        _view.SetIdleSpeed();
         if (TryGetComponent<UnitProjectile>(out _projectiles)) _projectiles.InitPool();
+        Position = transform.position.x;
+        if (TryGetComponent<EnemySpawner>(out var _EnemySpawner))
+        {
+            _isBoss = true;
+            CanMove = false;
+            _EnemySpawner.SetSpawner(_unitSpawner);
+        }
+        else
+        {
+            _isBoss = false;
+            CanMove = true;
+        }
+        if(_unitData.Type==UnitType.Hero) CanMove = false;
+        
         Spawn();
     }
 
@@ -122,9 +140,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Health = UnitStats.MaxHealth;
         Line = Random.Range(0, CombatManager.Combat.linesCount);
         _view.ChangeAnimation(State);
-        transform.position = _unitSpawner.GetSpawnPoint(Line,isEnemy).position;
+        transform.parent = _unitSpawner.GetSpawnPoint(Line, isEnemy);
+        transform.position = transform.parent.position;
         //transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
         Position = transform.position.x;
+        _view.UpdateHealth(1);
         _view.FadeIn();
     }
 
@@ -134,8 +154,22 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         if (isEnemy) direction = -1;
         State = UnitState.Walking;
         _view.ChangeAnimation(State);
-        transform.Translate(new Vector3(_unitData.WalkSpeed*CombatManager.Combat.walkSpeedMultiplier*direction, 0, 0));
-        Position = transform.position.x;
+        transform.Translate(new Vector3(_unitData.WalkSpeed * CombatManager.Combat.walkSpeedMultiplier * direction, 0, 0));
+        UpdatePosition(transform.position.x);
+    }
+
+    public void UpdatePosition(float position)
+    {
+        Position = position;
+    }
+    public void SetMove(bool value)
+    {
+        CanMove = value;
+    }
+
+    public void SetIdle()
+    {
+        _view.ChangeAnimation(UnitState.Waiting);
     }
 
     public void Attack()
@@ -155,6 +189,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void TakeDamage(float damage)
     {
+        if (State == UnitState.Die) return;
         if (damage < 0) return;
         Health -= damage;
         if (Health <= 0)
@@ -162,6 +197,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             Health = 0;
             BeginDying();
         }
+        _view.UpdateHealth(Health/_unitStats.MaxHealth);
+        _view.DamageEffect();
     }
 
     public float GetAttackDistance()
@@ -189,7 +226,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Respawn()
     {
-        StartCoroutine(RespawnCooldown());
+        if (!_isBoss) StartCoroutine(RespawnCooldown()); else EventBus.onBossDeath?.Invoke(this);
     }
 
     private void BeginDying()
@@ -205,10 +242,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Spawn();
     }
 
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
-    }
 
     private void OnPropertyChanged([CallerMemberName] string name = null)
     {

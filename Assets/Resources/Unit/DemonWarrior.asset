@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee351210b241b2b4cb6b036d3cd2f05f, type: 3}
+  m_Name: DemonWarrior
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 1
+  <BaseHealth>k__BackingField: 150
+  <BaseAttack>k__BackingField: 25
+  <AttackSpeed>k__BackingField: 1
+  <AttackSpeedPerLevel>k__BackingField: 0
+  <WalkSpeed>k__BackingField: 0.05
+  <AttackDistance>k__BackingField: 0.15
+  <SummonCost>k__BackingField: 40
+  <BaseUpgradeCost>k__BackingField: 0
+  <UpgradeCostPerLevel>k__BackingField: 0
+  <MultiAttack>k__BackingField: 0
+  <RespawnTime>k__BackingField: 5
+  <AttackPerLevel>k__BackingField: 0
+  <HealthPerLevel>k__BackingField: 0
+  <MainSprite>k__BackingField: {fileID: 21300000, guid: 7324536e3b27a7949a5c8532734c704d,
+    type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: d53bb544bed2e334e8088aa61d14e181,
+    type: 3}
+  <ArmorType>k__BackingField: 0
+  <WeaponType>k__BackingField: 0

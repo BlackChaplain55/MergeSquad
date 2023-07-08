@@ -10,7 +10,7 @@ public class UnitSpawner : MonoBehaviour
 {
     [SerializeField] public GameObject[] EnemyTamplates;
     [field:SerializeField] public GameObject[] _spawnPoints { get; private set; }
-    [field: SerializeField] public GameObject[] _enemySpawnPoints { get; private set; }
+    [SerializeField] public List<GameObject> EnemySpawnPoints;
     [SerializedDictionary("Unit type","Prefab")] public SerializedDictionary<UnitType, GameObject> _unitTemplatesDictionary;
     //[SerializeField] private Transform _spawnPoint;
     //[SerializeField] private Transform _enemySpawnPoint;
@@ -31,13 +31,13 @@ public class UnitSpawner : MonoBehaviour
     {
         if (isEnemy)
         {
-            if(line<= _enemySpawnPoints.Length)
+            if(line<= EnemySpawnPoints.Count)
             {
-                return _enemySpawnPoints[line].transform;
+                return EnemySpawnPoints[line].transform;
             }
             else
             {
-                return _enemySpawnPoints[0].transform;
+                return EnemySpawnPoints[0].transform;
             }
         }
         else
