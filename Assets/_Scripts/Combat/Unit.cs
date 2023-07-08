@@ -118,8 +118,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         WeaponSO = weapon;
         _view.SetAttackSpeed(UnitStats.AttackSpeed);
-        //UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
-        //UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
         _unitStats.SetSnapshot(_statsProvider);
     }
 
@@ -224,10 +222,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
-        //UnitStats.ReCompute(UnitParameterType.Attack, _statsProvider);
-        //UnitStats.ReCompute(UnitParameterType.MaxHealth, _statsProvider);
-        //UnitStats.ReCompute(UnitParameterType.AttackSpeed, _statsProvider);
-        //UnitStats.ReCompute(UnitParameterType.UpgradeCost, _statsProvider);
         Health += _unitStats.MaxHealth - prevMaxHealth;
     }
 

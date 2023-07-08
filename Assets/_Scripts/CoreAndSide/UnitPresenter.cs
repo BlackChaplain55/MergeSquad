@@ -34,33 +34,60 @@ public class UnitPresenter : MonoBehaviour
         if (upgradeButton != null) upgradeButton.onClick.AddListener(() => OnUpgradeRequest?.Invoke());
         OnWeaponChanged += eqs => Weapon.GetItemTransform().localPosition = Vector3.zero;
         OnArmorChanged += eqs => Armor.GetItemTransform().localPosition = Vector3.zero;
+        Activate();
     }
 
     public void SetUnit(Unit unit)
     {
+        if (Unit != null)
+            RemoveAllListeners();
+
         Unit = unit;
-        Activate();
-        Unit.PropertyChanged += UpdateText;
-        Unit.GetUnitStatsRef().PropertyChanged += UpdateText;
+        
+        if (unit == null) return;
+
+        AddAllListeners();
+        InitSet();
         weapon.ItemType = Unit.UnitReadonlyData.WeaponType;
         armor.ItemType = Unit.UnitReadonlyData.ArmorType;
+
     }
 
     public void Activate()
     {
         ToggleActive(true);
 
+        weapon.OnItemReceived += Weapon_OnItemReceived;
+        armor.OnItemReceived += Armor_OnItemReceived;
+        weapon.PropertyChanged += (s, e) => EquipmentPropertyChanged(weapon, e.PropertyName);
+        armor.PropertyChanged += (s, e) => EquipmentPropertyChanged(armor, e.PropertyName);
+    }
+
+    private void InitSet()
+    {
         if (unitIcon != null) unitIcon.sprite = Unit.UnitReadonlyData.MainSprite;
         if (level != null) attack.text = Unit.Level.ToString();
         if (attack != null) attack.text = Unit.UnitStats.Attack.ToString();
         if (health != null) health.text = Mathf.Ceil(Unit.Health).ToString();
         if (upgradeCost != null) upgradeCost.text = Unit.UnitStats.UpgradeCost.ToString();
-        OnUpgradeRequest += Unit.Upgrade;
+    }
 
-        weapon.OnItemReceived += Weapon_OnItemReceived;
-        armor.OnItemReceived += Armor_OnItemReceived;
-        weapon.PropertyChanged += (s, e) => EquipmentPropertyChanged(weapon, e.PropertyName);
-        armor.PropertyChanged += (s, e) => EquipmentPropertyChanged(armor, e.PropertyName);
+    private void AddAllListeners()
+    {
+        Unit.PropertyChanged += UpdateText;
+        Unit.GetUnitStatsRef().PropertyChanged += UpdateText;
+        OnUpgradeRequest += Unit.Upgrade;
+    }
+
+    private void RemoveAllListeners()
+    {
+        Unit.PropertyChanged -= UpdateText;
+        Unit.GetUnitStatsRef().PropertyChanged -= UpdateText;
+        OnUpgradeRequest -= Unit.Upgrade;
+        weapon.OnItemReceived -= Weapon_OnItemReceived;
+        armor.OnItemReceived -= Armor_OnItemReceived;
+        weapon.PropertyChanged -= (s, e) => EquipmentPropertyChanged(weapon, e.PropertyName);
+        armor.PropertyChanged -= (s, e) => EquipmentPropertyChanged(armor, e.PropertyName);
     }
 
     private void EquipmentPropertyChanged(EquipmentSlot slot, string propertyName)
@@ -104,15 +131,11 @@ public class UnitPresenter : MonoBehaviour
     public void Clear()
     {
         ToggleActive(false);
-        Unit.PropertyChanged -= UpdateText;
-        weapon.OnItemReceived -= Weapon_OnItemReceived;
-        armor.OnItemReceived -= Armor_OnItemReceived;
-        OnUpgradeRequest -= Unit.Upgrade;
+        RemoveAllListeners();
     }
 
     public void UpdateText(object sender, PropertyChangedEventArgs e)
     {
-        Console.WriteLine("Prop: " + e.PropertyName);
         switch (e.PropertyName)
         {
             case nameof(UnitParameterType.Level): if (level != null) level.text = Unit.Level.ToString();

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Linq;
 
 public class SquadPresenter : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SquadPresenter : MonoBehaviour
     [SerializeField] private UnitController unitController;
     [SerializeField] private Dictionary<Unit, UnitPresenter> UnitSlots;
     private EquipmentBreaker _equipmentBreaker;
+    private int _typeSortCounter;
 
     private void OnValidate()
     {
@@ -26,6 +28,42 @@ public class SquadPresenter : MonoBehaviour
         UnitSlots = new Dictionary<Unit, UnitPresenter>();
         _equipmentBreaker = new(new List<EquipmentSlot>(), 0.02f);
         _equipmentBreaker.BreakRoutine = StartCoroutine(_equipmentBreaker.Tick());
+    }
+
+    public void Sort(int sortOption)
+    {
+        IOrderedEnumerable<KeyValuePair<Unit, UnitPresenter>> orderedCollection;
+
+        UnitSort param = (UnitSort)sortOption;
+
+        switch (param)
+        {
+            case UnitSort.EquipDeathTimer:
+                orderedCollection = UnitSlots.OrderBy(x => Math.Min(x.Value.Weapon.DeathTimer, x.Value.Armor.DeathTimer));
+                break;
+            case UnitSort.Level:
+                orderedCollection = UnitSlots.OrderByDescending(x => x.Key.Level);
+                break;
+            case UnitSort.UnitType:
+                int typesLength = Enum.GetValues(typeof(UnitType)).Length;
+                orderedCollection = UnitSlots.OrderBy(x => ((int)x.Key.UnitReadonlyData.Type + _typeSortCounter) % typesLength);
+                _typeSortCounter++;
+                break;
+            case UnitSort.Health:
+                orderedCollection = UnitSlots.OrderBy(x => x.Key.Health);
+                break;
+            case UnitSort.TraveledDistance:
+                orderedCollection = UnitSlots.OrderBy(x => x.Key.transform.position.x);
+                break;
+            default:
+                orderedCollection = (IOrderedEnumerable<KeyValuePair<Unit, UnitPresenter>>)UnitSlots;
+                break;
+        }
+
+        var collection = orderedCollection.ToArray();
+
+        for (int i =0; i < collection.Length; i++) 
+            collection[i].Value.transform.SetSiblingIndex(i); 
     }
 
     public void Add(Unit unit)
@@ -85,4 +123,13 @@ public class SquadPresenter : MonoBehaviour
         else
             mergeSystem.OnHoverEnd(slot);
     }
+}
+
+public enum UnitSort
+{
+    EquipDeathTimer,
+    Level,
+    UnitType,
+    Health,
+    TraveledDistance
 }

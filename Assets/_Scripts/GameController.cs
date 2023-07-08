@@ -25,17 +25,32 @@ public class GameController : MonoBehaviour
             OnGameProgressChanged?.Invoke(this.GameProgress);
         }
     }
+    public bool IsPaused { get { return _isPaused; } }
     public event Action<GameProgress> OnGameProgressChanged;
     public event Action<int> OnSceneChanged;
 
     [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
+    private bool _isPaused;
 
     public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
     public void StartMusic(AudioClip clip) => _sound?.StartMusic(clip);
     public void StopMusic() => _sound?.StopMusic();
 
     public void LoadScene(GameStates state) => SceneManager.LoadScene((int)state);
+    public void LoadScene(int sceneIndex) => SceneManager.LoadScene(sceneIndex);
+
+    public void LoadLevel(LevelSO data)
+    {
+        StartMusic(data.loadClip);
+        LoadScene(GameStates.Combat);
+    }
+
+    public void SetPause(bool flag)
+    {
+        _isPaused = flag;
+        Time.timeScale = flag ? 0 : 1;
+    }
 
     private void OnValidate()
     {
@@ -90,12 +105,6 @@ public class GameController : MonoBehaviour
 
         _sound?.StartMusic(newScene.buildIndex);
         OnSceneChanged?.Invoke(newScene.buildIndex);
-    }
-
-    public void LoadLevel(LevelSO data)
-    {
-        StartMusic(data.loadClip);
-        LoadScene(GameStates.Combat);
     }
 
     private void OnDestroy()

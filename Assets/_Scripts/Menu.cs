@@ -7,21 +7,12 @@ using DG.Tweening;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] private Button _restartButton;
     [SerializeField] private Image _blackScreen;
-    [SerializeField] private AudioClip _bell;
-    private void OnEnable()
-    {
-        if (GameController.Game == null) return;
-
-        bool isInCombatState = GameController.Game.GameState == GameStates.Combat;
-
-        _restartButton.interactable = isInCombatState;
-    }
+    [SerializeField] private AudioClip _startGameAudio;
 
     public void StartGame()
     {
-        StartScene(GameStates.Map, _bell);
+        StartScene(GameStates.Combat, _startGameAudio);
     }
 
     public void StartScene(GameStates state, AudioClip clip)

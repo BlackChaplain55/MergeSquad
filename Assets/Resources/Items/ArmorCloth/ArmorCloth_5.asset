@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: ArmorCloth_5
   m_EditorClassIdentifier: 
   Id: 4
-  Power: 15
+  Power: 1.2
   ItemSprite: {fileID: 21300000, guid: 0dc5b20c5abd15f439453d68abb6ab92, type: 3}
   Type: 11
-  DeathTimer: 90
+  DeathTimer: 15
+  BaseHP: 0.2
+  BaseAttack: 0.1
+  BaseAttackSpeed: 1
