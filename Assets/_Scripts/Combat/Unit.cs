@@ -50,7 +50,9 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
+    private UnitController _unitController;
     private bool _isBoss;
+    public bool IsBoss { get { return _isBoss; } }
 
     [SerializeField] private UnitStats _unitStats;
 
@@ -90,6 +92,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public void Init(UnitSpawner unitSpawner)
     {
         _unitSpawner = unitSpawner;
+        _unitController = _unitSpawner.gameObject.GetComponent<UnitController>();
         transform.parent.parent.TryGetComponent<Unit>(out _host);
         Health = _unitData.BaseHealth;
         _view = GetComponent<UnitView>();
@@ -136,16 +139,22 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Spawn()
     {
-        if (_host == null) return;
-        if (_host.State == UnitState.Die) return;
+        _unitStats.SetSnapshot(_statsProvider);
         State = UnitState.Waiting;
         Health = UnitStats.MaxHealth;
-        Line = Random.Range(0, CombatManager.Combat.linesCount);
+        CanMove = false;
+        if (!_isBoss) StartCoroutine(WalkDelay());
+        _unitSpawner.SpawnEffect(this);
         _view.ChangeAnimation(State);
-        transform.parent = _unitSpawner.GetSpawnPoint(Line, isEnemy);
-        transform.position = transform.parent.position;
+        if (_host != null)
+        {
+            if (_host.State == UnitState.Die) return;
+            transform.parent = _unitSpawner.GetSpawnPoint(isEnemy);
+            transform.position = transform.parent.position;
+        }
+        //Line = Random.Range(0, CombatManager.Combat.linesCount);
         //transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
-        Position = transform.position.x;
+        //Position = transform.position.x;
         UpdatePosition(transform.position.x);
         _view.UpdateHealth(1);
         _view.FadeIn();
@@ -239,7 +248,13 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         else
         {
             EventBus.OnBossDeath?.Invoke();
-            Destroy(gameObject);
+            var spawnedUnits = GetComponentsInChildren<Unit>();
+            foreach (Unit unit in spawnedUnits)
+            {
+                _unitController.RemoveFromList(unit);
+            }
+            _unitController.RemoveFromList(this);
+            gameObject.SetActive(false);
         }
     }
 
@@ -254,6 +269,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         yield return new WaitForSeconds(_unitData.RespawnTime);
         Spawn();
+    }
+
+    private IEnumerator WalkDelay()
+    {
+        yield return new WaitForSeconds(CombatManager.Combat.WalkBeginDelay);
+        CanMove = true;
     }
 
 

@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
     [field: SerializeField] public float walkSpeedMultiplier;
     [field: SerializeField] public float walkSpeedDiviation;
     [field: SerializeField] public float AttackDistanceDiviation;
+    [field: SerializeField] public float WalkBeginDelay;
     public static CombatManager Combat;
     public bool IsGame;
     

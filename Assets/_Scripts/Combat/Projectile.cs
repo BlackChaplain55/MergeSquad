@@ -28,9 +28,15 @@ public class Projectile : MonoBehaviour
         {
             transform.position = _archer.transform.position;
         }
+        DrawProjectile();
     }
 
     private void Update()
+    {
+        DrawProjectile();
+    }
+
+    private void DrawProjectile()
     {
         _archerX = _archer.transform.position.x;
         if (_targetUnit.State != UnitState.Die) _targetX = _target.transform.position.x;

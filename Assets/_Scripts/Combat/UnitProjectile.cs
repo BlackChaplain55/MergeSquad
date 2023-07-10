@@ -29,10 +29,17 @@ public class UnitProjectile : MonoBehaviour
             {
                 if (!projectileObject.activeSelf)
                 {
-                    var projectile = projectileObject.GetComponent<Projectile>();
-                    projectile.gameObject.SetActive(true);
-                    projectile.Init(gameObject, _unit.currentEnemy.gameObject, _shootPoint);
-                    break;
+                    if (projectileObject.TryGetComponent<Projectile>(out var projectile))
+                    {
+                        projectile.gameObject.SetActive(true);
+                        projectile.Init(gameObject, _unit.currentEnemy.gameObject, _shootPoint);
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("Pool error");
+                    };
+                    
                 }
             }
         }

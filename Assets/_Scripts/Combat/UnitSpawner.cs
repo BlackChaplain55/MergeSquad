@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using AYellowpaper.SerializedCollections;
 
 [RequireComponent(typeof(UnitController))]
+[RequireComponent(typeof(SpawnEffects))]
 
 public class UnitSpawner : MonoBehaviour
 {
@@ -12,14 +13,15 @@ public class UnitSpawner : MonoBehaviour
     [field:SerializeField] public GameObject[] _spawnPoints { get; private set; }
     [SerializeField] public List<GameObject> EnemySpawnPoints;
     [SerializedDictionary("Unit type","Prefab")] public SerializedDictionary<UnitType, GameObject> _unitTemplatesDictionary;
-    //[SerializeField] private Transform _spawnPoint;
-    //[SerializeField] private Transform _enemySpawnPoint;
     [SerializeField] private UnitController _unitController;
+    [SerializeField] private SpawnEffects _spawnEffects;
+    private int _currentLine = 0;
+    private int _currentEnemyLine = 0;
 
-    private void Start()
+    private void Awake()
     {
         if (_unitController == null) _unitController = GetComponent<UnitController>();
-        //Lines = new GameObject[CombatManager.Combat.linesCount];
+        if (_spawnEffects == null) _spawnEffects = GetComponent<SpawnEffects>();
     }
 
     public GameObject GetUnitPrefab(UnitType type)
@@ -27,31 +29,30 @@ public class UnitSpawner : MonoBehaviour
         return _unitTemplatesDictionary.GetValueOrDefault(type);
     }
 
-    public Transform GetSpawnPoint(int line, bool isEnemy)
+    public Transform GetSpawnPoint(bool isEnemy)
     {
         if (isEnemy)
         {
-            if(line<= EnemySpawnPoints.Count)
-            {
-                return EnemySpawnPoints[line].transform;
-            }
-            else
-            {
-                return EnemySpawnPoints[0].transform;
-            }
+            var line = EnemySpawnPoints[_currentEnemyLine].transform;
+            _currentEnemyLine++;
+            if (_currentEnemyLine >= EnemySpawnPoints.Count) _currentEnemyLine = 0;
+            return line;
         }
         else
         {
-            if (line <= _spawnPoints.Length)
-            {
-                return _spawnPoints[line].transform;
-            }
-            else
-            {
-                return _spawnPoints[0].transform;
-            }
+            var line = _spawnPoints[_currentLine].transform;
+            _currentLine++;
+            if (_currentLine >= _spawnPoints.Length) _currentLine = 0;
+            return line;         
         }
-        return null;
+        
+        return transform;
+    }
+
+    public void SpawnEffect(Unit unit)
+    {
+        if (_spawnEffects == null) _spawnEffects = GetComponent<SpawnEffects>();
+        _spawnEffects.SpawnEffect(unit.transform.parent, unit.isEnemy);
     }
 
     public void Spawn(GameObject unitObject, bool needInstance=true)
@@ -59,12 +60,16 @@ public class UnitSpawner : MonoBehaviour
         Unit unit = unitObject.GetComponent<Unit>();
         Transform spawnPoint;
         int line = Random.Range(0, CombatManager.Combat.linesCount);
-        spawnPoint = GetSpawnPoint(line, unit.isEnemy);
         GameObject newUnitObject;
-        if (needInstance) newUnitObject = Instantiate(unitObject, spawnPoint.position, spawnPoint.rotation, spawnPoint.transform);
+        if (needInstance)
+        {
+            spawnPoint = GetSpawnPoint(unit.isEnemy);
+            newUnitObject = Instantiate(unitObject, spawnPoint.position, spawnPoint.rotation, spawnPoint.transform);
+        }
         else newUnitObject = unitObject;
         Unit newUnit = newUnitObject.GetComponent<Unit>();
         newUnit.Init(this);
         _unitController.AddUnitToList(newUnit);
+        //_spawnEffects.SpawnEffect(newUnit.transform.parent, newUnit.isEnemy);
     }
 }
