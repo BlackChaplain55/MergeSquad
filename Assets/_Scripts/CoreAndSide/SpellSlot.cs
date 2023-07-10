@@ -1,10 +1,11 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class SpellSlot : EquipmentSlot, IPointerClickHandler
 {
-    [SerializeField] private MagicSystem magicSystem;
+    public Action<ItemSO> OnMagicCast;
 
     public override bool TryPlace(Slot slot)
     {
@@ -20,7 +21,7 @@ public class SpellSlot : EquipmentSlot, IPointerClickHandler
     {
         if (CurrentItem == null) return;
 
-        magicSystem.CastMagic(CurrentItem.Type);
+        OnMagicCast?.Invoke(CurrentItem);
         SetItem(null);
     }
 

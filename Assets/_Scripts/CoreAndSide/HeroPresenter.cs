@@ -7,10 +7,11 @@ using System.ComponentModel;
 
 public class HeroPresenter : MonoBehaviour
 {
-    public Unit Hero { get { return hero; } }
+    public Unit Hero { get { return _hero; } }
     [SerializeField] private UnitController unitController;
-    [SerializeField] private Unit hero;
-    [SerializeField] private EquipmentSlot magicSlot;
+    [SerializeField] private MagicSystem magicSystem;
+    [SerializeField] private MergeSystem mergeSystem;
+    [SerializeField] private SpellSlot spellSlot;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private TextMeshProUGUI attack;
     [SerializeField] private TextMeshProUGUI hpText;
@@ -18,6 +19,7 @@ public class HeroPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private TextMeshProUGUI upgradeCost;
     [SerializeField] private TextMeshProUGUI playerName;
+    private Unit _hero;
 
     private void OnValidate()
     {
@@ -29,6 +31,8 @@ public class HeroPresenter : MonoBehaviour
     {
         unitController.UnitsList.CollectionChanged += FindHero;
         GetHeroHard();
+
+        spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
     }
 
     public void UpdateText(object sender, PropertyChangedEventArgs e)
@@ -36,20 +40,20 @@ public class HeroPresenter : MonoBehaviour
         switch (e.PropertyName)
         {
             case nameof(UnitParameterType.Level):
-                if (level != null) level.text = hero.Level.ToString();
+                if (level != null) level.text = $"LVL {_hero.Level}";
                 break;
             case nameof(UnitParameterType.Attack):
-                if (attack != null) attack.text = hero.UnitStats.Attack.ToString();
+                if (attack != null) attack.text = _hero.UnitStats.Attack.ToString();
                 break;
             case nameof(UnitParameterType.UpgradeCost):
-                if (upgradeCost != null) upgradeCost.text = hero.UnitStats.UpgradeCost.ToString();
+                if (upgradeCost != null) upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString();
                 break;
             case nameof(UnitParameterType.Health):
                 if (hpText != null)
                 {
-                    hpText.text = $"{Mathf.Ceil(hero.Health)}/{Mathf.Ceil(hero.UnitStats.MaxHealth)}";
-                    hpBar.maxValue = hero.UnitStats.MaxHealth;
-                    hpBar.value = hero.Health;
+                    hpText.text = $"{Mathf.Ceil(_hero.Health)}/{Mathf.Ceil(_hero.UnitStats.MaxHealth)}";
+                    hpBar.maxValue = _hero.UnitStats.MaxHealth;
+                    hpBar.value = _hero.Health;
                 }
                 break;
             default:
@@ -66,8 +70,8 @@ public class HeroPresenter : MonoBehaviour
             if (newUnit.UnitReadonlyData.Type == UnitType.Hero)
             {
                 Debug.Log("Герой найден");
-                hero = newUnit;
-                Init(hero);
+                _hero = newUnit;
+                Init(_hero);
                 return;
             }
         }
@@ -80,8 +84,8 @@ public class HeroPresenter : MonoBehaviour
             if (unit.UnitReadonlyData.Type == UnitType.Hero)
             {
                 Debug.Log("Герой вытащен из списка юнитов");
-                hero = unit;
-                Init(hero);
+                _hero = unit;
+                Init(_hero);
                 return;
             }
         }
@@ -93,7 +97,7 @@ public class HeroPresenter : MonoBehaviour
 
         unitController.UnitsList.CollectionChanged -= FindHero;
 
-        if (level != null) attack.text = hero.Level.ToString();
+        if (level != null) level.text = $"LVL {hero.Level}";
         if (attack != null) attack.text = hero.UnitStats.Attack.ToString();
         if (upgradeCost != null) upgradeCost.text = hero.UnitStats.UpgradeCost.ToString();
         if (hpText != null)
@@ -105,17 +109,28 @@ public class HeroPresenter : MonoBehaviour
         AddAllListeners();
     }
 
+    private void CastMagic(ItemSO magicItem) =>
+        magicSystem.CastMagic(magicItem.Type);
+
     private void AddAllListeners()
     {
-        hero.PropertyChanged += UpdateText;
-        hero.GetUnitStatsRef().PropertyChanged += UpdateText;
-        upgradeButton.onClick.AddListener(hero.Upgrade);
+        _hero.PropertyChanged += UpdateText;
+        _hero.GetUnitStatsRef().PropertyChanged += UpdateText;
+        upgradeButton.onClick.AddListener(TryUpgradeHero);
+        spellSlot.OnMagicCast += CastMagic;
+    }
+
+    private void TryUpgradeHero()
+    {
+        if (GameController.Game.SpendSouls(_hero.UnitStats.UpgradeCost))
+            _hero.Upgrade();
     }
 
     private void RemoveAllListeners()
     {
-        hero.PropertyChanged -= UpdateText;
-        hero.GetUnitStatsRef().PropertyChanged -= UpdateText;
-        upgradeButton.onClick.RemoveListener(hero.Upgrade);
+        _hero.PropertyChanged -= UpdateText;
+        _hero.GetUnitStatsRef().PropertyChanged -= UpdateText;
+        upgradeButton.onClick.RemoveListener(TryUpgradeHero);
+        spellSlot.OnMagicCast -= CastMagic;
     }
 }

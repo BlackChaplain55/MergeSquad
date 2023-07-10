@@ -82,6 +82,14 @@ public class MergeSystem : MonoBehaviour
             OnItemCarryFail(_carryingItemSlot);
     }
 
+    public void OverlapChanged(Slot slot, bool state)
+    {
+        if (state)
+            OnHover(slot);
+        else
+            OnHoverEnd(slot);
+    }
+
     public void OnHover(Slot slot)
     {
         if (_carryingItemSlot == slot) return;

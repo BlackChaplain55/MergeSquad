@@ -3,26 +3,13 @@ using UnityEngine;
 
 public class UnitShop : MonoBehaviour
 {
-    public int Souls
-    {
-        get { return _souls; }
-        private set
-        {
-            _souls = value;
-            soulsText.text = value.ToString();
-        }
-    }
     [SerializeField] private UnitSpawner spawner;
     [SerializeField] private GameObject summonButtonTemplate;
     [SerializeField] private Transform summonButtonsParent;
-    [SerializeField] private TextMeshProUGUI soulsText;
-    private int _souls;
 
     private void Awake()
     {
         var unitTemplates = spawner._unitTemplatesDictionary;
-        Souls = GameController.Game.Settings.StartSouls;
-        EventBus.OnUnitDeath += unit => { if (unit.isEnemy) Souls += 5; };
 
         foreach (var unitType in unitTemplates)
         {
@@ -36,11 +23,7 @@ public class UnitShop : MonoBehaviour
 
     private void TryBuyNewUnit(UnitData unitData, GameObject template)
     {
-        int remainSouls = Souls - unitData.SummonCost;
-        if (remainSouls < 0)
-            return;
-
-        spawner.Spawn(template);
-        Souls = remainSouls;
+        if (GameController.Game.SpendSouls(unitData.SummonCost))
+            spawner.Spawn(template);
     }
 }

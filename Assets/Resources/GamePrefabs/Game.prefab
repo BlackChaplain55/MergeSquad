@@ -807,7 +807,6 @@ MonoBehaviour:
   summonButtonTemplate: {fileID: 7286053516083454029, guid: a6ea160e9e5f6bf4e87fce62cd23537d,
     type: 3}
   summonButtonsParent: {fileID: 0}
-  soulsText: {fileID: 0}
 --- !u!114 &2416108176590801386
 MonoBehaviour:
   m_ObjectHideFlags: 0

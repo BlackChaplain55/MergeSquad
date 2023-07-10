@@ -45,9 +45,13 @@ public class EquipmentSlot : Slot
             _itemPresenter.SetIcon(_placeHolder);
             _itemPresenter.SetColor(_placeHolderColor);
         }
+
+        OnItemSet(item);
+
+        if (bar == null) return;
+
         bar.enabled = isItemExist;
         barBackground.enabled = isItemExist;
-        OnItemSet(item);
     }
 
     public void ResetDeathTimer(EquipmentSO newItem)
@@ -67,6 +71,8 @@ public class EquipmentSlot : Slot
 
     protected virtual void ChangeBarValue()
     {
+        if (bar == null) return;
+
         Color hundred = Color.HSVToRGB(1 / 3f, 0.7f, 1);
         Color zero = Color.HSVToRGB(0, 0.7f, 1);
         var eqData = (EquipmentSO)CurrentItem;

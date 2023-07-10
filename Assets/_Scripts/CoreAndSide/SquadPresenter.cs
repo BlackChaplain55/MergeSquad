@@ -74,8 +74,8 @@ public class SquadPresenter : MonoBehaviour
         presenter.SetUnit(unit);
         UnitSlots.Add(unit, presenter);
 
-        presenter.Weapon.OnItemOverlapChanged += OverlapChanged;
-        presenter.Armor.OnItemOverlapChanged += OverlapChanged;
+        presenter.Weapon.OnItemOverlapChanged += mergeSystem.OverlapChanged;
+        presenter.Armor.OnItemOverlapChanged += mergeSystem.OverlapChanged;
 
         _equipmentBreaker.Slots.Add(presenter.Weapon);
         _equipmentBreaker.Slots.Add(presenter.Armor);
@@ -89,8 +89,8 @@ public class SquadPresenter : MonoBehaviour
         _equipmentBreaker.Slots.Remove(presenter.Weapon);
         _equipmentBreaker.Slots.Remove(presenter.Armor);
 
-        presenter.Weapon.OnItemOverlapChanged -= OverlapChanged;
-        presenter.Armor.OnItemOverlapChanged -= OverlapChanged;
+        presenter.Weapon.OnItemOverlapChanged -= mergeSystem.OverlapChanged;
+        presenter.Armor.OnItemOverlapChanged -= mergeSystem.OverlapChanged;
 
         presenter.Clear();
         Destroy(presenter.gameObject);
@@ -104,6 +104,9 @@ public class SquadPresenter : MonoBehaviour
         {
             foreach (Unit newUnit in e.NewItems)
             {
+                if (newUnit.UnitReadonlyData.Type == UnitType.Hero)
+                    continue;
+
                 Add(newUnit);
             }
         }
@@ -114,14 +117,6 @@ public class SquadPresenter : MonoBehaviour
                 Remove(oldUnit);
             }
         }
-    }
-
-    private void OverlapChanged(Slot slot, bool state)
-    {
-        if (state)
-            mergeSystem.OnHover(slot);
-        else
-            mergeSystem.OnHoverEnd(slot);
     }
 }
 

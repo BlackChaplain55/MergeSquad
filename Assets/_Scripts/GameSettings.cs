@@ -9,6 +9,7 @@ public class GameSettings : ScriptableObject
     public int ItemsPerRound;
     public float RoundTime;
     public int StartSouls;
+    public int SoulsPerKill;
 
     [Header("Items Settings")]
     [SerializedDictionary(nameof(ItemType), nameof(UnitParameterType.HealthPerLevel))]

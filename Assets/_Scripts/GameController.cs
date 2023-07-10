@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,12 +26,23 @@ public class GameController : MonoBehaviour
             OnGameProgressChanged?.Invoke(this.GameProgress);
         }
     }
+    public int Souls
+    {
+        get { return _souls; }
+        private set
+        {
+            _souls = value;
+            soulsText.text = value.ToString();
+        }
+    }
     public bool IsPaused { get { return _isPaused; } }
     public event Action<GameProgress> OnGameProgressChanged;
     public event Action<int> OnSceneChanged;
 
     [SerializeField] private GameProgress gameProgress;
+    [SerializeField] private TextMeshProUGUI soulsText;
     private SoundController _sound;
+    private int _souls;
     private bool _isPaused;
 
     public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
@@ -44,6 +56,16 @@ public class GameController : MonoBehaviour
     {
         StartMusic(data.loadClip);
         LoadScene(GameStates.Combat);
+    }
+
+    public bool SpendSouls(int value)
+    {
+        int remainSouls = Souls - value;
+        if (remainSouls < 0)
+            return false;
+
+        Souls = remainSouls;
+        return true;
     }
 
     public void SetPause(bool flag)
@@ -79,7 +101,8 @@ public class GameController : MonoBehaviour
             gameProgress = savedProgress;
             ArtifactsRepository?.Init(gameProgress.UnitArtifacts, gameProgress.ItemArtifacts);
         }
-            
+        Souls = Settings.StartSouls;
+        EventBus.OnUnitDeath += unit => { if (unit.isEnemy) Souls += Settings.SoulsPerKill; };
     }
 
     private IEnumerator Start() {

@@ -73,14 +73,14 @@ public class UnitPresenter : MonoBehaviour
     {
         Unit.PropertyChanged += UpdateText;
         Unit.GetUnitStatsRef().PropertyChanged += UpdateText;
-        OnUpgradeRequest += Unit.Upgrade;
+        OnUpgradeRequest += TryUpgradeUnit;
     }
 
     private void RemoveAllListeners()
     {
         Unit.PropertyChanged -= UpdateText;
         Unit.GetUnitStatsRef().PropertyChanged -= UpdateText;
-        OnUpgradeRequest -= Unit.Upgrade;
+        OnUpgradeRequest -= TryUpgradeUnit;
         weapon.OnItemReceived -= Weapon_OnItemReceived;
         armor.OnItemReceived -= Armor_OnItemReceived;
     }
@@ -128,6 +128,12 @@ public class UnitPresenter : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private void TryUpgradeUnit()
+    {
+        if (GameController.Game.SpendSouls(Unit.UnitStats.UpgradeCost))
+            Unit.Upgrade();
     }
 
     private void ToggleActive(bool flag)
