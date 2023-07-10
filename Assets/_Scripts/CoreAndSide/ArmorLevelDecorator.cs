@@ -11,9 +11,9 @@ public class ArmorLevelDecorator : ItemLevelDecorator
     public override float GetStats(ItemParameterType parameterType)
     {
         if (_unit == null)
-            return 0;
+            throw new NullReferenceException("Unit is null");
         else if (_unit.ArmorSO == null)
-            return 0;
+            throw new NullReferenceException("ArmorSO is null");
         else
         {
             EquipmentSO armor = _unit.ArmorSO;

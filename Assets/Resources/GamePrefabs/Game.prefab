@@ -751,6 +751,7 @@ GameObject:
   - component: {fileID: 2727207916814496755}
   - component: {fileID: 2727207916814496753}
   - component: {fileID: 2416108176590801386}
+  - component: {fileID: 890077397897273726}
   m_Layer: 0
   m_Name: JoinManager
   m_TagString: Untagged
@@ -823,6 +824,23 @@ MonoBehaviour:
   statisticsTitle: {fileID: 6346925513626412824}
   statisticsText: {fileID: 1430728685500252130}
   acceptResultButton: {fileID: 4801369270222892818}
+--- !u!114 &890077397897273726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2727207916814496756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce19fc8eda6bca948a4110b8b49287cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <GroundPosition>k__BackingField: {x: 0, y: 0, z: -10}
+  <FireBallFallDuration>k__BackingField: 0.9
+  <FireBallSpawnPosition>k__BackingField: {x: -1000, y: 1000, z: -10}
+  <FireBallProjectile>k__BackingField: {fileID: 0}
+  <FireBallExplosion>k__BackingField: {fileID: 0}
 --- !u!1 &2727207916846914699
 GameObject:
   m_ObjectHideFlags: 0

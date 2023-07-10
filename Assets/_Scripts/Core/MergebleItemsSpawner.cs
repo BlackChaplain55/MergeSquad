@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 
 public class MergebleItemsSpawner : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class MergebleItemsSpawner : MonoBehaviour
         }
     }
 
+    [Button]
     public void PlaceRandomItem()
     {
         var emptySlots = FindEmptySlotsIndex();

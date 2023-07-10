@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb20823c3b977d43b961ff37310e8bb, type: 3}
   m_Name: GenericGameSettings
   m_EditorClassIdentifier: 
-  MaxItemLevel: 4
+  MaxItemLevel: 9
   ItemsPerRound: 3
   RoundTime: 10
   StartSouls: 1000
@@ -59,3 +59,16 @@ MonoBehaviour:
     - Key: 16
       Value: 0.985
   ItemsDeathTimerPerLevel: 4
+  ItemUnderLayers:
+  - {fileID: 21300000, guid: 8e047de3ba669e541826d92e55639cc8, type: 3}
+  - {fileID: 21300000, guid: 282b007c862dd8a4cadf4c87eca6ceb0, type: 3}
+  - {fileID: 21300000, guid: 9dc461f1b2ef0e948bbd56b8ea4024ec, type: 3}
+  - {fileID: 21300000, guid: 31a6380b303d93b4695400dce87ff307, type: 3}
+  - {fileID: 21300000, guid: 053a982b056da13448052a12097935b3, type: 3}
+  - {fileID: 21300000, guid: 2b79327f790da9740b809dac41de0901, type: 3}
+  - {fileID: 21300000, guid: c02ec72602c9aa041a5abe775cfa4e48, type: 3}
+  - {fileID: 21300000, guid: a2fb0a572f6bb1c479c617539a705dc0, type: 3}
+  - {fileID: 21300000, guid: 3eb3c8b1a22a2404e92379b13de51e05, type: 3}
+  - {fileID: 21300000, guid: 20acab9d90e2b174f89bd11b5308e652, type: 3}
+  - {fileID: 21300000, guid: ea6be249b3493804aa1914737879d987, type: 3}
+  MagicTypes: 11000000

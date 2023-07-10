@@ -112,7 +112,7 @@ public class MergeSystem : MonoBehaviour
 
     private bool TryMerge(ItemSO carryingItem, ItemSO item2)
     {
-        bool isNotMaxLevel = carryingItem.Id != GameController.Game.Settings.MaxItemLevel;
+        bool isNotMaxLevel = carryingItem.Id < GameController.Game.Settings.MaxItemLevel;
         bool isSameType = carryingItem.Type == item2.Type;
         bool isSameLevel = carryingItem.Id == item2.Id;
         return isNotMaxLevel && isSameType && isSameLevel;

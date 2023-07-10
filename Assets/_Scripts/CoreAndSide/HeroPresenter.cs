@@ -28,6 +28,7 @@ public class HeroPresenter : MonoBehaviour
     private void Start()
     {
         unitController.UnitsList.CollectionChanged += FindHero;
+        GetHeroHard();
     }
 
     public void UpdateText(object sender, PropertyChangedEventArgs e)
@@ -61,9 +62,25 @@ public class HeroPresenter : MonoBehaviour
         if (e == null) return;
         foreach (Unit newUnit in e.NewItems)
         {
+            Debug.Log("Unit Type " + newUnit.UnitReadonlyData.Type);
             if (newUnit.UnitReadonlyData.Type == UnitType.Hero)
             {
+                Debug.Log("Герой найден");
                 hero = newUnit;
+                Init(hero);
+                return;
+            }
+        }
+    }
+
+    private void GetHeroHard()
+    {
+        foreach (Unit unit in unitController.UnitsList)
+        {
+            if (unit.UnitReadonlyData.Type == UnitType.Hero)
+            {
+                Debug.Log("Герой вытащен из списка юнитов");
+                hero = unit;
                 Init(hero);
                 return;
             }

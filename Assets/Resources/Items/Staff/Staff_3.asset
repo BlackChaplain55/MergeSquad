@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Staff_3
   m_EditorClassIdentifier: 
   Id: 2
-  Power: 9
+  Power: 0
   ItemSprite: {fileID: 21300000, guid: e7a2b88f38685df4c907c156a824c5f9, type: 3}
   Type: 16
   DeathTimer: 15
