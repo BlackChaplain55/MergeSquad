@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public static class MergeData
 {
-    public static Dictionary<ItemType, ItemResources> itemsDictionary = new Dictionary<ItemType, ItemResources>();
+    public static Dictionary<ItemType, ItemResources> itemsDictionary = new();
 
     public static void InitResources()
     {

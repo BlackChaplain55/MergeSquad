@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eb20823c3b977d43b961ff37310e8bb, type: 3}
-  m_Name: GenericGameSettings
+  m_Name: GameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
-  ItemsPerRound: 3
+  ItemsPerKill: 3
   RoundTime: 10
   StartSouls: 1000
+  SoulsPerKill: 5
+  UnitSummonCostProgression: 1.5
   HPPerLevel:
     _serializedList:
     - Key: 11

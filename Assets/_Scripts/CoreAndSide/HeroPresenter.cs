@@ -118,6 +118,15 @@ public class HeroPresenter : MonoBehaviour
         _hero.GetUnitStatsRef().PropertyChanged += UpdateText;
         upgradeButton.onClick.AddListener(TryUpgradeHero);
         spellSlot.OnMagicCast += CastMagic;
+        mergeSystem.OnSlotCarryStateChanged += SetHighlight;
+    }
+
+    public void SetHighlight(Slot slot, bool flag)
+    {
+        if (slot.CurrentItem == null) return;
+
+        if (spellSlot.TryPlace(slot))
+            spellSlot.SetHighlight(flag);
     }
 
     private void TryUpgradeHero()
@@ -132,5 +141,6 @@ public class HeroPresenter : MonoBehaviour
         _hero.GetUnitStatsRef().PropertyChanged -= UpdateText;
         upgradeButton.onClick.RemoveListener(TryUpgradeHero);
         spellSlot.OnMagicCast -= CastMagic;
+        mergeSystem.OnSlotCarryStateChanged -= SetHighlight;
     }
 }

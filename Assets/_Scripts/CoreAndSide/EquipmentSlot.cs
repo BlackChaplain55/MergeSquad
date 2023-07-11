@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,17 +17,22 @@ public class EquipmentSlot : Slot
         }
     }
     public ItemType ItemType;
+    [SerializeField] private Image highlight;
     [SerializeField] private Image bar;
     [SerializeField] private Image barBackground;
     private float _deathTimer;
     private Sprite _placeHolder;
     private Color _placeHolderColor;
+    private Color _highlightColor;
+    private Tween highlightTween;
 
     protected override void Awake()
     {
         base.Awake();
         _placeHolder = _itemPresenter.GetSprite();
         _placeHolderColor = _itemPresenter.GetColor();
+        if (highlight != null)
+            _highlightColor = highlight.color;
     }
 
     public override void SetItem(ItemSO item)
@@ -67,6 +73,19 @@ public class EquipmentSlot : Slot
             isLowerLevel = slot.CurrentItem.Id >= CurrentItem.Id;
 
         return isSameType && isLowerLevel;
+    }
+
+    public void SetHighlight(bool flag)
+    {
+        if (highlight == null)
+            return;
+
+        highlightTween?.Kill();
+        Color color = flag? _highlightColor : Color.clear;
+
+        highlight.enabled = true;
+        highlightTween = highlight.DOColor(color, 0.2f);
+        highlightTween.OnComplete(() => highlight.enabled = flag);
     }
 
     protected virtual void ChangeBarValue()

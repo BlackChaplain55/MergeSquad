@@ -17,16 +17,16 @@ MonoBehaviour:
     - Key: 11
       Value: 0
     - Key: 12
-      Value: 0
+      Value: 20
     - Key: 13
-      Value: 14
+      Value: 5
     - Key: 14
-      Value: 18
+      Value: 5
     - Key: 15
-      Value: 0
+      Value: 20
     - Key: 16
       Value: 0
     - Key: 17
-      Value: 0
+      Value: 10
     - Key: 18
       Value: 0

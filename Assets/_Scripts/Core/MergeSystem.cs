@@ -7,24 +7,27 @@ using UnityEngine.UI;
 
 public class MergeSystem : MonoBehaviour
 {
+    public Action<Slot, bool> OnSlotCarryStateChanged;
     [SerializeField] private InputReader input;
     [SerializeField] private SlotSpawner slotSpawner;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Camera _camera;
     [SerializeField] private float coroutinesTimeStep;
+    [SerializeField] private Color highlightColor;
     private Coroutine _carryRoutine;
-    private int carryingDelta = 10;
     private Slot _carryingItemSlot;
     private Slot _targetItemSlot;
     private Transform _itemTransform;
 
     private void Start()
     {
-        input.ClickEvents[InputActionPhase.Canceled] += () => OnItemDroped(_targetItemSlot);
+        input.ClickEvents[InputActionPhase.Canceled] += () => ItemDrop(_targetItemSlot);
     }
 
-    public void OnItemSelected(Slot slot)
+    public void ItemSelect(Slot slot)
     {
+        OnSlotCarryStateChanged?.Invoke(slot, true);
+
         if (_carryRoutine != null)
             StopCoroutine(_carryRoutine);
 
@@ -37,10 +40,13 @@ public class MergeSystem : MonoBehaviour
         _carryRoutine = StartCoroutine(CarryItem(coroutinesTimeStep, _itemTransform));
     }
 
-    public void OnItemDroped(Slot slot)
+    public void ItemDrop(Slot slot)
     {
+        OnSlotCarryStateChanged?.Invoke(slot, false);
+
         if (_carryRoutine != null)
             StopCoroutine(_carryRoutine);
+
 
         if (_carryingItemSlot == null) return;
         if (_targetItemSlot == null)
@@ -94,7 +100,7 @@ public class MergeSystem : MonoBehaviour
     {
         if (_carryingItemSlot == slot) return;
 
-        slot.GetComponent<Image>().color = Color.green;
+        slot.GetComponent<Image>().color = highlightColor;
 
         _targetItemSlot = slot;
     }
@@ -118,7 +124,7 @@ public class MergeSystem : MonoBehaviour
         }
     }
 
-    private bool TryMerge(ItemSO carryingItem, ItemSO item2)
+    public static bool TryMerge(ItemSO carryingItem, ItemSO item2)
     {
         bool isNotMaxLevel = carryingItem.Id < GameController.Game.Settings.MaxItemLevel;
         bool isSameType = carryingItem.Type == item2.Type;

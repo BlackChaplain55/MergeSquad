@@ -57,12 +57,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     private IUnitStatsProvider _statsProvider;
 
     public event PropertyChangedEventHandler PropertyChanged;
-    public event PropertyChangedEventHandler PropertyBeforeChanged;
 
     private void Awake()
     {
-        WeaponSO = ScriptableObject.CreateInstance<WeaponSO>();
-        ArmorSO = ScriptableObject.CreateInstance<ArmorSO>();
+        WeaponSO = Resources.Load<EquipmentSO>("Items/NullWeapon");
+        ArmorSO = Resources.Load<EquipmentSO>("Items/NullArmor");
 
         IItemStatsProvider weaponStats;
         IItemStatsProvider armorStats;
@@ -122,8 +121,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void SetWeapon(EquipmentSO weapon)
     {
-        weapon ??= ScriptableObject.CreateInstance<WeaponSO>();
-
         WeaponSO = weapon;
         _view.SetAttackSpeed(UnitStats.AttackSpeed);
         _unitStats.SetSnapshot(_statsProvider);
@@ -131,8 +128,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void SetArmor(EquipmentSO armor)
     {
-        armor ??= ScriptableObject.CreateInstance<ArmorSO>();
-
         ArmorSO = armor;
         float prevMaxHealth = UnitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
@@ -234,6 +229,9 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Upgrade()
     {
+        if (State == UnitState.Die)
+            return;
+
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);

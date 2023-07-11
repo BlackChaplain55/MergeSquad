@@ -15,8 +15,8 @@ public class UnitPresenter : MonoBehaviour
     public EquipmentSlot Weapon { get { return weapon; } }
     public EquipmentSlot Armor { get { return armor; } }
     public event UnityAction OnUpgradeRequest;
-    public event Action<EquipmentSO> OnWeaponChanged;
-    public event Action<EquipmentSO> OnArmorChanged;
+    //public event Action<EquipmentSO> OnWeaponChanged;
+    //public event Action<EquipmentSO> OnArmorChanged;
     [SerializeField] private List<GameObject> elements;
     [SerializeField] private EquipmentSlot weapon;
     [SerializeField] private EquipmentSlot armor;
@@ -60,6 +60,16 @@ public class UnitPresenter : MonoBehaviour
         armor.OnItemReceived += Armor_OnItemReceived;
     }
 
+    public void SetHighlightEquipment(Slot slot, bool flag)
+    {
+        if (slot.CurrentItem == null) return;
+
+        if (weapon.TryPlace(slot))
+            weapon.SetHighlight(flag);
+        if (armor.TryPlace(slot))
+            armor.SetHighlight(flag);
+    }
+
     private void InitSet()
     {
         if (unitIcon != null) unitIcon.sprite = Unit.UnitReadonlyData.MainSprite;
@@ -93,7 +103,7 @@ public class UnitPresenter : MonoBehaviour
             weapon.ResetDeathTimer(equipment);
             return;
         }
-        Unit.SetWeapon(null);
+        Unit.SetWeapon(Resources.Load<EquipmentSO>("Items/NullWeapon"));
     }
 
     private void Armor_OnItemReceived(ItemSO item)
@@ -104,7 +114,7 @@ public class UnitPresenter : MonoBehaviour
             armor.ResetDeathTimer(equipment);
             return;
         }
-        Unit.SetArmor(null);
+        Unit.SetArmor(Resources.Load<EquipmentSO>("Items/NullArmor"));
     }
 
     public void Clear()

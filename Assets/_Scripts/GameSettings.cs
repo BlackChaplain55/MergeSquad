@@ -6,10 +6,11 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     public int MaxItemLevel;
-    public int ItemsPerRound;
+    public int ItemsPerKill;
     public float RoundTime;
     public int StartSouls;
     public int SoulsPerKill;
+    public float UnitSummonCostProgression;
 
     [Header("Items Settings")]
     [SerializedDictionary(nameof(ItemType), nameof(UnitParameterType.HealthPerLevel))]

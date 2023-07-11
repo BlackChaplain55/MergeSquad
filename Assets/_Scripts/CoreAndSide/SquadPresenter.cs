@@ -76,6 +76,8 @@ public class SquadPresenter : MonoBehaviour
 
         presenter.Weapon.OnItemOverlapChanged += mergeSystem.OverlapChanged;
         presenter.Armor.OnItemOverlapChanged += mergeSystem.OverlapChanged;
+        mergeSystem.OnSlotCarryStateChanged += presenter.SetHighlightEquipment;
+        mergeSystem.OnSlotCarryStateChanged += presenter.SetHighlightEquipment;
 
         _equipmentBreaker.Slots.Add(presenter.Weapon);
         _equipmentBreaker.Slots.Add(presenter.Armor);
@@ -91,6 +93,8 @@ public class SquadPresenter : MonoBehaviour
 
         presenter.Weapon.OnItemOverlapChanged -= mergeSystem.OverlapChanged;
         presenter.Armor.OnItemOverlapChanged -= mergeSystem.OverlapChanged;
+        mergeSystem.OnSlotCarryStateChanged -= presenter.SetHighlightEquipment;
+        mergeSystem.OnSlotCarryStateChanged -= presenter.SetHighlightEquipment;
 
         presenter.Clear();
         Destroy(presenter.gameObject);

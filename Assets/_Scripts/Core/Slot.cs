@@ -27,6 +27,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _itemPresenter = GetComponentInChildren<ItemPresenter>();
+        if (_itemPresenter == null)
+            Debug.LogError("Item presenter is null : ", gameObject);
         _vfx = GetComponentInChildren<ParticleSystem>();
         OnItemMerged += MergeFX;
         OnItemReceived += ChangeUnderLayer;
@@ -40,10 +42,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     public virtual void SetItem(ItemSO item)
     {
         if (CurrentItem != null && item != null)
-        {
-            Debug.Log("Item merged");
             OnItemMerged?.Invoke(item);
-        }    
 
         CurrentItem = item;
         _itemPresenter.transform.position = transform.position;
