@@ -56,8 +56,8 @@ public class UnitPresenter : MonoBehaviour
     {
         ToggleActive(true);
 
-        weapon.OnItemReceived += Weapon_OnItemReceived;
-        armor.OnItemReceived += Armor_OnItemReceived;
+        weapon.OnItemChanged += Weapon_OnItemReceived;
+        armor.OnItemChanged += Armor_OnItemReceived;
     }
 
     public void SetHighlightEquipment(Slot slot, bool flag)
@@ -91,8 +91,8 @@ public class UnitPresenter : MonoBehaviour
         Unit.PropertyChanged -= UpdateText;
         Unit.GetUnitStatsRef().PropertyChanged -= UpdateText;
         OnUpgradeRequest -= TryUpgradeUnit;
-        weapon.OnItemReceived -= Weapon_OnItemReceived;
-        armor.OnItemReceived -= Armor_OnItemReceived;
+        weapon.OnItemChanged -= Weapon_OnItemReceived;
+        armor.OnItemChanged -= Armor_OnItemReceived;
     }
     
     private void Weapon_OnItemReceived(ItemSO item)

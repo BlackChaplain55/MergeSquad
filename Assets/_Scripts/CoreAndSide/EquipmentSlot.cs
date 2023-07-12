@@ -18,8 +18,8 @@ public class EquipmentSlot : Slot
     }
     public ItemType ItemType;
     [SerializeField] private Image highlight;
-    [SerializeField] private Image bar;
-    [SerializeField] private Image barBackground;
+    [SerializeField] protected Image bar;
+    [SerializeField] protected Image barBackground;
     private float _deathTimer;
     private Sprite _placeHolder;
     private Color _placeHolderColor;

@@ -6,4 +6,6 @@ public class MagicSO : ItemSO
     public float CooldownTime;
     public float BaseStrength;
     public float StrengthPerLevel;
+    public float BaseRange;
+    public float RangePerLevel;
 }

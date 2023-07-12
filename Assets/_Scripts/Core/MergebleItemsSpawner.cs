@@ -61,7 +61,8 @@ public class MergebleItemsSpawner : MonoBehaviour
             var slot = GetSlotById(emptySlots[slotRandomId]);
             if (slot.CurrentItem != null) Debug.LogError("В слоте уже присутсвует предмет");
             emptySlots.RemoveAt(slotRandomId);
-            var item = MergeData.itemsDictionary[key].GetItem(0);
+            int baseLevel = GameController.Game.Settings.ItemsBaseLevel - 1;
+            var item = MergeData.itemsDictionary[key].GetItem(baseLevel);
             slot.SetItem(item);
         }
     }

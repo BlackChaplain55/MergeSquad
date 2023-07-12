@@ -7,19 +7,20 @@ using System.ComponentModel;
 
 public class HeroPresenter : MonoBehaviour
 {
-    public Unit Hero { get { return _hero; } }
+    public Hero Hero { get { return _hero; } }
     [SerializeField] private UnitController unitController;
     [SerializeField] private MagicSystem magicSystem;
     [SerializeField] private MergeSystem mergeSystem;
     [SerializeField] private SpellSlot spellSlot;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private TextMeshProUGUI attack;
+    [SerializeField] private TextMeshProUGUI magicStrength;
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private Slider hpBar;
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private TextMeshProUGUI upgradeCost;
     [SerializeField] private TextMeshProUGUI playerName;
-    private Unit _hero;
+    private Hero _hero;
 
     private void OnValidate()
     {
@@ -44,6 +45,9 @@ public class HeroPresenter : MonoBehaviour
                 break;
             case nameof(UnitParameterType.Attack):
                 if (attack != null) attack.text = _hero.UnitStats.Attack.ToString();
+                break;
+            case nameof(UnitParameterType.MagicStrength):
+                if (magicStrength != null) magicStrength.text = $"Magic {_hero.MagicStrength}";
                 break;
             case nameof(UnitParameterType.UpgradeCost):
                 if (upgradeCost != null) upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString();
@@ -70,7 +74,7 @@ public class HeroPresenter : MonoBehaviour
             if (newUnit.UnitReadonlyData.Type == UnitType.Hero)
             {
                 Debug.Log("Герой найден");
-                _hero = newUnit;
+                _hero = newUnit as Hero;
                 Init(_hero);
                 return;
             }
@@ -83,8 +87,9 @@ public class HeroPresenter : MonoBehaviour
         {
             if (unit.UnitReadonlyData.Type == UnitType.Hero)
             {
-                Debug.Log("Герой вытащен из списка юнитов");
-                _hero = unit;
+                if (unit is Hero)
+                    Debug.Log("Герой вытащен из списка юнитов");
+                _hero = unit as Hero;
                 Init(_hero);
                 return;
             }
@@ -102,15 +107,18 @@ public class HeroPresenter : MonoBehaviour
         if (upgradeCost != null) upgradeCost.text = hero.UnitStats.UpgradeCost.ToString();
         if (hpText != null)
         {
-            hpText.text = $"{Mathf.Ceil(hero.Health)}/{Mathf.Ceil(hero.UnitStats.MaxHealth)}";
+            int currentHealth = (int)Mathf.Ceil(hero.Health);
+            int maxHealth = (int)Mathf.Ceil(hero.UnitStats.MaxHealth);
+
+            hpText.text = $"{currentHealth}/{maxHealth}";
             hpBar.maxValue = hero.UnitStats.MaxHealth;
             hpBar.value = hero.Health;
         }
         AddAllListeners();
     }
 
-    private void CastMagic(ItemSO magicItem) =>
-        magicSystem.CastMagic(magicItem.Type);
+    private void CastMagic(MagicSO magicItem) =>
+        magicSystem.CastMagic(_hero, magicItem);
 
     private void AddAllListeners()
     {
@@ -118,10 +126,23 @@ public class HeroPresenter : MonoBehaviour
         _hero.GetUnitStatsRef().PropertyChanged += UpdateText;
         upgradeButton.onClick.AddListener(TryUpgradeHero);
         spellSlot.OnMagicCast += CastMagic;
+        spellSlot.PropertyChanged += SpellSlot_PropertyChanged;
         mergeSystem.OnSlotCarryStateChanged += SetHighlight;
     }
 
-    public void SetHighlight(Slot slot, bool flag)
+    private void SpellSlot_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if(e.PropertyName.Equals(nameof(SpellSlot.CooldownTime)))
+            TryUpdateHiglight();
+    }
+
+    private void TryUpdateHiglight()
+    {
+        if (spellSlot.CooldownTime <= 0)
+            SetHighlight(mergeSystem.CarryingItemSlot, true);
+    }
+
+    private void SetHighlight(Slot slot, bool flag)
     {
         if (slot.CurrentItem == null) return;
 

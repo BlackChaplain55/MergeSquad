@@ -14,13 +14,14 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
     [field: SerializeField] public ItemSO CurrentItem { get; protected set; }
     public event Action<Slot, bool> OnItemPressedChanged;
     public event Action<Slot, bool> OnItemOverlapChanged;
-    public event Action<ItemSO> OnItemReceived;
+    public event Action<ItemSO> OnItemChanged;
     public event Action<ItemSO> OnItemMerged;
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected CanvasGroup _canvasGroup;
     protected ItemPresenter _itemPresenter;
     [SerializeField] private Image underLayer;
+    [SerializeField] private Image border;
     private ParticleSystem _vfx;
 
     protected virtual void Awake()
@@ -31,7 +32,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             Debug.LogError("Item presenter is null : ", gameObject);
         _vfx = GetComponentInChildren<ParticleSystem>();
         OnItemMerged += MergeFX;
-        OnItemReceived += ChangeUnderLayer;
+        OnItemChanged += ChangeUnderLayer;
+        OnItemChanged += ChangeBorder;
     }
 
     public void SetInteractable(bool flag)
@@ -47,7 +49,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
         CurrentItem = item;
         _itemPresenter.transform.position = transform.position;
 
-        if (CurrentItem != null)
+        if (item != null)
             _itemPresenter.SetItem(item);
         else
             _itemPresenter.Clear();
@@ -67,7 +69,7 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     protected void OnItemSet(ItemSO item)
     {
-        OnItemReceived?.Invoke(item);
+        OnItemChanged?.Invoke(item);
     }
 
     protected void OnPropertyChanged([CallerMemberName] string name = null)
@@ -77,13 +79,22 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
     protected void ChangeUnderLayer(ItemSO item)
     {
+
+        List<Sprite> layers = GameController.Game.Settings.ItemUnderLayers;
+        underLayer.sprite =
+            item != null?
+            layers[item.Id + 1] :
+            layers[0];
+    }
+
+    protected virtual void ChangeBorder(ItemSO item)
+    {
+        var settings = GameController.Game.Settings;
+
         if (item == null)
-            underLayer.color = Color.clear;
+            border.sprite = settings.ItemBorders[0];
         else
-        {
-            underLayer.sprite = GameController.Game.Settings.ItemUnderLayers[item.Id];
-            underLayer.color = Color.white;
-        }
+            border.sprite = item.Id != settings.GetMaxItemLevel() ? settings.ItemBorders[0] : settings.ItemBorders[1];
     }
 
     private void MergeFX(ItemSO newItem)

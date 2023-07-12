@@ -7,6 +7,11 @@ using UnityEngine.UI;
 
 public class MergeSystem : MonoBehaviour
 {
+    public Slot CarryingItemSlot
+    {
+        get { return _carryingItemSlot; }
+        set { _carryingItemSlot = value; }
+    }
     public Action<Slot, bool> OnSlotCarryStateChanged;
     [SerializeField] private InputReader input;
     [SerializeField] private SlotSpawner slotSpawner;
@@ -126,7 +131,7 @@ public class MergeSystem : MonoBehaviour
 
     public static bool TryMerge(ItemSO carryingItem, ItemSO item2)
     {
-        bool isNotMaxLevel = carryingItem.Id < GameController.Game.Settings.MaxItemLevel;
+        bool isNotMaxLevel = carryingItem.Id < GameController.Game.Settings.GetMaxItemLevel();
         bool isSameType = carryingItem.Type == item2.Type;
         bool isSameLevel = carryingItem.Id == item2.Id;
         return isNotMaxLevel && isSameType && isSameLevel;

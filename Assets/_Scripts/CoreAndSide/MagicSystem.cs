@@ -1,7 +1,9 @@
 using DG.Tweening;
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,21 +14,21 @@ public class MagicSystem : MonoBehaviour
     [field: SerializeField] public Vector3 FireBallSpawnPosition { get; private set; }
     [field: SerializeField] public ParticleSystem FireBallProjectile { get; private set; }
     [field: SerializeField] public ParticleSystem FireBallExplosion { get; private set; }
+    [SerializeField] private UnitController unitController;
 
-    public void CastMagic(ItemType type)
+    public void CastMagic(Hero hero, MagicSO magic)
     {
-        switch (type)
+        switch (magic.Type)
         {
             case ItemType.MagicFire:
-                UseFireBall();
+                UseFireBall(hero, magic);
             break;
 
             default: break;
         }
     }
 
-    [Button]
-    private void UseFireBall()
+    private void UseFireBall(Hero hero, MagicSO magic)
     {
         Transform fireBall = FireBallProjectile.transform;
         fireBall.localPosition = FireBallSpawnPosition;
@@ -54,7 +56,18 @@ public class MagicSystem : MonoBehaviour
             FireBallExplosion.Play();
             DOVirtual.DelayedCall(
                 FireBallExplosion.main.duration,
-                () => fireBall.localPosition = FireBallSpawnPosition);
+                OnFireballGrounded);
+        };
+
+        void OnFireballGrounded()
+        {
+            fireBall.localPosition = FireBallSpawnPosition;
+            float minRange = GroundPosition.x - magic.BaseRange;
+            float maxRange = GroundPosition.x + magic.BaseRange;
+            Func<Unit, bool> isEnemyInRange = unit => unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
+            var enemies = (List<Unit>)unitController.UnitsList.Where(isEnemyInRange);
+            
+            enemies.ForEach(enemy => enemy.TakeDamage(hero.MagicStrength));
         };
     }
 }

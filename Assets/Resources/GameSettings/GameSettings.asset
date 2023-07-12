@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
+  ItemsBaseLevel: 8
   ItemsPerKill: 3
-  RoundTime: 10
   StartSouls: 1000
   SoulsPerKill: 5
   UnitSummonCostProgression: 1.5
@@ -60,8 +60,17 @@ MonoBehaviour:
       Value: 0.98
     - Key: 16
       Value: 0.985
+  MagicStrengthPerLevel:
+    _serializedList:
+    - Key: 17
+      Value: 0
+  MagicRangePerLevel:
+    _serializedList:
+    - Key: 17
+      Value: 0
   ItemsDeathTimerPerLevel: 4
   ItemUnderLayers:
+  - {fileID: 21300000, guid: aa271c25a1e73b84abc3adb79b7c3d61, type: 3}
   - {fileID: 21300000, guid: 8e047de3ba669e541826d92e55639cc8, type: 3}
   - {fileID: 21300000, guid: 282b007c862dd8a4cadf4c87eca6ceb0, type: 3}
   - {fileID: 21300000, guid: 9dc461f1b2ef0e948bbd56b8ea4024ec, type: 3}
@@ -71,6 +80,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c02ec72602c9aa041a5abe775cfa4e48, type: 3}
   - {fileID: 21300000, guid: a2fb0a572f6bb1c479c617539a705dc0, type: 3}
   - {fileID: 21300000, guid: 3eb3c8b1a22a2404e92379b13de51e05, type: 3}
-  - {fileID: 21300000, guid: 20acab9d90e2b174f89bd11b5308e652, type: 3}
+  ItemBorders:
+  - {fileID: 21300000, guid: 7b10e0fcd17e0544e8fdc80044314065, type: 3}
+  - {fileID: 21300000, guid: 4f5c5aa2a2583f9429f8a11dc5c28df4, type: 3}
   - {fileID: 21300000, guid: ea6be249b3493804aa1914737879d987, type: 3}
+  - {fileID: 21300000, guid: 20acab9d90e2b174f89bd11b5308e652, type: 3}
   MagicTypes: 11000000
