@@ -38,7 +38,16 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-
+    public float RespawnTimer
+    {
+        get { return _respawnTimer; }
+        set
+        {
+            _respawnTimer = value;
+            OnPropertyChanged();
+        }
+    }
+    
     public UnitState State;
     public Unit currentEnemy;
     [field: SerializeField] public bool CanMove { get; private set; }
@@ -47,6 +56,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] private float _health;
     [SerializeField] private int _level;
     [SerializeField] private Unit _host;
+    private float _respawnTimer;
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
@@ -261,18 +271,16 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     private IEnumerator RespawnCooldown()
     {
-        yield return new WaitForSeconds(_unitData.RespawnTime);
-        Spawn();
-        //float timeStep = 0.1f;
-        //WaitForSeconds wait = new(timeStep);
-        //float RespawnTimer = _unitData.RespawnTime;
-        //while (RespawnTimer > 0)
-        //{
-        //    RespawnTimer -= timeStep;
-        //    yield return wait;
-        //}
+        float timeStep = 0.1f;
+        WaitForSeconds wait = new(timeStep);
+        RespawnTimer = _unitData.RespawnTime;
+        while (RespawnTimer > 0)
+        {
+            RespawnTimer -= timeStep;
+            yield return wait;
+        }
 
-        //Spawn();
+        Spawn();
     }
 
     private IEnumerator WalkDelay()

@@ -15,7 +15,7 @@ MonoBehaviour:
   Id: 4
   Power: 0
   ItemSprite: {fileID: 21300000, guid: a0b60fc9a1b75e741b6a287d662a1eeb, type: 3}
-  Type: 17
+  Type: 6
   CooldownTime: 8
-  BaseStrength: 2
-  StrengthPerLevel: 1.2
+  BaseStrength: 100
+  BaseRange: 100
