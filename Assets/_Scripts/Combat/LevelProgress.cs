@@ -44,6 +44,11 @@ public class LevelProgress : MonoBehaviour
         _levelProgressView.Init(_bossesTemplates.Count);
     }
 
+    private void OnDestroy()
+    {
+        EventBus.OnBossDeath -= BossDeath;
+    }
+
     public void Init()
     {
         _levelLength = _currentCanvas.renderingDisplaySize.x;

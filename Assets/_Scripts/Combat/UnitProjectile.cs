@@ -38,8 +38,7 @@ public class UnitProjectile : MonoBehaviour
                     else
                     {
                         Debug.Log("Pool error");
-                    };
-                    
+                    };      
                 }
             }
         }
