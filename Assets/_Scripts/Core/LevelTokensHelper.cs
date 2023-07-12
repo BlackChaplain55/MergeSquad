@@ -138,6 +138,8 @@ public class LevelTokensHelper : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(LevelTokensHelper))]
 public class SpawnerHelper : Editor
 {
@@ -168,3 +170,5 @@ public class SpawnerHelper : Editor
         }
     }
 }
+
+#endif

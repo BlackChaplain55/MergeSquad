@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxItemLevel: 9
   ItemsBaseLevel: 2
   ItemsPerKill: 3
-  StartSouls: 1000
+  StartSouls: 200
   SoulsPerKill: 5
   UnitSummonCostProgression: 1.5
   HPPerLevel:
