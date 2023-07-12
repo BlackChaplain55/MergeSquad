@@ -269,6 +269,16 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         yield return new WaitForSeconds(_unitData.RespawnTime);
         Spawn();
+        //float timeStep = 0.1f;
+        //WaitForSeconds wait = new(timeStep);
+        //float RespawnTimer = _unitData.RespawnTime;
+        //while (RespawnTimer > 0)
+        //{
+        //    RespawnTimer -= timeStep;
+        //    yield return wait;
+        //}
+
+        //Spawn();
     }
 
     private IEnumerator WalkDelay()
