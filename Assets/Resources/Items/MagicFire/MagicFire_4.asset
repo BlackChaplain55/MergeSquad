@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MagicFire_4
   m_EditorClassIdentifier: 
   Id: 3
-  Power: 12
+  Power: 0
   ItemSprite: {fileID: 21300000, guid: bc89e5b752433a9418f703602d532a5c, type: 3}
   Type: 17
+  CooldownTime: 8
+  BaseStrength: 2
+  StrengthPerLevel: 1.2

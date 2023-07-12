@@ -43,7 +43,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public Unit currentEnemy;
     [field: SerializeField] public bool CanMove { get; private set; }
 
-    [SerializeField] private UnitData _unitData;
+    [SerializeField] protected UnitData _unitData;
     [SerializeField] private float _health;
     [SerializeField] private int _level;
     [SerializeField] private Unit _host;
@@ -54,33 +54,20 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     private bool _isBoss;
     public bool IsBoss { get { return _isBoss; } }
 
-    [SerializeField] private UnitStats _unitStats;
+    [SerializeField] protected UnitStats _unitStats;
 
-    private IUnitStatsProvider _statsProvider;
+    protected IUnitStatsProvider _statsProvider;
 
     public event PropertyChangedEventHandler PropertyChanged;
-    public event PropertyChangedEventHandler PropertyBeforeChanged;
 
     private void Awake()
     {
-        IItemStatsProvider weaponStats;
-        IItemStatsProvider armorStats;
-        if (GameController.Game != null)
-        {
-            var artifactsRepo = GameController.Game.ArtifactsRepository;
-            Artifact[] artifacts = artifactsRepo[UnitStats.Type];
-        }
+        WeaponSO = Resources.Load<EquipmentSO>("Items/NullWeapon");
+        ArmorSO = Resources.Load<EquipmentSO>("Items/NullArmor");
 
         Level = 1;
-        //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
-        _statsProvider = new UnitLevelDecorator(_unitData, this);
-        //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
-        armorStats = new ArmorLevelDecorator(this);
-        //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
-        weaponStats = new WeaponLevelDecorator(this);
-        _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
-        _unitStats = new UnitStats(_unitData);
-        _unitStats.SetSnapshot(_statsProvider);
+        InitDecorators();
+
         Health = UnitStats.MaxHealth;
     }
 
@@ -234,8 +221,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-    public void Upgrade()
+    public virtual void Upgrade()
     {
+        if (State == UnitState.Die)
+            return;
+
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
@@ -287,8 +277,29 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         CanMove = true;
     }
 
+    protected virtual void InitDecorators()
+    {
+        IItemStatsProvider weaponStats;
+        IItemStatsProvider armorStats;
 
-    private void OnPropertyChanged([CallerMemberName] string name = null)
+        if (GameController.Game != null)
+        {
+            var artifactsRepo = GameController.Game.ArtifactsRepository;
+            Artifact[] artifacts = artifactsRepo[UnitStats.Type];
+        }
+
+        //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
+        _statsProvider = new UnitLevelDecorator(_unitData, this);
+        //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
+        armorStats = new ArmorLevelDecorator(this);
+        //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
+        weaponStats = new WeaponLevelDecorator(this);
+        _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
+        _unitStats = new UnitStats(_unitData);
+        _unitStats.SetSnapshot(_statsProvider);
+    }
+
+    protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }

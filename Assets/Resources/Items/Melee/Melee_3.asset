@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 2
   Power: 10
-  ItemSprite: {fileID: 21300000, guid: 7279549ee8f44f94ba19e7a9a4ae7063, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 995b87bea504d9149b335499ae344874, type: 3}
   Type: 14
-  DeathTimer: 50
+  DeathTimer: 15
   BaseHP: 0
   BaseAttack: 0.1
   BaseAttackSpeed: 1

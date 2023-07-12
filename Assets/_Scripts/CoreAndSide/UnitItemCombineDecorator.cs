@@ -32,12 +32,14 @@ public class CombineUnitItemDecorator : IUnitStatsProvider
         }
         else if (parameterType == UnitParameterType.MaxHealth)
         {
-            float bonus = initValue + _armor.GetStats(ItemParameterType.HP);
+            float hp = _armor.GetStats(ItemParameterType.HP);
+            float bonus = initValue + hp;
             return original * bonus;
         }
         else if (parameterType == UnitParameterType.AttackSpeed)
         {
-            float bonus = initValue + _weapon.GetStats(ItemParameterType.AttackSpeed);
+            float bonus = _weapon.GetStats(ItemParameterType.AttackSpeed);
+
             return original * bonus;
         }
 

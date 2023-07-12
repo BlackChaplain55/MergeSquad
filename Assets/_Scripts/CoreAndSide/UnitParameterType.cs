@@ -18,4 +18,6 @@ public enum UnitParameterType
     RespawnTime,
     AttackPerLevel,
     HealthPerLevel,
+    MagicStrength,
+    MagicRange,
 }

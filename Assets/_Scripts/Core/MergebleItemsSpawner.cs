@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 
 public class MergebleItemsSpawner : MonoBehaviour
 {
@@ -17,8 +18,7 @@ public class MergebleItemsSpawner : MonoBehaviour
 
     private void Awake()
     {
-        MergeData.InitResources();
-        EventBus.OnUnitDeath += unit => { if (unit.isEnemy) PlaceRandomItem(); };
+        EventBus.OnUnitDeath += AddItemsOnUnitKill;
         _slotSpawner = GetComponent<SlotSpawner>();
 
         foreach (var item in Chances.ItemTypeChances)
@@ -27,19 +27,19 @@ public class MergebleItemsSpawner : MonoBehaviour
         }
     }
 
+    [Button]
     public void PlaceRandomItem()
     {
         var emptySlots = FindEmptySlotsIndex();
-        for (int i = 1; i <= GameController.Game.Settings.ItemsPerRound; i++)
+        for (int i = 1; i <= GameController.Game.Settings.ItemsPerKill; i++)
         {
             if (emptySlots.Count < 1)
             {
                 return;
             }
             int itemRandom = UnityEngine.Random.Range(0, _totalItemChances);
-            int currentChance = 0;
+            int currentChance;
             int currentChanceAccum = 0;
-            int previousChanceAccum = 0;
             int typeIndex = 0;
 
             var chances = Chances.ItemTypeChances;
@@ -59,14 +59,25 @@ public class MergebleItemsSpawner : MonoBehaviour
 
             int slotRandomId = UnityEngine.Random.Range(0, emptySlots.Count);
             var slot = GetSlotById(emptySlots[slotRandomId]);
-            emptySlots.Remove(slotRandomId);
-            var item = MergeData.itemsDictionary[key].GetItem(0);
+            if (slot.CurrentItem != null) Debug.LogError("В слоте уже присутсвует предмет");
+            emptySlots.RemoveAt(slotRandomId);
+            int baseLevel = GameController.Game.Settings.ItemsBaseLevel - 1;
+            var item = MergeData.itemsDictionary[key].GetItem(baseLevel);
             slot.SetItem(item);
         }
     }
 
+    private void AddItemsOnUnitKill(Unit unit)
+    {
+        if (unit.isEnemy)
+            PlaceRandomItem();
+    }
+
     private List<int> FindEmptySlotsIndex()
     {
+        if (_slotSpawner.SlotDictionary.Count < 1)
+            return new();
+
         List<int> emptySlots = new List<int>();
         int slotsCount = _slotSpawner.SlotDictionary.Count;
 
@@ -82,5 +93,10 @@ public class MergebleItemsSpawner : MonoBehaviour
     private Slot GetSlotById(int id)
     {
         return _slotSpawner.SlotDictionary[id];
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.OnUnitDeath -= AddItemsOnUnitKill;
     }
 }

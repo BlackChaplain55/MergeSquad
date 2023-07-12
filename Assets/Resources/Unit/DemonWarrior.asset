@@ -26,9 +26,9 @@ MonoBehaviour:
   <RespawnTime>k__BackingField: 5
   <AttackPerLevel>k__BackingField: 1.25
   <HealthPerLevel>k__BackingField: 1.25
-  <MainSprite>k__BackingField: {fileID: 21300000, guid: 7324536e3b27a7949a5c8532734c704d,
+  <MainSprite>k__BackingField: {fileID: 21300000, guid: c1d4cad893da3cf4fb2afafc9f83c106,
     type: 3}
-  <Icon>k__BackingField: {fileID: 21300000, guid: d53bb544bed2e334e8088aa61d14e181,
+  <Icon>k__BackingField: {fileID: 21300000, guid: 32a832fe3ad3c2440be459fb26403f97,
     type: 3}
   <ArmorType>k__BackingField: 13
   <WeaponType>k__BackingField: 14

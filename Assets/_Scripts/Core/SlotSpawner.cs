@@ -42,9 +42,9 @@ public class SlotSpawner : MonoBehaviour
             slot.OnItemPressedChanged += (slot, isPressed) =>
             {
                 if (isPressed)
-                    mergeInput.OnItemSelected(slot);
+                    mergeInput.ItemSelect(slot);
                 else
-                    mergeInput.OnItemDroped(slot);
+                    mergeInput.ItemDrop(slot);
             };
             slot.OnItemOverlapChanged += (slot, isBegin) =>
             {
@@ -54,7 +54,5 @@ public class SlotSpawner : MonoBehaviour
                     mergeInput.OnHoverEnd(slot);
             };
         }
-
-        //DOVirtual.DelayedCall(0.1f, () => _grid.enabled = false);
     }
 }
