@@ -121,7 +121,7 @@ MonoBehaviour:
   State: 0
   currentEnemy: {fileID: 0}
   <CanMove>k__BackingField: 0
-  _unitData: {fileID: 11400000, guid: 9288f8ba85d11684496a7cbce9b55801, type: 2}
+  _unitData: {fileID: 11400000, guid: 61b122970a712974bb34494ed3ea4f3a, type: 2}
   _health: 0
   _level: 0
   _host: {fileID: 0}

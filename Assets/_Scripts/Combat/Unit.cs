@@ -100,7 +100,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             _isBoss = false;
             CanMove = true;
         }
-        if(_unitData.Type==UnitType.Hero) CanMove = false;
+        if (_unitData.Type == UnitType.Hero)
+        {
+            _isBoss = true;
+            CanMove = false;
+        }
         
         Spawn();
     }

@@ -1215,7 +1215,7 @@ PrefabInstance:
     - target: {fileID: 6917462675691909221, guid: e0fa66b946382994fa6224ff97ca0b45,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0034179688
+      value: 0.0009765625
       objectReference: {fileID: 0}
     - target: {fileID: 7622890180509103145, guid: e0fa66b946382994fa6224ff97ca0b45,
         type: 3}
@@ -1232,6 +1232,12 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7822611253785040707, guid: e0fa66b946382994fa6224ff97ca0b45,
+        type: 3}
+      propertyPath: _characterUI
+      value: 
+      objectReference: {fileID: 7505434999863304314, guid: 792a00758b8bd3f4186c9e745cb23f83,
+        type: 3}
     - target: {fileID: 7822611253845033769, guid: e0fa66b946382994fa6224ff97ca0b45,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1357,6 +1363,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game
       objectReference: {fileID: 0}
+    - target: {fileID: 5414387223196659741, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.0000076
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120529160895087498, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.0000076
+      objectReference: {fileID: 0}
     - target: {fileID: 7778799360071373227, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
         type: 3}
       propertyPath: m_Enabled
@@ -1375,6 +1391,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 299294998, guid: b8b4ff97130710c4082b7dc2ac85f9f1, type: 3}
+      propertyPath: _bossesTemplates.Array.data[3]
+      value: 
+      objectReference: {fileID: 425036865094653353, guid: 758cf0ba5fb32334b9d014fe298f5f03,
+        type: 3}
+    - target: {fileID: 299294998, guid: b8b4ff97130710c4082b7dc2ac85f9f1, type: 3}
+      propertyPath: _bossesTemplates.Array.data[4]
+      value: 
+      objectReference: {fileID: 425036865094653353, guid: 6c3789fea1d32f541bfaec5b9d49dd42,
+        type: 3}
     - target: {fileID: 577216944, guid: b8b4ff97130710c4082b7dc2ac85f9f1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

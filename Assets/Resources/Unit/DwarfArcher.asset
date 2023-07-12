@@ -28,5 +28,5 @@ MonoBehaviour:
   <HealthPerLevel>k__BackingField: 1.05
   <MainSprite>k__BackingField: {fileID: 0}
   <Icon>k__BackingField: {fileID: 0}
-  <ArmorType>k__BackingField: 0
-  <WeaponType>k__BackingField: 0
+  <ArmorType>k__BackingField: 12
+  <WeaponType>k__BackingField: 15
