@@ -1,13 +1,11 @@
 using UnityEngine;
 
-[System.Serializable]
 [CreateAssetMenu(fileName = "NewMagic_1", menuName = "ITEMS/Magic")]
-public class MagicSO : ItemSO, IMagic
+public class MagicSO : ItemSO
 {
-    ItemType IMagic.Type => Type;
-
-    public bool Use()
-    {
-        return true;
-    }
+    public float CooldownTime;
+    public float BaseStrength;
+    public float StrengthPerLevel;
+    public float BaseRange;
+    public float RangePerLevel;
 }

@@ -10,9 +10,9 @@ public class WeaponLevelDecorator : ItemLevelDecorator
     public override float GetStats(ItemParameterType parameterType)
     {
         if (_unit == null)
-            return 0;
+            throw new System.NullReferenceException("Unit is null");
         else if (_unit.WeaponSO == null)
-            return 0;
+            throw new System.NullReferenceException("WeaponSO is null");
         else
         {
             EquipmentSO weapon = _unit.WeaponSO;

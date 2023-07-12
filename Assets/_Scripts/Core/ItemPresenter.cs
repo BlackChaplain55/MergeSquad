@@ -7,10 +7,12 @@ public class ItemPresenter : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI typeText;
+    private Shadow _shadow;
 
     private void OnValidate()
     {
         icon ??= GetComponent<Image>();
+        _shadow ??= GetComponent<Shadow>();
         if (levelText == null || typeText == null)
         {
             TextMeshProUGUI[] texts = GetComponents<TextMeshProUGUI>();
@@ -22,12 +24,13 @@ public class ItemPresenter : MonoBehaviour
     public void Init(int id, ItemType type)
     {
         icon.sprite = MergeData.GetItemVisualById(type, id);
-        levelText.text = id.ToString();
+        levelText.text = (id + 1).ToString();
         typeText.text = MergeData.GetShortName(type);
     }
 
     public void SetItem(ItemSO item)
     {
+        SetColor(Color.white);
         SetLevel(item.Id);
         SetType(item.Type);
         SetIcon(MergeData.GetItemVisualById(item.Type, item.Id));
@@ -47,6 +50,17 @@ public class ItemPresenter : MonoBehaviour
         typeText.text = MergeData.GetShortName(type);
     }
 
+    public void SetColor(Color value)
+    {
+        icon.color = value;
+    }
+
+    public void SetShadowColor(Color value)
+    {
+        if (_shadow == null) return;
+        _shadow.effectColor = value;
+    }
+
     public void SetIcon(Sprite sprite)
     {
         if (icon == null) return;
@@ -54,6 +68,9 @@ public class ItemPresenter : MonoBehaviour
         icon.enabled = sprite != null;
         icon.sprite = sprite;
     }
+
+    public Color GetColor() => icon.color;
+    public Sprite GetSprite() => icon.sprite;
 
     public void Clear()
     {

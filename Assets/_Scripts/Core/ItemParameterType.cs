@@ -4,5 +4,7 @@ public enum ItemParameterType
     HP,
     Attack,
     AttackSpeed,
-    DeathTimer
+    DeathTimer,
+    MagicStrength,
+    MagicRange,
 }

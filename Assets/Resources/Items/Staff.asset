@@ -18,6 +18,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdc97cf907927cb4d9065bc38633cf57, type: 2}
   - {fileID: 11400000, guid: 0a69226e0dc8f5f4ebe183b237c5134e, type: 2}
   - {fileID: 11400000, guid: 5124b4ea68dc8194e919dfd369b83dcc, type: 2}
+  - {fileID: 11400000, guid: 8fd1bb975fc372744a62517cbe0fd124, type: 2}
+  - {fileID: 11400000, guid: 8c642426c034f2542a0eb0cdd3073aff, type: 2}
+  - {fileID: 11400000, guid: 89e94f7def665b343886da9ebc21a9e5, type: 2}
+  - {fileID: 11400000, guid: 0f7f263c4d093a4439367991f79c7c67, type: 2}
   FullName: "\u041F\u043E\u0441\u043E\u0445"
   ShortName: "\u041F\u043E\u0441\u043E\u0445"
   icon: {fileID: 0}
