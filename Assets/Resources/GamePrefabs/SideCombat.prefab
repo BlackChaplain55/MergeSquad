@@ -261,7 +261,7 @@ RectTransform:
   - {fileID: 759895558}
   - {fileID: 466642398}
   m_Father: {fileID: 6407283766635310614}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -826,8 +826,8 @@ RectTransform:
   m_Children:
   - {fileID: 7816340718038077844}
   - {fileID: 6647083148250534928}
-  - {fileID: 7816340718238004487}
   - {fileID: 417172073}
+  - {fileID: 7816340718238004487}
   m_Father: {fileID: 7816340717233912622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1507,7 +1507,7 @@ RectTransform:
   - {fileID: 7022807305633702714}
   - {fileID: 1420696641}
   m_Father: {fileID: 6407283766635310614}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   currentEnemy: {fileID: 0}
   <CanMove>k__BackingField: 0
   _unitData: {fileID: 11400000, guid: 7d5bddf21efa55948b197f559f0ebed8, type: 2}
-  _health: 0
+  _health: 1000
   _level: 0
   _host: {fileID: 0}
 --- !u!114 &1455897235
@@ -1627,11 +1627,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePool:
-  - {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55, type: 3}
-  - {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55, type: 3}
-  - {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55, type: 3}
-  - {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55, type: 3}
-  - {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _unit: {fileID: 1455897234}
   _poolSize: 5
   _projectileTemplate: {fileID: 2830399465306451769, guid: 66c58d41ea3ac9444bec186269648d55,

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
-  ItemsBaseLevel: 8
+  ItemsBaseLevel: 2
   ItemsPerKill: 3
   StartSouls: 1000
   SoulsPerKill: 5

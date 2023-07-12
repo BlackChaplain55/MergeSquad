@@ -11,4 +11,9 @@ public static class EventBus
     public static Action OnHeroDeath;
     public static Action OnFinalBossDeath;
     public static Action<Vector2> onHeroMove;
+
+    public static void ClearListeners()
+    {
+        
+    }
 }
