@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
   <BaseHealth>k__BackingField: 200
-  <BaseAttack>k__BackingField: 10
+  <BaseAttack>k__BackingField: 20
   <AttackSpeed>k__BackingField: 1
   <AttackSpeedPerLevel>k__BackingField: 1.05
   <WalkSpeed>k__BackingField: 0.025

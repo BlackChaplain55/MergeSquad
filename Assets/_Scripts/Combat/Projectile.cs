@@ -44,7 +44,7 @@ public class Projectile : MonoBehaviour
         var dist = _targetX - _archerX;
         var nextX = Mathf.MoveTowards(transform.position.x, _targetX, _speed * Time.deltaTime);
         var baseY = Mathf.Lerp(_archer.transform.position.y, _target.transform.position.y, (nextX - _archerX) / dist);
-        var height = _ballisticHeight * (nextX - _archerX) * (nextX - _targetX) / (-0.25f * dist * dist);
+        var height = _ballisticHeight * (nextX - _archerX) * (nextX - _targetX) * (-0.5f * Mathf.Abs(dist));
         Vector3 movePosition = new Vector3(nextX, baseY + height, transform.position.z);
         transform.rotation = LookAtTarget(movePosition - transform.position);
         transform.position = movePosition;

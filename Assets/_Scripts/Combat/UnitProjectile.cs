@@ -30,9 +30,9 @@ public class UnitProjectile : MonoBehaviour
                 if (!projectileObject.activeSelf)
                 {
                     if (projectileObject.TryGetComponent<Projectile>(out var projectile))
-                    {
-                        projectile.gameObject.SetActive(true);
+                    {       
                         projectile.Init(gameObject, _unit.currentEnemy.gameObject, _shootPoint);
+                        projectile.gameObject.SetActive(true);
                         break;
                     }
                     else

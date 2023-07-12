@@ -34,7 +34,7 @@ public class SpawnEffects : MonoBehaviour
         currentCircle.transform.parent = parent;
         currentCircle.transform.SetAsFirstSibling();
         currentCircle.transform.position = parent.position;
-        //currentCircle.transform.Translate(_offsetX* currentCircle.transform.lossyScale.x,_offsetY* currentCircle.transform.lossyScale.y, 0);
+        currentCircle.transform.Translate(_offsetX* currentCircle.transform.lossyScale.x,_offsetY* currentCircle.transform.lossyScale.y, 0);
         //Debug.Log("Spawn point: " + parent.gameObject.name + " at " + parent.position + " circle at " + currentCircle.transform.position);
         Image circleImage = currentCircle.GetComponent<Image>();
         var effectSeq = DOTween.Sequence();

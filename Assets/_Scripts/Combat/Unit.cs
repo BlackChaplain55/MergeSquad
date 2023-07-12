@@ -139,12 +139,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Spawn()
     {
-        _unitStats.SetSnapshot(_statsProvider);
-        State = UnitState.Waiting;
+        _unitStats.SetSnapshot(_statsProvider);    
         Health = UnitStats.MaxHealth;
+        State = UnitState.Waiting;
         CanMove = false;
-        if (!_isBoss) StartCoroutine(WalkDelay());
-        _unitSpawner.SpawnEffect(this);
+        if (!_isBoss) StartCoroutine(WalkDelay());      
         _view.ChangeAnimation(State);
         if (_host != null)
         {
@@ -152,6 +151,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             transform.parent = _unitSpawner.GetSpawnPoint(isEnemy);
             transform.position = transform.parent.position;
         }
+        _unitSpawner.SpawnEffect(this);
         //Line = Random.Range(0, CombatManager.Combat.linesCount);
         //transform.Translate(new Vector3(0, Line * CombatManager.Combat.linesSpacing, 0));
         //Position = transform.position.x;
