@@ -4,10 +4,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(LevelView))]
+
 public class LevelProgress : MonoBehaviour
 {
     [SerializeField] private UnitSpawner _unitSpawner;
     [SerializeField] private UnitController _unitConroller;
+    [SerializeField] private LevelView _levelProgressView;
     //[SerializeField] private List<EnemySpawner> _bosses;
     [SerializeField] private List<GameObject> _bossesTemplates;
     //[SerializeField] private GameObject _currentBoss;
@@ -21,19 +24,29 @@ public class LevelProgress : MonoBehaviour
     private float _levelLength;
     [SerializeField] private float _bossOffsetY;
     [SerializeField] private float _bossOffsetX;
+    
     private bool _heroMoving;
     public bool IsHeroMoving { get { return _heroMoving; } }
     public bool ArmyMoving;
     public float HeroLocalPosition { get { return _hero.transform.position.x; } }
     public float LevelPosition { get { return _levelPosition; } }
     public float LevelLength { get { return _levelLength; } }
+
+
     // Start is called before the first frame update
     private void Start()
     {
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
         if (_unitConroller == null) _unitConroller = GetComponent<UnitController>();
+        if (_levelProgressView == null) _levelProgressView = GetComponent<LevelView>();        
         EventBus.OnBossDeath += BossDeath;
         Init();
+        _levelProgressView.Init(_bossesTemplates.Count);
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.OnBossDeath -= BossDeath;
     }
 
     public void Init()
@@ -96,6 +109,7 @@ public class LevelProgress : MonoBehaviour
         if (_levelStep< _bossesTemplates.Count)
         {
             InitCurrentBoss();
+            _levelProgressView.SetProgress(_levelStep);
         }
         else
         {
@@ -118,6 +132,7 @@ public class LevelProgress : MonoBehaviour
             _unitSpawner.EnemySpawnPoints = bossSpawner.SpawnPoints;
         }
         bossSpawner.BeginSpawnSequence();
+        _hero.transform.SetAsLastSibling();
     }
 
 }

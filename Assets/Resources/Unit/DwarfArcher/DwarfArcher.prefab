@@ -31,7 +31,7 @@ RectTransform:
   m_GameObject: {fileID: 425036865094653353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3677228814186229216}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <isEnemy>k__BackingField: 1
+  <Position>k__BackingField: 0
   State: 0
   currentEnemy: {fileID: 0}
   <CanMove>k__BackingField: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   _poolSize: 5
   _projectileTemplate: {fileID: 2830399465306451769, guid: 293104e409ebd2b44a975fff8195ec92,
     type: 3}
+  _shootPoint: {fileID: 0}
 --- !u!1001 &74909505285308002
 PrefabInstance:
   m_ObjectHideFlags: 0

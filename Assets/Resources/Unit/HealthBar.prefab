@@ -201,4 +201,4 @@ MonoBehaviour:
   _healthBar: {fileID: 84466208871180332}
   _healthBarBG: {fileID: 5091264022171288058}
   _healthScaleX: 0.5
-  _healthSizeY: 30
+  _healthSizeY: 20

@@ -42,22 +42,22 @@ public class UnitView : MonoBehaviour
         switch (state){
             case UnitState.Walking:
                 _anim.SetBool(_walkingStateString,true);
-                _image.sprite = _walkingSprite;
+                //_image.sprite = _walkingSprite;
                 break;
             case UnitState.Attacking:
                 _anim.SetBool(_attackStateString,true);
-                _image.sprite = _attackSprite; 
+                //_image.sprite = _attackSprite; 
                 break;
             case UnitState.Waiting:
                 _anim.SetBool(_waitingStateString,true);
-                _image.sprite = _waitingsprite;
+                //_image.sprite = _waitingsprite;
                 break;
             case UnitState.Die:
                 _anim.SetBool(_dieStateString,true);
-                _image.sprite = _dieSprite;
+                //_image.sprite = _dieSprite;
                 break;
         }
-        _image.SetNativeSize();
+        //_image.SetNativeSize();
     }
 
     public void SetAttackSpeed(float speed)
@@ -73,7 +73,7 @@ public class UnitView : MonoBehaviour
 
     public void FadeIn()
     {
-        _image.DOFade(1, 1);
+        _image.DOFade(1, 2);
         _healthBar.gameObject.SetActive(true);
     }
 
