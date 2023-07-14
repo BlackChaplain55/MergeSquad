@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3749830fce844fa2031b543c80869, type: 3}
   m_Name: ArtifactWariorHealth
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 4ca2a456b6f3c2b4195ece745ad4946f, type: 3}
   MaxCount: 20
   MultiplierPerPiece: 5
   UnitType: 1

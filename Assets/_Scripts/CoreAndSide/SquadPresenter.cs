@@ -12,6 +12,7 @@ public class SquadPresenter : MonoBehaviour
     [SerializeField] private UnitController unitController;
     [SerializeField] private Dictionary<Unit, UnitPresenter> UnitSlots;
     private EquipmentBreaker _equipmentBreaker;
+    private List<UnitType> _unitTypes;
     private int _typeSortCounter;
 
     private void OnValidate()
@@ -28,6 +29,7 @@ public class SquadPresenter : MonoBehaviour
         UnitSlots = new Dictionary<Unit, UnitPresenter>();
         _equipmentBreaker = new(new List<EquipmentSlot>(), 0.02f);
         _equipmentBreaker.BreakRoutine = StartCoroutine(_equipmentBreaker.Tick());
+        _unitTypes = new List<UnitType>();
     }
 
     public void Sort(int sortOption)
@@ -39,13 +41,23 @@ public class SquadPresenter : MonoBehaviour
         switch (param)
         {
             case UnitSort.EquipDeathTimer:
-                orderedCollection = UnitSlots.OrderBy(x => Math.Min(x.Value.Weapon.DeathTimer, x.Value.Armor.DeathTimer));
+                orderedCollection = UnitSlots.OrderBy(x =>
+                {
+                    var weaponSlotTimer = x.Value.Weapon.DeathTimer;
+                    var armorSlotTimer = x.Value.Armor.DeathTimer;
+                    Debug.Log("Armor = " + x.Value.Weapon.DeathTimer);
+                    Debug.Log("Weapon = " + x.Value.Armor.DeathTimer);
+                    float weaponTimer = weaponSlotTimer > 0 ? weaponSlotTimer : float.MaxValue;
+                    float armorTimer = armorSlotTimer > 0 ? armorSlotTimer : float.MaxValue;
+                    Debug.Log("Min === " + Math.Min(weaponTimer, armorTimer));
+                    return Math.Min(weaponTimer, armorTimer);
+                });
                 break;
             case UnitSort.Level:
                 orderedCollection = UnitSlots.OrderByDescending(x => x.Key.Level);
                 break;
             case UnitSort.UnitType:
-                int typesLength = Enum.GetValues(typeof(UnitType)).Length;
+                int typesLength = _unitTypes.Count;
                 orderedCollection = UnitSlots.OrderBy(x => ((int)x.Key.UnitReadonlyData.Type + _typeSortCounter) % typesLength);
                 _typeSortCounter++;
                 break;
@@ -112,6 +124,10 @@ public class SquadPresenter : MonoBehaviour
                     continue;
 
                 Add(newUnit);
+
+                var unitType = newUnit.UnitReadonlyData.Type;
+                if (!_unitTypes.Contains(unitType))
+                    _unitTypes.Add(unitType);
             }
         }
         if (e.OldItems != null)
@@ -119,6 +135,11 @@ public class SquadPresenter : MonoBehaviour
             foreach (Unit oldUnit in e.OldItems)
             {
                 Remove(oldUnit);
+
+                var unitType = oldUnit.UnitReadonlyData.Type;
+                var units = UnitSlots.Keys.ToArray();
+                if (units.First(x => x.UnitReadonlyData.Type == unitType) == null)
+                    _unitTypes.Remove(unitType);
             }
         }
     }

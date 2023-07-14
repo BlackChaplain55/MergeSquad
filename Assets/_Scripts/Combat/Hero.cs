@@ -23,6 +23,14 @@ public class Hero : Unit
     }
     private float _magicStrength;
     private float _magicRange;
+    private MagicSO _nullMagic;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _nullMagic = Resources.Load<MagicSO>("Items/NullMagic");
+        MagicSO = _nullMagic;
+    }
 
     public override void Upgrade()
     {
@@ -32,8 +40,13 @@ public class Hero : Unit
 
     public void SetMagic(MagicSO magic)
     {
-        MagicSO = magic;
+        if (magic != null)
+            MagicSO = magic;
+        else
+            MagicSO = _nullMagic;
+
         MagicStrength = _statsProvider.GetStats(UnitParameterType.MagicStrength);
+        Debug.Log(_statsProvider.GetStats(UnitParameterType.MagicStrength));
         MagicRange = _statsProvider.GetStats(UnitParameterType.MagicRange);
     }
 

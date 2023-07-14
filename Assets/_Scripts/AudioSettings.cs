@@ -17,7 +17,7 @@ public class AudioSettings : MonoBehaviour
     {
         _soundsVol.onValueChanged.AddListener(HandleSoundVolChange);
         _musicVol.onValueChanged.AddListener(HandleMusicVolChange);
-        _soundToggle?.onValueChanged.AddListener(HandleSoundToggle);
+        _soundToggle.onValueChanged.AddListener(HandleSoundToggle);
     }
 
     private void HandleSoundToggle(bool soundToggle)
@@ -56,8 +56,8 @@ public class AudioSettings : MonoBehaviour
 
     private void Start()
     {
+        string soundsParameter = VolumeParameters.SoundsVolumeParameter;
         string musicParameter = VolumeParameters.MusicVolumeParameter;
-        string soundsParameter = VolumeParameters.MusicVolumeParameter;
         _soundsVol.value = PlayerPrefs.GetInt(soundsParameter, 1000) * 0.001f;
         _prevSoundVol = _soundsVol.value;
         _musicVol.value = PlayerPrefs.GetInt(musicParameter, 1000) * 0.001f;

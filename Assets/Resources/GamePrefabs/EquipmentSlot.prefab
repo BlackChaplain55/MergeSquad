@@ -634,7 +634,7 @@ MonoBehaviour:
   <CurrentItem>k__BackingField: {fileID: 0}
   underLayer: {fileID: 9052655125842057050}
   border: {fileID: 9052655126117399956}
-  ItemType: 1
+  ItemType: 0
   highlight: {fileID: 3227995083987874862}
   bar: {fileID: 3047790273192011173}
   barBackground: {fileID: 745402368215218480}

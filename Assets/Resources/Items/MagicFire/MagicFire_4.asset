@@ -17,5 +17,5 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: bc89e5b752433a9418f703602d532a5c, type: 3}
   Type: 6
   CooldownTime: 8
-  BaseStrength: 100
-  BaseRange: 100
+  BaseStrength: 2
+  BaseRange: 10

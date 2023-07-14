@@ -38,15 +38,15 @@ public class MagicSystem : MonoBehaviour
 
         //Vector3 direction = (GroundPosition - fireBall.localPosition) / FireBallFallDuration;
         //fireBall.rotation.eulerAngles = 
-         
+
         //var emitter = FireBallProjectile.main;
         //emitter.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
 
         var fireBallFall = fireBall
             .DOLocalMove(
             new Vector3(GroundPosition.x, GroundPosition.y, fireBall.localPosition.z),
-            FireBallFallDuration)
-            .SetEase(Ease.Linear);
+            FireBallFallDuration);
+        fireBallFall.SetEase(Ease.InCubic);
 
         fireBallFall.onComplete =
         () =>
@@ -54,9 +54,7 @@ public class MagicSystem : MonoBehaviour
             fireBallImage.color = Color.clear;
             FireBallProjectile.Stop();
             FireBallExplosion.Play();
-            DOVirtual.DelayedCall(
-                FireBallExplosion.main.duration,
-                OnFireballGrounded);
+            OnFireballGrounded();
         };
 
         void OnFireballGrounded()
@@ -64,10 +62,19 @@ public class MagicSystem : MonoBehaviour
             fireBall.localPosition = FireBallSpawnPosition;
             float minRange = GroundPosition.x - magic.BaseRange;
             float maxRange = GroundPosition.x + magic.BaseRange;
-            Func<Unit, bool> isEnemyInRange = unit => unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
-            var enemies = (List<Unit>)unitController.UnitsList.Where(isEnemyInRange);
-            
-            enemies.ForEach(enemy => enemy.TakeDamage(hero.MagicStrength));
+            Func<Unit, bool> isEnemyInRange = unit =>
+            {
+                bool result = unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
+                Debug.Log($"checking {unit.gameObject.name} is enemy {unit.isEnemy}, in position {unit.Position}, > {minRange} = {unit.Position > minRange}, < {maxRange} = {unit.Position < maxRange}, result {result}");
+                return result;
+            };
+            var enemies = unitController.EnemyList.Where(isEnemyInRange).ToList();
+            enemies.ForEach(enemy =>
+            {
+                Debug.Log($"Enemy {enemy.gameObject.name} taking {hero.MagicStrength} damage");
+                enemy.TakeDamage(hero.MagicStrength);
+                });
+            hero.SetMagic(null);
         };
     }
 }

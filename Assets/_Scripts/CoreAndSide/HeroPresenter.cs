@@ -32,6 +32,7 @@ public class HeroPresenter : MonoBehaviour
     {
         unitController.UnitsList.CollectionChanged += FindHero;
         GetHeroHard();
+        spellSlot.Init(_hero);
 
         spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
     }

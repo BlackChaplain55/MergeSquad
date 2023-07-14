@@ -10,6 +10,8 @@ public class GameSettings : ScriptableObject
     public int ItemsPerKill;
     public int StartSouls;
     public int SoulsPerKill;
+    public int CrystalsPerBossKill;
+    public int CrystalsPerFinalBossKill;
     public float UnitSummonCostProgression;
 
     [Header("Items Settings")]
@@ -24,6 +26,8 @@ public class GameSettings : ScriptableObject
     [SerializedDictionary(nameof(ItemType), nameof(ItemParameterType.MagicRange) + "PerLevel")]
     public SerializedDictionary<ItemType, float> MagicRangePerLevel;
     public int ItemsDeathTimerPerLevel = 5;
+    [SerializedDictionary(nameof(ItemType), "Placeholder Sprite")]
+    public SerializedDictionary<ItemType, Sprite> ItemsPlaceholders;
     public List<Sprite> ItemUnderLayers;
     public List<Sprite> ItemBorders;
 

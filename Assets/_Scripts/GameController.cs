@@ -10,11 +10,11 @@ using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SoundController))]
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour 
 {
     public static GameController Game { get; private set; }
-    [field: SerializeField] public ArtifactsRepository ArtifactsRepository { get; private set; }
-    public GameStates GameState { get; private set; }
+    [field: SerializeField]public ArtifactsRepository ArtifactsRepository { get; private set; }
+    public GameStates GameState { get; private set; }   
     public SlotSpawner SlotSpawner { get; private set; }
     [field: SerializeField] public GameSettings Settings { get; private set; }
     public GameProgress GameProgress
@@ -35,14 +35,25 @@ public class GameController : MonoBehaviour
             SoulsChanged(value);
         }
     }
+    public int Crystals
+    {
+        get { return _crystals; }
+        private set
+        {
+            _crystals = value;
+            CrystalsChanged(value);
+        }
+    }
     public bool IsPaused { get { return _isPaused; } }
     public event Action<GameProgress> OnGameProgressChanged;
     public event Action<int> OnSceneChanged;
     public event Action<int> OnSoulsChanged;
+    public event Action<int> OnCrystalsChanged;
 
     [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
     private int _souls;
+    private int _crystals;
     private bool _isPaused;
 
     public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
@@ -50,11 +61,7 @@ public class GameController : MonoBehaviour
     public void StopMusic() => _sound?.StopMusic();
 
     public void LoadScene(GameStates state) => SceneManager.LoadScene((int)state);
-    public void LoadScene(int sceneIndex)
-    {
-        Debug.Log($"Load scene [{sceneIndex}] {(GameStates)sceneIndex}");
-        SceneManager.LoadScene(sceneIndex);
-    }
+    public void LoadScene(int sceneIndex) => SceneManager.LoadScene(sceneIndex);
 
     public void LoadLevel(LevelSO data)
     {
@@ -106,6 +113,8 @@ public class GameController : MonoBehaviour
         }
         
         EventBus.OnUnitDeath += unit => { if (unit.isEnemy) Souls += Settings.SoulsPerKill; };
+        EventBus.OnBossDeath += () => { Crystals += Settings.CrystalsPerBossKill; };
+        EventBus.OnFinalBossDeath += () => { Crystals += Settings.CrystalsPerFinalBossKill; };
         MergeData.InitResources();
     }
 
@@ -140,10 +149,8 @@ public class GameController : MonoBehaviour
         OnSceneChanged?.Invoke(newScene.buildIndex);
     }
 
-    private void SoulsChanged(int value)
-    {
-        OnSoulsChanged?.Invoke(value);
-    }
+    private void SoulsChanged(int value) => OnSoulsChanged?.Invoke(value);
+    private void CrystalsChanged(int value) => OnCrystalsChanged?.Invoke(value);
 
     private void OnDestroy()
     {

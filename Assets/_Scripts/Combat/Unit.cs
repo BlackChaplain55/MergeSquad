@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(UnitView))]
 public class Unit : MonoBehaviour, INotifyPropertyChanged
@@ -12,6 +13,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public EquipmentSO WeaponSO { get; private set; }
     public EquipmentSO ArmorSO { get; private set; }
     public UnitStats UnitStats { get { return _unitStats; } }
+    public IItemStatsProvider WeaponStats { get { return _weaponStats; } private set { _weaponStats = value; } }
+    public IItemStatsProvider ArmorStats { get { return _armorStats; } private set { _armorStats = value; } }
     [field: SerializeField] public float Position { get; private set; }
     public int Line { get; private set; }
     public float AttackDistance { get; private set; }
@@ -67,10 +70,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] protected UnitStats _unitStats;
 
     protected IUnitStatsProvider _statsProvider;
+    protected IItemStatsProvider _weaponStats;
+    protected IItemStatsProvider _armorStats;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         WeaponSO = Resources.Load<EquipmentSO>("Items/NullWeapon");
         ArmorSO = Resources.Load<EquipmentSO>("Items/NullArmor");
@@ -291,8 +296,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     protected virtual void InitDecorators()
     {
-        IItemStatsProvider weaponStats;
-        IItemStatsProvider armorStats;
 
         if (GameController.Game != null)
         {
@@ -303,10 +306,10 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
         _statsProvider = new UnitLevelDecorator(_unitData, this);
         //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
-        armorStats = new ArmorLevelDecorator(this);
+        _armorStats = new ArmorLevelDecorator(this);
         //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
-        weaponStats = new WeaponLevelDecorator(this);
-        _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
+        _weaponStats = new WeaponLevelDecorator(this);
+        _statsProvider = new CombineUnitItemDecorator(_statsProvider, _weaponStats, _armorStats);
         _unitStats = new UnitStats(_unitData);
         _unitStats.SetSnapshot(_statsProvider);
     }

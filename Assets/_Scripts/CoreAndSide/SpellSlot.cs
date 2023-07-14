@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SpellSlot : EquipmentSlot
 {
@@ -31,7 +30,7 @@ public class SpellSlot : EquipmentSlot
         OnItemChanged += CastMagic;
     }
 
-    private void Init(Hero hero)
+    public void Init(Hero hero)
     {
         _hero = hero;
     }
@@ -56,7 +55,6 @@ public class SpellSlot : EquipmentSlot
 
         OnMagicCast?.Invoke(newItem as MagicSO);
         CooldownTime = _maxCooldownTime;
-        SetItem(null);
     }
 
     public override void SetItem(ItemSO item)
@@ -65,6 +63,7 @@ public class SpellSlot : EquipmentSlot
         if (item != null)
             _maxCooldownTime = magic.CooldownTime;
 
+        Debug.Log("Hero " + _hero);
         _hero.SetMagic(magic);
 
         base.SetItem(item);
