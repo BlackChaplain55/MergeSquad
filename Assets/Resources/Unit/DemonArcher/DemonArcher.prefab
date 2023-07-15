@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 627054748663159265}
   - component: {fileID: 5861501197907443490}
   - component: {fileID: 5202783501747083481}
+  - component: {fileID: 3931343887937494532}
   m_Layer: 5
   m_Name: DemonArcher
   m_TagString: Untagged
@@ -145,6 +146,9 @@ MonoBehaviour:
   _waitingsprite: {fileID: 21300000, guid: 757bf7d4b6556af4e9b5879eb937be2a, type: 3}
   _attackSprite: {fileID: 21300000, guid: e58ca83f9354a074795829b36cba657f, type: 3}
   _dieSprite: {fileID: 21300000, guid: add653e1bed882344bff5ee6eb664bdc, type: 3}
+  _damageTextYoffset: 0.2
+  _damageInitialXOffset: -0.2
+  _damageOffset: 0.2
 --- !u!114 &5861501197907443490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +181,8 @@ AudioSource:
   m_GameObject: {fileID: 425036865094653353}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8046127826413869635, guid: 501b25cfb3455a44faf2b1439303b3ae,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -264,6 +269,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3931343887937494532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425036865094653353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368c7efcb1988f34b90fbee138d2153b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audio: {fileID: 5202783501747083481}
+  _attackClip: {fileID: 8300000, guid: 8b247bd4391beca42ab2f60f05ab4c85, type: 3}
+  _dieClip: {fileID: 0}
+  _hitClip: {fileID: 0}
+  _attackVol: 1
+  _dieVol: 1
+  _hitVol: 1
 --- !u!1 &7522303401799217629
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +331,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 425036865094653352}
     m_Modifications:
+    - target: {fileID: -8465058603364349754, guid: 662a26aa6d986d94bb579e6c6c96bf94,
+        type: 3}
+      propertyPath: _healthSizeY
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3603449059935916930, guid: 662a26aa6d986d94bb579e6c6c96bf94,
         type: 3}
       propertyPath: m_RootOrder
