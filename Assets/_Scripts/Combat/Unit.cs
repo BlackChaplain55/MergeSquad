@@ -242,9 +242,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public virtual void Upgrade()
     {
-        if (State == UnitState.Die)
-            return;
-
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
@@ -296,18 +293,15 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     protected virtual void InitDecorators()
     {
+        Artifact[] artifacts;
+        var artifactsRepo = GameController.Game.ArtifactsRepository;
+        artifacts = artifactsRepo[UnitStats.Type];
 
-        if (GameController.Game != null)
-        {
-            var artifactsRepo = GameController.Game.ArtifactsRepository;
-            Artifact[] artifacts = artifactsRepo[UnitStats.Type];
-        }
-
-        //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
+        _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
         _statsProvider = new UnitLevelDecorator(_unitData, this);
-        //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
+        _armorStats = new ArtifactItemDecorator(_armorStats, artifacts);
         _armorStats = new ArmorLevelDecorator(this);
-        //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
+        _weaponStats = new ArtifactItemDecorator(_weaponStats, artifacts);
         _weaponStats = new WeaponLevelDecorator(this);
         _statsProvider = new CombineUnitItemDecorator(_statsProvider, _weaponStats, _armorStats);
         _unitStats = new UnitStats(_unitData);

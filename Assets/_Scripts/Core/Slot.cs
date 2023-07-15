@@ -93,8 +93,12 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
 
         if (item == null)
             border.sprite = settings.ItemBorders[0];
-        else
-            border.sprite = item.Id != settings.GetMaxItemLevel() ? settings.ItemBorders[0] : settings.ItemBorders[1];
+        else if (item.Id == settings.GetMaxItemLevel())
+            border.sprite = settings.ItemBorders[1];
+        else if (item.Type == ItemType.Melee || item.Type == ItemType.ArmorHeavy)
+            border.sprite = settings.ItemBorders[2];
+        else if (item.Type == ItemType.Bow || item.Type == ItemType.ArmorLeather)
+            border.sprite = settings.ItemBorders[3];
     }
 
     private void MergeFX(ItemSO newItem)

@@ -151,7 +151,7 @@ public class UnitPresenter : MonoBehaviour
 
     private void TryUpgradeUnit()
     {
-        if (GameController.Game.SpendSouls(Unit.UnitStats.UpgradeCost))
+        if (GameController.Game.TrySpendSouls(Unit.UnitStats.UpgradeCost))
             Unit.Upgrade();
     }
 

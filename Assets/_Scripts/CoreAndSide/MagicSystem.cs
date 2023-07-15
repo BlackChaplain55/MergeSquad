@@ -12,8 +12,10 @@ public class MagicSystem : MonoBehaviour
     [field: SerializeField] public Vector3 GroundPosition { get; private set; }
     [field: SerializeField] public float FireBallFallDuration { get; private set; }
     [field: SerializeField] public Vector3 FireBallSpawnPosition { get; private set; }
-    [field: SerializeField] public ParticleSystem FireBallProjectile { get; private set; }
+    [field: SerializeField] public RectTransform FireBall { get; private set; }
+    [field: SerializeField] public ParticleSystem FireBallTrail { get; private set; }
     [field: SerializeField] public ParticleSystem FireBallExplosion { get; private set; }
+    [field: SerializeField] public ParticleSystem FireBallExplosionFlipbook { get; private set; }
     [SerializeField] private UnitController unitController;
 
     public void CastMagic(Hero hero, MagicSO magic)
@@ -30,36 +32,40 @@ public class MagicSystem : MonoBehaviour
 
     private void UseFireBall(Hero hero, MagicSO magic)
     {
-        Transform fireBall = FireBallProjectile.transform;
+        Transform fireBall = FireBall.transform;
         fireBall.localPosition = FireBallSpawnPosition;
-        var fireBallImage = FireBallProjectile.GetComponent<Image>();
-        FireBallProjectile.Play();
+        var fireBallImage = FireBall.GetComponent<Image>();
+        FireBallTrail.Play();
         fireBallImage.color = Color.white;
 
-        //Vector3 direction = (GroundPosition - fireBall.localPosition) / FireBallFallDuration;
-        //fireBall.rotation.eulerAngles = 
+        Vector3 direction = (GroundPosition - fireBall.localPosition) / FireBallFallDuration;
+        float z = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        fireBall.rotation = Quaternion.Euler(new Vector3(0, 0, z));
 
-        //var emitter = FireBallProjectile.main;
+        //var emitter = FireBallTrail.main;
         //emitter.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
 
         var fireBallFall = fireBall
             .DOLocalMove(
             new Vector3(GroundPosition.x, GroundPosition.y, fireBall.localPosition.z),
             FireBallFallDuration);
-        fireBallFall.SetEase(Ease.InCubic);
+        fireBallFall.SetEase(Ease.Linear);
 
         fireBallFall.onComplete =
         () =>
         {
             fireBallImage.color = Color.clear;
-            FireBallProjectile.Stop();
-            FireBallExplosion.Play();
+            FireBallTrail.Stop();
+            FireBallExplosion.Play(false);
+            FireBallExplosionFlipbook.Play(false);
             OnFireballGrounded();
+            var expl = FireBallExplosion.main;
+            DOVirtual.DelayedCall(expl.duration, () => fireBall.localPosition = FireBallSpawnPosition);
         };
 
         void OnFireballGrounded()
         {
-            fireBall.localPosition = FireBallSpawnPosition;
+            
             float minRange = GroundPosition.x - magic.BaseRange;
             float maxRange = GroundPosition.x + magic.BaseRange;
             Func<Unit, bool> isEnemyInRange = unit =>

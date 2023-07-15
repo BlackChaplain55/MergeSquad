@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -35,25 +36,14 @@ public class GameController : MonoBehaviour
             SoulsChanged(value);
         }
     }
-    public int Crystals
-    {
-        get { return _crystals; }
-        private set
-        {
-            _crystals = value;
-            CrystalsChanged(value);
-        }
-    }
     public bool IsPaused { get { return _isPaused; } }
     public event Action<GameProgress> OnGameProgressChanged;
     public event Action<int> OnSceneChanged;
     public event Action<int> OnSoulsChanged;
-    public event Action<int> OnCrystalsChanged;
 
     [SerializeField] private GameProgress gameProgress;
     private SoundController _sound;
     private int _souls;
-    private int _crystals;
     private bool _isPaused;
 
     public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
@@ -69,13 +59,23 @@ public class GameController : MonoBehaviour
         LoadScene(GameStates.Combat);
     }
 
-    public bool SpendSouls(int value)
+    public bool TrySpendSouls(int value)
     {
         int remainSouls = Souls - value;
         if (remainSouls < 0)
             return false;
 
         Souls = remainSouls;
+        return true;
+    }
+
+    public bool TrySpendCrystals(int value)
+    {
+        int remainCrystals = GameProgress.Crystals - value;
+        if (remainCrystals < 0)
+            return false;
+
+        GameProgress.Crystals = remainCrystals;
         return true;
     }
 
@@ -105,16 +105,16 @@ public class GameController : MonoBehaviour
 
         EverySceneChanged();
 
-        GameProgress savedProgress = default;
+        GameProgress savedProgress = new(ArtifactsRepository, ArtifactsRepository.UnitArtifactsData, ArtifactsRepository.ItemArtifactsData, Settings.StartCrystals);
+        
         if (SaveSystem.Instance.TryLoadGame("saves", out savedProgress))
-        {
-            gameProgress = savedProgress;
             ArtifactsRepository?.Init(gameProgress.UnitArtifacts, gameProgress.ItemArtifacts);
-        }
+
+        gameProgress = savedProgress;
         
         EventBus.OnUnitDeath += unit => { if (unit.isEnemy) Souls += Settings.SoulsPerKill; };
-        EventBus.OnBossDeath += () => { Crystals += Settings.CrystalsPerBossKill; };
-        EventBus.OnFinalBossDeath += () => { Crystals += Settings.CrystalsPerFinalBossKill; };
+        EventBus.OnBossDeath += () => { GameProgress.Crystals += Settings.CrystalsPerBossKill; };
+        EventBus.OnFinalBossDeath += () => { GameProgress.Crystals += Settings.CrystalsPerFinalBossKill; };
         MergeData.InitResources();
     }
 
@@ -127,7 +127,7 @@ public class GameController : MonoBehaviour
         OnSceneChanged += _new => EverySceneChanged();
         OnSceneChanged += StartMusic;
     
-        WaitForSeconds wait = new WaitForSeconds(15);
+        WaitForSeconds wait = new WaitForSeconds(3);
         while (true)
         {
             SaveSystem.Instance.TrySaveGame("saves", gameProgress);
@@ -150,7 +150,6 @@ public class GameController : MonoBehaviour
     }
 
     private void SoulsChanged(int value) => OnSoulsChanged?.Invoke(value);
-    private void CrystalsChanged(int value) => OnCrystalsChanged?.Invoke(value);
 
     private void OnDestroy()
     {

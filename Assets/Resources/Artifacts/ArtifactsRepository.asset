@@ -16,72 +16,27 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 76f27fd71edbb794e917e261dadf1578,
-          type: 2}
-      - <Count>k__BackingField: 0
+      - <Count>k__BackingField: 100
         <BaseData>k__BackingField: {fileID: 11400000, guid: 2636f5920d297b645807f8c721853154,
+          type: 2}
+      - <Count>k__BackingField: 100
+        <BaseData>k__BackingField: {fileID: 11400000, guid: 76f27fd71edbb794e917e261dadf1578,
           type: 2}
     - Key: 1
       Value:
       - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 2065ab74e8fecd1449f262d6f0aab55e,
+        <BaseData>k__BackingField: {fileID: 11400000, guid: b160ddf5396388746a605e6df66eea3c,
           type: 2}
       - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: b160ddf5396388746a605e6df66eea3c,
+        <BaseData>k__BackingField: {fileID: 11400000, guid: 2065ab74e8fecd1449f262d6f0aab55e,
           type: 2}
     - Key: 2
       Value:
       - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 7f12b8e68f122a044a2000a9ef90aafa,
-          type: 2}
-      - <Count>k__BackingField: 0
         <BaseData>k__BackingField: {fileID: 11400000, guid: 2ac8490f7a6f1c941a3961b3fd950a0e,
           type: 2}
+      - <Count>k__BackingField: 0
+        <BaseData>k__BackingField: {fileID: 11400000, guid: 7f12b8e68f122a044a2000a9ef90aafa,
+          type: 2}
   ItemArtifactsData:
-    _serializedList:
-    - Key: 11
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 6a22efdaf0646684bbfe0066f2ba1e98,
-          type: 2}
-    - Key: 12
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: a77379f69e238c74a8bf23081febf83d,
-          type: 2}
-    - Key: 13
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 70f6966fc8592b4488a361548aa2620c,
-          type: 2}
-    - Key: 14
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 931e2d2b8b3a58d499b8fe3707005dd5,
-          type: 2}
-    - Key: 15
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: ede59a838befb914882e5bad4abf52e3,
-          type: 2}
-    - Key: 16
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 3d5ecf959c2ca1942aaf9f77548480d2,
-          type: 2}
-    - Key: 17
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 4bfb8106ecb6ec042b4eeb7399e929a7,
-          type: 2}
-    - Key: 18
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 8cf5c6fd516a6874da0748d8b6170d37,
-          type: 2}
-    - Key: 19
-      Value:
-      - <Count>k__BackingField: 0
-        <BaseData>k__BackingField: {fileID: 11400000, guid: 323332a4e43d1744ea1fa550af0580a8,
-          type: 2}
+    _serializedList: []

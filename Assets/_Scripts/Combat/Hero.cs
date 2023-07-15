@@ -1,3 +1,4 @@
+using UnityEditor.Experimental;
 using UnityEngine;
 
 public class Hero : Unit
@@ -52,7 +53,12 @@ public class Hero : Unit
 
     protected override void InitDecorators()
     {
-        _statsProvider = new UnitLevelDecorator(_unitData, this);
+        Artifact[] artifacts;
+        var artifactsRepo = GameController.Game.ArtifactsRepository;
+        artifacts = artifactsRepo[UnitStats.Type];
+
+        _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
+        _statsProvider = new UnitLevelDecorator(_statsProvider, this);
         var magic = new MagicLevelDecorator(this);
         _statsProvider = new HeroMagicItemDecorator(_statsProvider, magic);
         _unitStats = new UnitStats(_unitData);

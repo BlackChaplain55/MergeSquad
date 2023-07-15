@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
@@ -13,11 +14,18 @@ public class CrystalsCounter : MonoBehaviour
 
     private void Awake()
     {
-        GameController.Game.OnCrystalsChanged += UpdateText;
+        GameController.Game.GameProgress.PropertyChanged += UpdateText;
+        SetText();
     }
 
-    private void UpdateText(int crystalsValue)
+    private void UpdateText(object sender, PropertyChangedEventArgs e)
     {
-        textComponent.SetText(crystalsValue.ToString());
+        if (e.PropertyName == nameof(GameProgress.Crystals))
+            SetText();
+    }
+
+    private void SetText()
+    {
+        textComponent.SetText(GameController.Game.GameProgress.Crystals.ToString());
     }
 }

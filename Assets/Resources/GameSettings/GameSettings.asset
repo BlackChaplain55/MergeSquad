@@ -95,8 +95,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a2fb0a572f6bb1c479c617539a705dc0, type: 3}
   - {fileID: 21300000, guid: 3eb3c8b1a22a2404e92379b13de51e05, type: 3}
   ItemBorders:
-  - {fileID: 21300000, guid: 7b10e0fcd17e0544e8fdc80044314065, type: 3}
+  - {fileID: 21300000, guid: b7a41ff73ebfa8548a9e3d0ffe9e9ada, type: 3}
   - {fileID: 21300000, guid: 4f5c5aa2a2583f9429f8a11dc5c28df4, type: 3}
-  - {fileID: 21300000, guid: ea6be249b3493804aa1914737879d987, type: 3}
-  - {fileID: 21300000, guid: 20acab9d90e2b174f89bd11b5308e652, type: 3}
+  - {fileID: 21300000, guid: 0079ba1f8d783f942aa9779f8cf5f644, type: 3}
+  - {fileID: 21300000, guid: 044add808d0a1de4e99570af1fa84235, type: 3}
   MagicTypes: 06000000

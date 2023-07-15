@@ -45,11 +45,8 @@ public class SquadPresenter : MonoBehaviour
                 {
                     var weaponSlotTimer = x.Value.Weapon.DeathTimer;
                     var armorSlotTimer = x.Value.Armor.DeathTimer;
-                    Debug.Log("Armor = " + x.Value.Weapon.DeathTimer);
-                    Debug.Log("Weapon = " + x.Value.Armor.DeathTimer);
                     float weaponTimer = weaponSlotTimer > 0 ? weaponSlotTimer : float.MaxValue;
                     float armorTimer = armorSlotTimer > 0 ? armorSlotTimer : float.MaxValue;
-                    Debug.Log("Min === " + Math.Min(weaponTimer, armorTimer));
                     return Math.Min(weaponTimer, armorTimer);
                 });
                 break;

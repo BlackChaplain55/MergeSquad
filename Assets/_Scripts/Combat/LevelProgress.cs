@@ -16,7 +16,7 @@ public class LevelProgress : MonoBehaviour
     //[SerializeField] private GameObject _currentBoss;
     [SerializeField] private Canvas _currentCanvas;
     //[SerializeField] private EnemySpawner _currentBoss;
-    [SerializeField] private Unit _hero;
+    [SerializeField] private Hero _hero;
     private int _levelStep;
     private float _levelPosition;
     private float _levelInitialPosition;

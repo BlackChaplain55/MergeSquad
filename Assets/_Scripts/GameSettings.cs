@@ -9,6 +9,7 @@ public class GameSettings : ScriptableObject
     public int ItemsBaseLevel = 1;
     public int ItemsPerKill;
     public int StartSouls;
+    public int StartCrystals;
     public int SoulsPerKill;
     public int CrystalsPerBossKill;
     public int CrystalsPerFinalBossKill;
