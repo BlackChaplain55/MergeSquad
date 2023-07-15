@@ -34,7 +34,7 @@ public class UnitLevelDecorator : IUnitStatsProvider
             case UnitParameterType.AttackSpeed:
                 startValue = _unitStats.GetStats(UnitParameterType.BaseAttackSpeed);
                 perLevel = _unitStats.GetStats(UnitParameterType.AttackSpeedPerLevel);
-                return startValue - perLevel * level;
+                return startValue + perLevel * (level-1);
 
             case UnitParameterType.UpgradeCost:
                 startValue = _unitStats.GetStats(UnitParameterType.BaseUpgradeCost);

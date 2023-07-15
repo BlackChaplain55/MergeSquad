@@ -84,7 +84,9 @@ public class LevelProgress : MonoBehaviour
         if (_hero.transform.localPosition.x >= _heroPosition)
         {
             _heroMoving = false;
+            ArmyMoving = true;
             _hero.SetMove(_heroMoving);
+            EventBus.OnNextStepReached?.Invoke();
         }
         _levelPosition = _hero.transform.localPosition.x - _levelInitialPosition;
         foreach (Unit unit in _unitConroller.UnitsList)
@@ -121,7 +123,7 @@ public class LevelProgress : MonoBehaviour
     public void InitCurrentBoss()
     {
         GameObject boss = Instantiate(_bossesTemplates[_levelStep],transform.parent);
-        boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX+_levelStep*_levelLength,_bossOffsetY,0);
+        boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX*_levelLength + _levelStep*_levelLength,_bossOffsetY,0);
         Unit bossUnit = boss.GetComponent<Unit>();
         EnemySpawner bossSpawner = boss.GetComponent<EnemySpawner>();
         bossUnit.Init(_unitSpawner);
@@ -133,6 +135,7 @@ public class LevelProgress : MonoBehaviour
         }
         bossSpawner.BeginSpawnSequence();
         _hero.transform.SetAsLastSibling();
+        CombatManager.Combat.transform.SetAsLastSibling();
     }
 
 }

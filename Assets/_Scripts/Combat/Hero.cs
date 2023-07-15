@@ -1,9 +1,11 @@
 using UnityEditor.Experimental;
 using UnityEngine;
+using System.Collections;
 
 public class Hero : Unit
 {
     public MagicSO MagicSO { get; private set; }
+    [SerializeField] private float _healthRegen;
 
     public float MagicStrength
     {
@@ -28,6 +30,7 @@ public class Hero : Unit
 
     protected override void Awake()
     {
+        StartCoroutine(HealthRegen());
         base.Awake();
         _nullMagic = Resources.Load<MagicSO>("Items/NullMagic");
         MagicSO = _nullMagic;
@@ -37,6 +40,18 @@ public class Hero : Unit
     {
         base.Upgrade();
         MagicStrength = _statsProvider.GetStats(UnitParameterType.MagicStrength);
+    }
+
+    private IEnumerator HealthRegen()
+    {
+        var delay = new WaitForSeconds(1);
+        while (State != UnitState.Die)
+        {
+            yield return delay;
+            Health += _healthRegen;
+            Health = Mathf.Clamp(Health, 0, _unitStats.MaxHealth);
+        }
+        yield return null;
     }
 
     public void SetMagic(MagicSO magic)
