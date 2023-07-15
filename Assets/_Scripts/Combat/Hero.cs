@@ -1,10 +1,8 @@
 using UnityEngine;
-using System.Collections;
 
 public class Hero : Unit
 {
     public MagicSO MagicSO { get; private set; }
-    [SerializeField] private float _healthRegen;
 
     public float MagicStrength
     {
@@ -23,23 +21,11 @@ public class Hero : Unit
         _statsProvider = new HeroMagicItemDecorator(_statsProvider, magic);
         _unitStats = new UnitStats(_unitData);
         _unitStats.SetSnapshot(_statsProvider);
-        StartCoroutine(HealthRegen());
     }
 
     public override void Upgrade()
     {
         base.Upgrade();
         MagicStrength = _statsProvider.GetStats(UnitParameterType.MagicStrength);
-    }
-    private IEnumerator HealthRegen()
-    {
-        var delay = new WaitForSeconds(1);
-        while (State != UnitState.Die)
-        {
-            yield return delay;
-            Health += _healthRegen;
-            Health = Mathf.Clamp(Health, 0, _unitStats.MaxHealth);
-        }
-        yield return null;
     }
 }

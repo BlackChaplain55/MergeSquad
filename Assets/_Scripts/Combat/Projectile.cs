@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
         {
             transform.position = _archer.transform.position;
         }
-        //DrawProjectile();
+        DrawProjectile();
     }
 
     private void Update()
@@ -51,9 +51,7 @@ public class Projectile : MonoBehaviour
 
         if (transform.position == _target.transform.position)
         {
-            if (_target.GetComponent<Unit>().State!=UnitState.Die) {
-                _archerUnit.DealDamage();
-            }
+            _archerUnit.DealDamage();
             gameObject.SetActive(false);
         }
     }

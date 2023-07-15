@@ -9,22 +9,17 @@ public class Parallax : MonoBehaviour
     [field: SerializeField] public Vector2 Offset { get; private set; }
     [field: SerializeField] public Vector2 RelativeSpeed { get; private set; }
     [field: SerializeField] public Vector2 UnitScale { get; private set; }
-    [SerializeField] private List<Transform> _childs;
-    [SerializeField] private Canvas _currentCanvas;
-
-    private int _levelStep = 0;
-    private int _currentChild = 0;
+    [SerializeField] private Transform child1;
+    [SerializeField] private Transform child2;
+    private float _currentChild = 0;
     private float _width;
-    private float _levelLength;
     private float _verticalPosition;
 
     private void Awake()
     {
         EventBus.onHeroMove += SetPosition;
-        EventBus.OnNextStepReached += ShiftBackground;
-        if (_currentCanvas == null) _currentCanvas = transform.parent.parent.GetComponent<Canvas>();
-        _width = _childs[0].GetComponent<Image>().rectTransform.sizeDelta.x;
-        _levelLength = _currentCanvas.renderingDisplaySize.x;
+        _width = child1.GetComponent<Image>().rectTransform.sizeDelta.x;
+        _verticalPosition = child1.GetComponent<Image>().rectTransform.sizeDelta.y;
     }
 
     private void OnDisable()
@@ -33,23 +28,32 @@ public class Parallax : MonoBehaviour
     }
     private void OnValidate()
     {
-        if (_childs.Count == 0)
-        {
-            _childs.Add(transform.GetChild(0));
-        }
+        if (child1 == null)
+            child1 = transform.GetChild(0);
+        if (child2 == null)
+            child2 = transform.GetChild(1);
     }
 
     public void SetPosition(Vector2 value)
     {
-        Position = value;
-        UpdateRect();
+        //Position = value;
+        //if (Position.x == _width)
+        //{
+        //    UpdateRect();
+        //}   
     }
 
-    private void UpdateRect()
+    [ExecuteInEditMode()]
+    public void UpdateRect()
     {
-        if (RelativeSpeed.x>0)
+        if (_currentChild == 0)
         {
-            transform.Translate(new Vector3(-RelativeSpeed.x, 0, 0));
+            child1.transform.localPosition = new Vector2(child1.transform.localPosition.x + 2 * _width, _verticalPosition);
+            _currentChild = 1;
+        }
+        else
+        {
+            _currentChild = 0;
         }
         //Vector2 relativeOffset = Position * RelativeSpeed;
         //var relativeX = Mathf.Repeat(relativeOffset.x, UnitScale.x);
@@ -60,13 +64,6 @@ public class Parallax : MonoBehaviour
         //float x2 = (intX + 1) * UnitScale.x - relativeX;// Mathf.Repeat(Position.x * RelativeSpeed.x, UnitScale.x);
         //child1.localPosition = new Vector2(x, y) + Offset;
         //child2.localPosition = new Vector2(x2, y) + Offset;
-    }
-
-    private void ShiftBackground()
-    {
-        _childs[_currentChild].localPosition = new Vector3(_childs[_currentChild].localPosition.x+_width * _childs.Count, _childs[_currentChild].localPosition.y, 0);
-        _currentChild++;
-        if (_currentChild == _childs.Count) _currentChild = 0;
     }
 
 

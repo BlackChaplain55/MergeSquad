@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(UnitView))]
-[RequireComponent(typeof(UnitSound))]
 public class Unit : MonoBehaviour, INotifyPropertyChanged
 {
     [field:SerializeField] public bool isEnemy { get; private set; }
@@ -49,7 +48,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] private int _level;
     [SerializeField] private Unit _host;
     private UnitView _view;
-    private UnitSound _sound;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
     private UnitController _unitController;
@@ -85,8 +83,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         transform.parent.parent.TryGetComponent<Unit>(out _host);
         Health = _unitData.BaseHealth;
         _view = GetComponent<UnitView>();
-        _sound = GetComponent<UnitSound>();
-        _sound.Init();
         _view.SetAttackSpeed(_unitData.AttackSpeed);
         _view.SetIdleSpeed();
         var attackDistanceDiviation = Random.Range(-CombatManager.Combat.AttackDistanceDiviation, CombatManager.Combat.AttackDistanceDiviation);
@@ -183,30 +179,22 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public void Attack()
     {
         _view.ChangeAnimation(UnitState.Attacking);
-        _view.AttackEffect();
     }
 
     public void AttackRanged()
     {
-        _sound.PlaySound(UnitSound.UnitSFXType.Attack);
-        if (_projectiles!=null) _projectiles.ThrowProjectile();
+        if(_projectiles!=null) _projectiles.ThrowProjectile();
     }
 
-    public void AttackCloseCombat()
-    {
-        _sound.PlaySound(UnitSound.UnitSFXType.Attack);
-        DealDamage();
-    }
     public void DealDamage()
     {
-        if (currentEnemy != null&&currentEnemy.State!=UnitState.Die) currentEnemy.TakeDamage(UnitStats.Attack);
+        if (currentEnemy != null) currentEnemy.TakeDamage(UnitStats.Attack);
     }
 
     public void TakeDamage(float damage)
     {
         if (State == UnitState.Die) return;
         if (damage < 0) return;
-        _sound.PlaySound(UnitSound.UnitSFXType.Hit);
         Health -= damage;
         if (Health <= 0)
         {
@@ -214,7 +202,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             BeginDying();
         }
         _view.UpdateHealth(Health/_unitStats.MaxHealth);
-        _view.DamageEffect(damage,isEnemy);
+        _view.DamageEffect();
     }
 
     public float GetAttackDistance()
@@ -235,7 +223,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             if (isEnemy) Upgrade();
             _view.FadeOutAndRespawn();
         }
-        _sound.PlaySound(UnitSound.UnitSFXType.Die);
     }
 
     public virtual void Upgrade()
@@ -246,13 +233,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
-        _view.SetAttackSpeed(_unitStats.AttackSpeed);
         Health += _unitStats.MaxHealth - prevMaxHealth;
     }
 
     public void Respawn()
     {
-        if (!_isBoss&&gameObject.activeSelf) StartCoroutine(RespawnCooldown());
+        if (!_isBoss) StartCoroutine(RespawnCooldown());
         else
         {
             EventBus.OnBossDeath?.Invoke();

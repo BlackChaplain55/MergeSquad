@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 425036865094653359}
   - component: {fileID: 425036865094653356}
   - component: {fileID: 627054748663159265}
-  - component: {fileID: 8610195145663277488}
-  - component: {fileID: 6292118282972215331}
   m_Layer: 5
   m_Name: DemonWarrior
   m_TagString: Untagged
@@ -144,125 +142,6 @@ MonoBehaviour:
   _waitingsprite: {fileID: 21300000, guid: 8c64aa5ceb8da344783e298d2428e64a, type: 3}
   _attackSprite: {fileID: 21300000, guid: 6047845422aefb04a9cfea101726263f, type: 3}
   _dieSprite: {fileID: 21300000, guid: 481e5eb8cb09de246a7072d19b58fdc7, type: 3}
-  _damageTextYoffset: 0.2
-  _damageInitialXOffset: 0
-  _damageOffset: 0.2
---- !u!82 &8610195145663277488
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425036865094653353}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -8046127826413869635, guid: 501b25cfb3455a44faf2b1439303b3ae,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &6292118282972215331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425036865094653353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368c7efcb1988f34b90fbee138d2153b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audio: {fileID: 8610195145663277488}
-  _attackClip: {fileID: 8300000, guid: 5ac2076e247e7b445ba1a305bab3f14c, type: 3}
-  _dieClip: {fileID: 0}
-  _hitClip: {fileID: 0}
-  _attackVol: 1
-  _dieVol: 1
-  _hitVol: 1
 --- !u!1001 &2308407645424282230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -270,11 +149,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 425036865094653352}
     m_Modifications:
-    - target: {fileID: -8465058603364349754, guid: 662a26aa6d986d94bb579e6c6c96bf94,
-        type: 3}
-      propertyPath: _healthSizeY
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 3603449059935916930, guid: 662a26aa6d986d94bb579e6c6c96bf94,
         type: 3}
       propertyPath: m_RootOrder
