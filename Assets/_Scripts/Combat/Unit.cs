@@ -312,7 +312,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         artifacts = artifactsRepo[UnitStats.Type];
 
         _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
-        _statsProvider = new UnitLevelDecorator(_unitData, this);
+        _statsProvider = new UnitLevelDecorator(_statsProvider, this);
         _armorStats = new ArtifactItemDecorator(_armorStats, artifacts);
         _armorStats = new ArmorLevelDecorator(this);
         _weaponStats = new ArtifactItemDecorator(_weaponStats, artifacts);

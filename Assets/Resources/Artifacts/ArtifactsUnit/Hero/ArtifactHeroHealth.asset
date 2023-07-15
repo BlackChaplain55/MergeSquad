@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d3749830fce844fa2031b543c80869, type: 3}
   m_Name: ArtifactHeroHealth
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 271e26ab9dc6b7340a3e5ccd490302d0, type: 3}
+  Icon: {fileID: 21300000, guid: 90ac2f6133233a744bb92ee7e0d8084a, type: 3}
   MaxCount: 20
-  MultiplierPerPiece: 5
+  MultiplierPerPiece: 20
   ArtifactName: "\u041A\u043E\u043B\u044C\u0446\u043E \u0432\u0435\u0440\u0445\u043E\u0432\u043D\u043E\u0433\u043E
     \u0434\u0435\u043C\u043E\u043D\u0430"
   ArtifactDescription: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
-    HP \u0433\u0435\u0440\u043E\u044F \u043D\u0430 {0}%"
+    HP \u0433\u0435\u0440\u043E\u044F \u043D\u0430 {0}% >> {1}%"
   UnitType: 0
   UnitParameterType: 0

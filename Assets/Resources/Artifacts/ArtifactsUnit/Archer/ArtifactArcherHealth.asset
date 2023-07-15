@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 5945392846e2840478d15cd98585f305, type: 3}
   MaxCount: 20
-  MultiplierPerPiece: 5
+  MultiplierPerPiece: 20
   ArtifactName: "\u041E\u0436\u0435\u0440\u0435\u043B\u044C\u0435 \u0441\u043A\u0435\u043B\u0435\u0442\u0430-\u043B\u0443\u0447\u043D\u0438\u043A\u0430"
   ArtifactDescription: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
-    HP \u043B\u0443\u0447\u043D\u0438\u043A\u043E\u0432 \u043D\u0430 {0}%"
+    HP \u043B\u0443\u0447\u043D\u0438\u043A\u043E\u0432 \u043D\u0430 {0}% >> {1}%"
   UnitType: 2
   UnitParameterType: 0

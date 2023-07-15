@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6f31631907f093d4d9de0312eb8ee9fa, type: 3}
   MaxCount: 20
-  MultiplierPerPiece: 5
+  MultiplierPerPiece: 20
   ArtifactName: "\u041A\u043E\u043B\u044C\u0446\u043E \u0441\u043A\u0435\u043B\u0435\u0442\u0430-
     \u043B\u0443\u0447\u043D\u0438\u043A\u0430"
   ArtifactDescription: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
     \u0443\u0440\u043E\u043D \u043B\u0443\u0447\u043D\u0438\u043A\u043E\u0432 \u043D\u0430
-    {0}%"
+    {0}% >> {1}%"
   UnitType: 2
-  UnitParameterType: 1
+  UnitParameterType: 5

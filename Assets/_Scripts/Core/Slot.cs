@@ -99,6 +99,8 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPoin
             border.sprite = settings.ItemBorders[2];
         else if (item.Type == ItemType.Bow || item.Type == ItemType.ArmorLeather)
             border.sprite = settings.ItemBorders[3];
+        else if (item.Type == ItemType.MagicFire)
+            border.sprite = settings.ItemBorders[4];
     }
 
     private void MergeFX(ItemSO newItem)

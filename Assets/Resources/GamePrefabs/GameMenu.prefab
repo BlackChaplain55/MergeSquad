@@ -127,6 +127,7 @@ MonoBehaviour:
     type: 3}
   artifactPresenterParent: {fileID: 6808901933881621481}
   ArtifactsSlots: []
+  ShopObject: {fileID: 0}
 --- !u!1 &908797948511588484
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +743,6 @@ GameObject:
   - component: {fileID: 7275375593982009656}
   - component: {fileID: 8918919828445537376}
   - component: {fileID: 8445385775070810008}
-  - component: {fileID: 4357891792075232274}
   m_Layer: 0
   m_Name: GameMenu
   m_TagString: Untagged
@@ -902,19 +902,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4357891792075232274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4104247528711283606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8948fbe13df0e194191e9447322f0c46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShopObject: {fileID: 394097283163895887}
 --- !u!1 &4349984853887261470
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1823,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 4357891792075232274}
+      objectReference: {fileID: 0}
     - target: {fileID: 875589974301800569, guid: 858502102e8a13645a5d59c69650c5f5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState

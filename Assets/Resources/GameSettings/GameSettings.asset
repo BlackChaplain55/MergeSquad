@@ -16,6 +16,7 @@ MonoBehaviour:
   ItemsBaseLevel: 2
   ItemsPerKill: 3
   StartSouls: 200
+  StartCrystals: 1000
   SoulsPerKill: 5
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
