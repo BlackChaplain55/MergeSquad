@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using Unity.Burst.Intrinsics;
 
 public class ArtifactUnitDecorator : IUnitStatsProvider
 {
@@ -16,27 +17,25 @@ public class ArtifactUnitDecorator : IUnitStatsProvider
     {
         float baseStat = _unit.GetStats(parameterType);
 
-        if (_unit is Hero)
             foreach (Artifact artifact in _artifacts)
                 Debug.Log(artifact.ToString());
 
-        if (!IsArtifactAffectThisStat(parameterType))
-            return baseStat;
-
         float value = baseStat;
-        foreach (var art in _artifacts)
-        {
-            value += art.GetStats(baseStat);
-        }
+
+        foreach (var artifact in _artifacts)
+            if (artifact.BaseData is ArtifactUnitSO unitArtifact)
+                if (unitArtifact.UnitParameterType == parameterType)
+                {
+                    value = baseStat;
+                    value += artifact.GetStats(baseStat);
+                }
 
         return value;
     }
 
     private bool IsArtifactAffectThisStat(UnitParameterType parameterType)
     {
-        foreach (var artifact in _artifacts)
-            if (artifact.BaseData is ArtifactUnitSO unitArtifact)
-                if (unitArtifact.UnitParameterType == parameterType)
+
                     return true;
 
         return false;

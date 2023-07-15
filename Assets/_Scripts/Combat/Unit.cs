@@ -309,7 +309,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     {
         Artifact[] artifacts;
         var artifactsRepo = GameController.Game.ArtifactsRepository;
-        artifacts = artifactsRepo[UnitStats.Type];
+        artifacts = artifactsRepo[_unitData.Type];
 
         _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
         _statsProvider = new UnitLevelDecorator(_statsProvider, this);

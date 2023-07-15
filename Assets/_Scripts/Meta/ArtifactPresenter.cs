@@ -38,8 +38,8 @@ public class ArtifactPresenter : MonoBehaviour
         count.SetText($"{artifact.Count}/{artifact.BaseData.MaxCount}");
         description.SetText(string.Format(
             data.ArtifactDescription,
-            data.MultiplierPerPiece,
-            data.MultiplierPerPiece * artifact.Count));
+            data.MultiplierPerPiece * 100,
+            data.MultiplierPerPiece * artifact.Count * 100));
         costText.SetText(cost.ToString());
         buyButton.onClick.AddListener(() =>
         {
@@ -56,8 +56,8 @@ public class ArtifactPresenter : MonoBehaviour
             var data = artifact.BaseData;
             description.SetText(string.Format(
                 data.ArtifactDescription,
-                data.MultiplierPerPiece,
-                data.MultiplierPerPiece * artifact.Count));
+                data.MultiplierPerPiece * 100,
+                data.MultiplierPerPiece * artifact.Count * 100));
         }
     }
 }
