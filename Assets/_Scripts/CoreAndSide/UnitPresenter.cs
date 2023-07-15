@@ -20,6 +20,7 @@ public class UnitPresenter : MonoBehaviour
     [SerializeField] private List<GameObject> elements;
     [SerializeField] private EquipmentSlot weapon;
     [SerializeField] private EquipmentSlot armor;
+    [SerializeField] private CooldownTimer respawnTimer;
     [SerializeField] private Image weaponDurabilityBar;
     [SerializeField] private Image armorDurabilityBar;
     [SerializeField] private Image unitIcon;
@@ -28,6 +29,7 @@ public class UnitPresenter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeCost;
     [SerializeField] private TextMeshProUGUI health;
     [SerializeField] private TextMeshProUGUI attack;
+    [SerializeField] private TextMeshProUGUI attackSpeed;
 
     private void Awake()
     {
@@ -75,6 +77,7 @@ public class UnitPresenter : MonoBehaviour
         if (unitIcon != null) unitIcon.sprite = Unit.UnitReadonlyData.MainSprite;
         if (level != null) level.text = Unit.Level.ToString();
         if (attack != null) attack.text = Unit.UnitStats.Attack.ToString();
+        if (attackSpeed != null) attackSpeed.text = Unit.UnitStats.AttackSpeed.ToString("0.00");
         if (health != null) health.text = Mathf.Ceil(Unit.Health).ToString();
         if (upgradeCost != null) upgradeCost.text = Unit.UnitStats.UpgradeCost.ToString();
     }
@@ -100,7 +103,7 @@ public class UnitPresenter : MonoBehaviour
         if (item is EquipmentSO equipment)
         {
             Unit.SetWeapon(equipment);
-            weapon.ResetDeathTimer(equipment);
+            weapon.ResetDeathTimer(Unit.WeaponStats);
             return;
         }
         Unit.SetWeapon(Resources.Load<EquipmentSO>("Items/NullWeapon"));
@@ -111,7 +114,7 @@ public class UnitPresenter : MonoBehaviour
         if (item is EquipmentSO equipment)
         {
             Unit.SetArmor(equipment);
-            armor.ResetDeathTimer(equipment);
+            armor.ResetDeathTimer(Unit.ArmorStats);
             return;
         }
         Unit.SetArmor(Resources.Load<EquipmentSO>("Items/NullArmor"));
@@ -130,10 +133,16 @@ public class UnitPresenter : MonoBehaviour
             case nameof(UnitParameterType.Level): if (level != null) level.text = Unit.Level.ToString();
                 break;
             case nameof(UnitParameterType.Attack): if (attack != null) attack.text = Unit.UnitStats.Attack.ToString();
+                if (attack != null) attack.text = Unit.UnitStats.Attack.ToString();
+                break;
+            case nameof(UnitParameterType.AttackSpeed):
+                if (attackSpeed != null) attackSpeed.text = Unit.UnitStats.AttackSpeed.ToString("0.00");
                 break;
             case nameof(UnitParameterType.Health): if (health != null) health.text = Unit.Health.ToString();
                 break;
             case nameof(UnitParameterType.UpgradeCost): if (upgradeCost != null) upgradeCost.text = Unit.UnitStats.UpgradeCost.ToString();
+                break;
+            case nameof(UnitParameterType.RespawnTimer): respawnTimer.UpdateValue(Unit.RespawnTimer, Unit.UnitReadonlyData.RespawnTime, ()=> Unit.RespawnTimer > 0);
                 break;
             default:
                 break;
@@ -142,7 +151,7 @@ public class UnitPresenter : MonoBehaviour
 
     private void TryUpgradeUnit()
     {
-        if (GameController.Game.SpendSouls(Unit.UnitStats.UpgradeCost))
+        if (GameController.Game.TrySpendSouls(Unit.UnitStats.UpgradeCost))
             Unit.Upgrade();
     }
 

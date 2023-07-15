@@ -16,16 +16,15 @@ public class HeroMagicItemDecorator : IUnitStatsProvider
     public virtual float GetStats(UnitParameterType parameterType)
     {
         float original = _unit.GetStats(parameterType);
-        float initValue = 1;
 
         if (parameterType == UnitParameterType.MagicStrength)
         {
-            float magicStrength = initValue + _magic.GetStats(ItemParameterType.MagicStrength);
+            float magicStrength = _magic.GetStats(ItemParameterType.MagicStrength);
             return _unit.GetStats(UnitParameterType.Attack) * magicStrength;
         }
         else if (parameterType == UnitParameterType.MagicRange)
         {
-            float range = initValue + _magic.GetStats(ItemParameterType.MagicRange);
+            float range = _magic.GetStats(ItemParameterType.MagicRange);
             return original * range;
         }
 

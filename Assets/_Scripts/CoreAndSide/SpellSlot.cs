@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SpellSlot : EquipmentSlot
 {
@@ -21,6 +20,7 @@ public class SpellSlot : EquipmentSlot
     [SerializeField] private TextMeshProUGUI cooldownText;
     private float _maxCooldownTime;
     private float _cooldownTime;
+    private Hero _hero;
 
     protected override void Awake()
     {
@@ -28,6 +28,11 @@ public class SpellSlot : EquipmentSlot
         OnItemChanged -= ChangeBorder;
         OnItemChanged -= ChangeUnderLayer;
         OnItemChanged += CastMagic;
+    }
+
+    public void Init(Hero hero)
+    {
+        _hero = hero;
     }
 
     protected void Update()
@@ -50,13 +55,16 @@ public class SpellSlot : EquipmentSlot
 
         OnMagicCast?.Invoke(newItem as MagicSO);
         CooldownTime = _maxCooldownTime;
-        SetItem(null);
     }
 
     public override void SetItem(ItemSO item)
     {
+        MagicSO magic = (MagicSO)item;
         if (item != null)
-            _maxCooldownTime = ((MagicSO)item).CooldownTime;
+            _maxCooldownTime = magic.CooldownTime;
+
+        Debug.Log("Hero " + _hero);
+        _hero.SetMagic(magic);
 
         base.SetItem(item);
     }

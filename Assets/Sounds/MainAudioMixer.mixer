@@ -33,6 +33,39 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-4844047810464797530
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 34e4741b885348641a18cc1d6f0963d0
+  m_EffectName: Attenuation
+  m_MixLevel: 932eadea90d06ab459046b41443a793e
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-3400679405984470303
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ambient
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: e6888496e86c9d84f89b34442fa236d4
+  m_Children: []
+  m_Volume: f165d06d39c1f804db3003364bc9a50c
+  m_Pitch: 77ede0c77d80cee46824e2b94c9eba2f
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4844047810464797530}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-1916124118900888408
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -82,6 +115,8 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: f165d06d39c1f804db3003364bc9a50c
+    name: AmbientVol
   - guid: fe6134ebef645a54abd9c403c83d17c5
     name: MusicVol
   - guid: 5ff9cac627b894f478d3534eb94af2c1
@@ -91,6 +126,7 @@ AudioMixerController:
     - 9571971733b36e4409eebf74426fa9b0
     - 34c7b641eb6c2ba4eac56bf3bea7baac
     - fccbef33e739fe14e96878dfcd44e484
+    - e6888496e86c9d84f89b34442fa236d4
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -104,8 +140,9 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 9571971733b36e4409eebf74426fa9b0
   m_Children:
-  - {fileID: -1916124118900888408}
   - {fileID: -8046127826413869635}
+  - {fileID: -1916124118900888408}
+  - {fileID: -3400679405984470303}
   m_Volume: ff508db009c567448a7de0a1ad59e551
   m_Pitch: e9d82e0fcb04a3a44917d451a8479834
   m_Send: 00000000000000000000000000000000

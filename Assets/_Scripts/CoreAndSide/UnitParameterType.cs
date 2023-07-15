@@ -15,7 +15,7 @@ public enum UnitParameterType
     BaseUpgradeCost,
     UpgradeCost,
     UpgradeCostPerLevel,
-    RespawnTime,
+    RespawnTimer,
     AttackPerLevel,
     HealthPerLevel,
     MagicStrength,

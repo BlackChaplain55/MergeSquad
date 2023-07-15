@@ -18,7 +18,7 @@ public class SaveSystem
 
     public bool TryLoadGame(string saveName, out GameProgress gameProgress)
     {
-        //Debug.Log("Persistent data path : " + Application.persistentDataPath);
+        Debug.Log("Persistent data path : " + Application.persistentDataPath);
         string savePath = $"{Application.persistentDataPath}/{saveName}.json";
         if (File.Exists(savePath))
         {
@@ -34,12 +34,12 @@ public class SaveSystem
                 Debug.Log(savePath);
                 Debug.LogError("Saved data in file cannot be converted to GameProgress : " + e);
             }
-            gameProgress = default;
+            gameProgress = new(GameController.Game.ArtifactsRepository, new(), new(), GameController.Game.Settings.StartCrystals);
             return false;
         }
         else
         {
-            gameProgress = default;
+            gameProgress = new(GameController.Game.ArtifactsRepository, new(), new(), GameController.Game.Settings.StartCrystals);
             return false;
         }
     }
@@ -47,12 +47,13 @@ public class SaveSystem
     public bool TrySaveGame(string saveName, GameProgress gameProgress)
     {
         string savePath = $"{Application.persistentDataPath}/{saveName}.json";
-        using (var fileStream = new FileStream(savePath, FileMode.OpenOrCreate))
-        {
-            //byte[] data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_gameProgress));
-            byte[] data = Encoding.UTF8.GetBytes(JsonUtility.ToJson(gameProgress));
-            fileStream.Write(data);
-        }
+        File.WriteAllText(savePath, JsonUtility.ToJson(gameProgress));
+        //using (var fileStream = new FileStream(savePath, FileMode.OpenOrCreate))
+        //{
+        //    //byte[] data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_gameProgress));
+        //    byte[] data = Encoding.ASCII.GetBytes(JsonUtility.ToJson(gameProgress));
+        //    fileStream.Write(data, 0, data.Length);
+        //}
         return true;
     }
 }

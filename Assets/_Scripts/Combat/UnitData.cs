@@ -38,7 +38,7 @@ public class UnitData : ScriptableObject, IUnitStatsProvider
             case UnitParameterType.SummonCost: return SummonCost;
             case UnitParameterType.BaseUpgradeCost: return BaseUpgradeCost;
             case UnitParameterType.UpgradeCostPerLevel: return UpgradeCostPerLevel;
-            case UnitParameterType.RespawnTime: return RespawnTime;
+            case UnitParameterType.RespawnTimer: return RespawnTime;
             case UnitParameterType.AttackPerLevel: return AttackPerLevel;
             case UnitParameterType.HealthPerLevel: return HealthPerLevel;
             default: return -1;

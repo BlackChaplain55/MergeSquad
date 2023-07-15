@@ -37,7 +37,7 @@ public class UnitShop : MonoBehaviour
         SummonCost cost = _unitTypeCost[unitData.Type];
         float summonProgression = GameController.Game.Settings.UnitSummonCostProgression;
 
-        if (GameController.Game.SpendSouls(summonCost))
+        if (GameController.Game.TrySpendSouls(summonCost))
         {
             spawner.Spawn(template);
 

@@ -17,58 +17,72 @@ MonoBehaviour:
   ItemsPerKill: 3
   StartSouls: 200
   SoulsPerKill: 5
+  CrystalsPerBossKill: 10
+  CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5
   HPPerLevel:
     _serializedList:
-    - Key: 11
+    - Key: 0
       Value: 0.2
-    - Key: 12
+    - Key: 1
       Value: 0.175
-    - Key: 13
+    - Key: 2
       Value: 0.15
-    - Key: 14
+    - Key: 3
       Value: 0
-    - Key: 15
+    - Key: 4
       Value: 0
-    - Key: 16
+    - Key: 5
       Value: 0
   AttackPerLevel:
     _serializedList:
-    - Key: 11
-      Value: 0.1
-    - Key: 12
-      Value: 0.075
-    - Key: 13
+    - Key: 0
       Value: 0.05
-    - Key: 14
+    - Key: 1
+      Value: 0.075
+    - Key: 2
       Value: 0.1
-    - Key: 15
-      Value: 0.12
-    - Key: 16
+    - Key: 3
       Value: 0.14
+    - Key: 4
+      Value: 0.12
+    - Key: 5
+      Value: 0.1
   AttackSpeedPerLevel:
     _serializedList:
-    - Key: 11
+    - Key: 0
       Value: 1
-    - Key: 12
+    - Key: 1
       Value: 1
-    - Key: 13
+    - Key: 2
       Value: 1
-    - Key: 14
+    - Key: 3
       Value: 0.97
-    - Key: 15
+    - Key: 4
       Value: 0.98
-    - Key: 16
+    - Key: 5
       Value: 0.985
   MagicStrengthPerLevel:
     _serializedList:
-    - Key: 17
-      Value: 0
+    - Key: 6
+      Value: 1.2
   MagicRangePerLevel:
     _serializedList:
-    - Key: 17
-      Value: 0
+    - Key: 6
+      Value: 10
   ItemsDeathTimerPerLevel: 4
+  ItemsPlaceholders:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 21300000, guid: abcbb1c667157fa4ea5e32b8d49b5493, type: 3}
+    - Key: 3
+      Value: {fileID: 21300000, guid: 8d5eb7ee49d5ace4ebd9fa1db1899fd7, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: 4206c109e722220488c8357f286834aa, type: 3}
+    - Key: 4
+      Value: {fileID: 21300000, guid: c39727ccb3dda794db44a9cc793e0b81, type: 3}
+    - Key: 6
+      Value: {fileID: 21300000, guid: 156a2297398281f439211fd0932fea81, type: 3}
   ItemUnderLayers:
   - {fileID: 21300000, guid: aa271c25a1e73b84abc3adb79b7c3d61, type: 3}
   - {fileID: 21300000, guid: 8e047de3ba669e541826d92e55639cc8, type: 3}
@@ -81,8 +95,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a2fb0a572f6bb1c479c617539a705dc0, type: 3}
   - {fileID: 21300000, guid: 3eb3c8b1a22a2404e92379b13de51e05, type: 3}
   ItemBorders:
-  - {fileID: 21300000, guid: 7b10e0fcd17e0544e8fdc80044314065, type: 3}
+  - {fileID: 21300000, guid: b7a41ff73ebfa8548a9e3d0ffe9e9ada, type: 3}
   - {fileID: 21300000, guid: 4f5c5aa2a2583f9429f8a11dc5c28df4, type: 3}
-  - {fileID: 21300000, guid: ea6be249b3493804aa1914737879d987, type: 3}
-  - {fileID: 21300000, guid: 20acab9d90e2b174f89bd11b5308e652, type: 3}
-  MagicTypes: 11000000
+  - {fileID: 21300000, guid: 0079ba1f8d783f942aa9779f8cf5f644, type: 3}
+  - {fileID: 21300000, guid: 044add808d0a1de4e99570af1fa84235, type: 3}
+  MagicTypes: 06000000
