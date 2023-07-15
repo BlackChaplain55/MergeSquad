@@ -29,8 +29,14 @@ public class EquipmentSlot : Slot
     protected override void Awake()
     {
         base.Awake();
-        _placeHolder = _itemPresenter.GetSprite();
+    }
+
+    private void Start()
+    {
+        _placeHolder = GameController.Game.Settings.ItemsPlaceholders[ItemType];
         _placeHolderColor = _itemPresenter.GetColor();
+        _itemPresenter.SetIcon(_placeHolder);
+
         if (highlight != null)
             _highlightColor = highlight.color;
     }
@@ -60,9 +66,9 @@ public class EquipmentSlot : Slot
         barBackground.enabled = isItemExist;
     }
 
-    public void ResetDeathTimer(EquipmentSO newItem)
+    public void ResetDeathTimer(IItemStatsProvider itemStats)
     {
-        DeathTimer = newItem.DeathTimer;
+        DeathTimer = itemStats.GetStats(ItemParameterType.DeathTimer);
     }
 
     public override bool TryPlace(Slot slot)

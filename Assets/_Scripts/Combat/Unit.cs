@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(UnitView))]
 public class Unit : MonoBehaviour, INotifyPropertyChanged
@@ -12,6 +13,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     public EquipmentSO WeaponSO { get; private set; }
     public EquipmentSO ArmorSO { get; private set; }
     public UnitStats UnitStats { get { return _unitStats; } }
+    public IItemStatsProvider WeaponStats { get { return _weaponStats; } private set { _weaponStats = value; } }
+    public IItemStatsProvider ArmorStats { get { return _armorStats; } private set { _armorStats = value; } }
     [field: SerializeField] public float Position { get; private set; }
     public int Line { get; private set; }
     public float AttackDistance { get; private set; }
@@ -38,7 +41,16 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-
+    public float RespawnTimer
+    {
+        get { return _respawnTimer; }
+        set
+        {
+            _respawnTimer = value;
+            OnPropertyChanged();
+        }
+    }
+    
     public UnitState State;
     public Unit currentEnemy;
     [field: SerializeField] public bool CanMove { get; private set; }
@@ -47,6 +59,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] private float _health;
     [SerializeField] private int _level;
     [SerializeField] private Unit _host;
+    private float _respawnTimer;
     private UnitView _view;
     private UnitProjectile _projectiles;
     private UnitSpawner _unitSpawner;
@@ -57,10 +70,12 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     [SerializeField] protected UnitStats _unitStats;
 
     protected IUnitStatsProvider _statsProvider;
+    protected IItemStatsProvider _weaponStats;
+    protected IItemStatsProvider _armorStats;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         WeaponSO = Resources.Load<EquipmentSO>("Items/NullWeapon");
         ArmorSO = Resources.Load<EquipmentSO>("Items/NullArmor");
@@ -227,9 +242,6 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public virtual void Upgrade()
     {
-        if (State == UnitState.Die)
-            return;
-
         Level++;
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
@@ -261,18 +273,16 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     private IEnumerator RespawnCooldown()
     {
-        yield return new WaitForSeconds(_unitData.RespawnTime);
-        Spawn();
-        //float timeStep = 0.1f;
-        //WaitForSeconds wait = new(timeStep);
-        //float RespawnTimer = _unitData.RespawnTime;
-        //while (RespawnTimer > 0)
-        //{
-        //    RespawnTimer -= timeStep;
-        //    yield return wait;
-        //}
+        float timeStep = 0.1f;
+        WaitForSeconds wait = new(timeStep);
+        RespawnTimer = _unitData.RespawnTime;
+        while (RespawnTimer > 0)
+        {
+            RespawnTimer -= timeStep;
+            yield return wait;
+        }
 
-        //Spawn();
+        Spawn();
     }
 
     private IEnumerator WalkDelay()
@@ -283,22 +293,17 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     protected virtual void InitDecorators()
     {
-        IItemStatsProvider weaponStats;
-        IItemStatsProvider armorStats;
+        Artifact[] artifacts;
+        var artifactsRepo = GameController.Game.ArtifactsRepository;
+        artifacts = artifactsRepo[UnitStats.Type];
 
-        if (GameController.Game != null)
-        {
-            var artifactsRepo = GameController.Game.ArtifactsRepository;
-            Artifact[] artifacts = artifactsRepo[UnitStats.Type];
-        }
-
-        //UnitStats = new ArtifactUnitDecorator(_unitData, artifacts);
+        _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
         _statsProvider = new UnitLevelDecorator(_unitData, this);
-        //armorStats = new ArtifactItemDecorator(armorStats, artifacts);
-        armorStats = new ArmorLevelDecorator(this);
-        //weaponStats = new ArtifactItemDecorator(weaponStats, artifacts);
-        weaponStats = new WeaponLevelDecorator(this);
-        _statsProvider = new CombineUnitItemDecorator(_statsProvider, weaponStats, armorStats);
+        _armorStats = new ArtifactItemDecorator(_armorStats, artifacts);
+        _armorStats = new ArmorLevelDecorator(this);
+        _weaponStats = new ArtifactItemDecorator(_weaponStats, artifacts);
+        _weaponStats = new WeaponLevelDecorator(this);
+        _statsProvider = new CombineUnitItemDecorator(_statsProvider, _weaponStats, _armorStats);
         _unitStats = new UnitStats(_unitData);
         _unitStats.SetSnapshot(_statsProvider);
     }

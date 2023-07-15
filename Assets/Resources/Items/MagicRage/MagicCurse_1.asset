@@ -15,4 +15,7 @@ MonoBehaviour:
   Id: 0
   Power: 15
   ItemSprite: {fileID: 21300000, guid: 1fcf412abaeabee4a8d27b45394ad0c4, type: 3}
-  Type: 19
+  Type: 8
+  CooldownTime: 0
+  BaseStrength: 0
+  BaseRange: 0

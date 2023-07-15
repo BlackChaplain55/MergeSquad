@@ -32,6 +32,7 @@ public class HeroPresenter : MonoBehaviour
     {
         unitController.UnitsList.CollectionChanged += FindHero;
         GetHeroHard();
+        spellSlot.Init(_hero);
 
         spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
     }
@@ -70,7 +71,6 @@ public class HeroPresenter : MonoBehaviour
         if (e == null) return;
         foreach (Unit newUnit in e.NewItems)
         {
-            Debug.Log("Unit Type " + newUnit.UnitReadonlyData.Type);
             if (newUnit.UnitReadonlyData.Type == UnitType.Hero)
             {
                 Debug.Log("Герой найден");
@@ -152,7 +152,7 @@ public class HeroPresenter : MonoBehaviour
 
     private void TryUpgradeHero()
     {
-        if (GameController.Game.SpendSouls(_hero.UnitStats.UpgradeCost))
+        if (GameController.Game.TrySpendSouls(_hero.UnitStats.UpgradeCost))
             _hero.Upgrade();
     }
 

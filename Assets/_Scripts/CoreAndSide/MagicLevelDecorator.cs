@@ -25,7 +25,7 @@ public class MagicLevelDecorator : ItemLevelDecorator
             switch (parameterType)
             {
                 case ItemParameterType.MagicStrength:
-                    return magic.BaseStrength + strengthPerLevel * magicLevel;
+                    return magic.BaseStrength + Mathf.Pow(strengthPerLevel, magicLevel);
                 case ItemParameterType.MagicRange:
                     return magic.BaseRange + rangePerLevel * magicLevel;
                 default:

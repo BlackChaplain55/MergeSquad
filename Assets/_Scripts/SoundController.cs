@@ -47,14 +47,4 @@ public class SoundController : MonoBehaviour
     {
         _audioSource?.Stop();
     }
-
-    private void SetSavedVolume()
-    {
-        string soundParameter = VolumeParameters.SoundsVolumeParameter;
-        string musicParameter = VolumeParameters.MusicVolumeParameter;
-        float soundsVol = PlayerPrefs.GetInt(soundParameter, 1000) * 0.001f;
-        float musicVol = PlayerPrefs.GetInt(musicParameter, 1000) * 0.001f;
-        _audioMixer.SetFloat(soundParameter, soundsVol);
-        _audioMixer.SetFloat(musicParameter, musicVol);
-    }
 }

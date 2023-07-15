@@ -52,11 +52,36 @@ MonoBehaviour:
     type: 2}
   gameProgress:
     UnitArtifacts:
-      _serializedList: []
+      _serializedList:
+      - Key: 0
+        Value:
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: 2636f5920d297b645807f8c721853154,
+            type: 2}
+          count: 0
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: 76f27fd71edbb794e917e261dadf1578,
+            type: 2}
+          count: 0
+      - Key: 1
+        Value:
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: b160ddf5396388746a605e6df66eea3c,
+            type: 2}
+          count: 0
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: 2065ab74e8fecd1449f262d6f0aab55e,
+            type: 2}
+          count: 0
+      - Key: 2
+        Value:
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: 2ac8490f7a6f1c941a3961b3fd950a0e,
+            type: 2}
+          count: 0
+        - <BaseData>k__BackingField: {fileID: 11400000, guid: 7f12b8e68f122a044a2000a9ef90aafa,
+            type: 2}
+          count: 0
     ItemArtifacts:
       _serializedList: []
     _unlockedLevel: 0
     _currentLevel: 0
+    _crystals: 0
 --- !u!82 &8642106774913183280
 AudioSource:
   m_ObjectHideFlags: 0
@@ -66,7 +91,8 @@ AudioSource:
   m_GameObject: {fileID: 4162957430119166855}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1916124118900888408, guid: 501b25cfb3455a44faf2b1439303b3ae,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -167,9 +193,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae, type: 2}
   _soundtracks:
-  - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
-  - {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
   - {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
-  _menuTrack: {fileID: 0}
-  _mapTrack: {fileID: 0}
-  _audioSource: {fileID: 0}
+  - {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+  - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
+  _menuTrack: {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
+  _mapTrack: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+  _audioSource: {fileID: 8642106774913183280}

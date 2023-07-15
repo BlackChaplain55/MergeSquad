@@ -30,5 +30,5 @@ MonoBehaviour:
     type: 3}
   <Icon>k__BackingField: {fileID: 21300000, guid: d53bb544bed2e334e8088aa61d14e181,
     type: 3}
-  <ArmorType>k__BackingField: 13
-  <WeaponType>k__BackingField: 14
+  <ArmorType>k__BackingField: 0
+  <WeaponType>k__BackingField: 3
