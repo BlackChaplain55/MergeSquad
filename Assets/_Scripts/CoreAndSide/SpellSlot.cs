@@ -63,7 +63,6 @@ public class SpellSlot : EquipmentSlot
         if (item != null)
             _maxCooldownTime = magic.CooldownTime;
 
-        Debug.Log("Hero " + _hero);
         _hero.SetMagic(magic);
 
         base.SetItem(item);

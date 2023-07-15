@@ -62,7 +62,6 @@ public class Hero : Unit
             MagicSO = _nullMagic;
 
         MagicStrength = _statsProvider.GetStats(UnitParameterType.MagicStrength);
-        Debug.Log(_statsProvider.GetStats(UnitParameterType.MagicStrength));
         MagicRange = _statsProvider.GetStats(UnitParameterType.MagicRange);
     }
 

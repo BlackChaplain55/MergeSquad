@@ -68,16 +68,10 @@ public class MagicSystem : MonoBehaviour
             
             float minRange = GroundPosition.x - magic.BaseRange;
             float maxRange = GroundPosition.x + magic.BaseRange;
-            Func<Unit, bool> isEnemyInRange = unit =>
-            {
-                bool result = unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
-                Debug.Log($"checking {unit.gameObject.name} is enemy {unit.isEnemy}, in position {unit.Position}, > {minRange} = {unit.Position > minRange}, < {maxRange} = {unit.Position < maxRange}, result {result}");
-                return result;
-            };
+            Func<Unit, bool> isEnemyInRange = unit => unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
             var enemies = unitController.EnemyList.Where(isEnemyInRange).ToList();
             enemies.ForEach(enemy =>
             {
-                Debug.Log($"Enemy {enemy.gameObject.name} taking {hero.MagicStrength} damage");
                 enemy.TakeDamage(hero.MagicStrength);
                 });
             hero.SetMagic(null);
