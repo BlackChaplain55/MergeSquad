@@ -16728,7 +16728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitSpawner: {fileID: 7816340718038077847}
   _unitConroller: {fileID: 0}
-  _levelProgressView: {fileID: 0}
+  _levelProgressView: {fileID: 6894452914514919405}
   _bossesTemplates:
   - {fileID: 425036865094653353, guid: 194dfeeaf81e0164085ab3169ed9af53, type: 3}
   - {fileID: 425036865094653353, guid: 6c3789fea1d32f541bfaec5b9d49dd42, type: 3}
