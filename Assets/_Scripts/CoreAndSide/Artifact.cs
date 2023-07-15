@@ -16,18 +16,34 @@ public class Artifact
             PropertyChanged?.Invoke(this, new(nameof(Count)));
         }
     }
+    public int Cost
+    {
+        get => cost;
+        protected set
+        {
+            cost = value;
+            PropertyChanged?.Invoke(this, new(nameof(Cost)));
+        }
+    }
     [field: SerializeReference] public ArtifactSO BaseData { get; protected set; }
     [SerializeField] private int count;
+    [SerializeField] private int cost;
 
     public Artifact(int count, ArtifactSO baseData)
     {
         Count = count;
+        Cost = cost;
         BaseData = baseData;
     }
 
     public void SetCount(int value)
     {
         Count = value;
+    }
+
+    public void SetCost(int value)
+    {
+        Cost = value;
     }
 
     public virtual float GetStats(float rawStat) => rawStat * BaseData.MultiplierPerPiece * Count;

@@ -7,6 +7,14 @@ public class ArtifactsShop : MonoBehaviour
     [SerializeField] private GameObject artifactPresenterTemplate;
     [SerializeField] private Transform artifactPresenterParent;
     [SerializeField] private List<ArtifactPresenter> ArtifactsSlots;
+    [SerializeField] private GameObject ShopObject;
+    private bool _isVisible;
+
+    public void ToggleVisibility()
+    {
+        _isVisible = !_isVisible;
+        ShopObject.SetActive(_isVisible);
+    }
 
     private void Start()
     {

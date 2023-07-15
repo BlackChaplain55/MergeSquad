@@ -71,7 +71,9 @@ public class Hero : Unit
         var artifactsRepo = GameController.Game.ArtifactsRepository;
         artifacts = artifactsRepo[UnitStats.Type];
 
+        Debug.Log("Hero attack : " + _unitData.GetStats(UnitParameterType.Attack));
         _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
+        Debug.Log("Hero attack : " + _statsProvider.GetStats(UnitParameterType.Attack));
         _statsProvider = new UnitLevelDecorator(_statsProvider, this);
         var magic = new MagicLevelDecorator(this);
         _statsProvider = new HeroMagicItemDecorator(_statsProvider, magic);
