@@ -86,6 +86,13 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         InitDecorators();
 
         Health = UnitStats.MaxHealth;
+        EventBus.OnNextStepReached += UpdateOnLevelStep;
+
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.OnNextStepReached += UpdateOnLevelStep;
     }
 
     public Unit(bool isEnemy = false)
@@ -93,12 +100,14 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         State = UnitState.Waiting;
     }
 
-    public void Init(UnitSpawner unitSpawner)
+    public void Init(UnitSpawner unitSpawner, int level =1)
     {
         _unitSpawner = unitSpawner;
         _unitController = _unitSpawner.gameObject.GetComponent<UnitController>();
         transform.parent.parent.TryGetComponent<Unit>(out _host);
-        Health = _unitData.BaseHealth;
+        Level = level;
+        _unitStats.SetSnapshot(_statsProvider);
+        Health = UnitStats.MaxHealth;
         _view = GetComponent<UnitView>();
         _sound = GetComponent<UnitSound>();
         _sound.Init();
@@ -325,5 +334,10 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
     protected void OnPropertyChanged([CallerMemberName] string name = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
+
+    private void UpdateOnLevelStep()
+    {
+        UpdatePosition(transform.position.x);
     }
 }

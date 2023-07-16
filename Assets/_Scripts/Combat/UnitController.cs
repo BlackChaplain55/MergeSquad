@@ -11,20 +11,29 @@ public class UnitController : MonoBehaviour
     [SerializeField] public ObservableCollection<Unit> UnitsList { get; private set; }
     [SerializeField] public ObservableCollection<Unit> EnemyList { get; private set; }
     [SerializeField] public float walkSpeedModifier { get; private set; }
+    public int InitialEnemyLevel { get; private set; }
 
     [SerializeField] private LevelProgress _levelProgress;
 
     [SerializeField] private float _secondsToUpgrade;
-    [SerializeField] private int _maxLevel;
+    [SerializeField] private int _maxLevelPerBoss;
+    private int _maxLevel;
     private bool _upgradeEnabled;
 
     private void Awake()
     {
+        InitialEnemyLevel = 1;
         UnitsList = new ObservableCollection<Unit>();
         EnemyList = new ObservableCollection<Unit>();
         if (_levelProgress == null) _levelProgress = GetComponent<LevelProgress>();
         _upgradeEnabled = true;
         StartCoroutine(UpgradeEnemies());
+        EventBus.OnBossDeath += SetInitialEnemyLevel;
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.OnBossDeath -= SetInitialEnemyLevel; ;
     }
 
     void Update()
@@ -81,7 +90,7 @@ public class UnitController : MonoBehaviour
             yield return new WaitForSeconds(_secondsToUpgrade);
             foreach (Unit unit in EnemyList)
             {
-                if (unit.Level<_maxLevel)
+                if (unit.Level< _maxLevel)
                     unit.Upgrade();
             }
         }
@@ -138,6 +147,15 @@ public class UnitController : MonoBehaviour
         else
         {
             return Mathf.Abs(unit1.Position - unit2.Position);
+        }
+    }
+
+    private void SetInitialEnemyLevel()
+    {
+        _maxLevel += _maxLevelPerBoss;
+        foreach (Unit enemy in EnemyList)
+        {
+            if (enemy.isEnemy && enemy.Level > InitialEnemyLevel) InitialEnemyLevel = enemy.Level;
         }
     }
 }

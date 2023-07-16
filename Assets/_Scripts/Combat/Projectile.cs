@@ -13,6 +13,12 @@ public class Projectile : MonoBehaviour
 
     private float _archerX;
     private float _targetX;
+    private TrailRenderer _trail;
+
+    private void Awake()
+    {
+        _trail = GetComponent<TrailRenderer>();
+    }
 
     public void Init(GameObject archer, GameObject target, Transform? shootPoint=null)
     {
@@ -28,7 +34,8 @@ public class Projectile : MonoBehaviour
         {
             transform.position = _archer.transform.position;
         }
-        //DrawProjectile();
+        if (_trail != null) _trail.Clear();
+        DrawProjectile();
     }
 
     private void Update()

@@ -18,6 +18,7 @@ public class UnitSpawner : MonoBehaviour
     private int _currentLine = 0;
     private int _currentEnemyLine = 0;
 
+
     private void Awake()
     {
         if (_unitController == null) _unitController = GetComponent<UnitController>();
@@ -55,7 +56,7 @@ public class UnitSpawner : MonoBehaviour
         _spawnEffects.SpawnEffect(unit.transform.parent, unit.isEnemy);
     }
 
-    public void Spawn(GameObject unitObject, bool needInstance=true)
+    public void Spawn(GameObject unitObject, bool needInstance=true, int level =1)
     {
         Unit unit = unitObject.GetComponent<Unit>();
         Transform spawnPoint;
@@ -71,5 +72,10 @@ public class UnitSpawner : MonoBehaviour
         newUnit.Init(this);
         _unitController.AddUnitToList(newUnit);
         //_spawnEffects.SpawnEffect(newUnit.transform.parent, newUnit.isEnemy);
+    }
+
+    public int GetInitialEnemyLevel()
+    {
+        return _unitController.InitialEnemyLevel;
     }
 }
