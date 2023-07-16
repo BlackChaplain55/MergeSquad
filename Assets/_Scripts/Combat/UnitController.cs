@@ -11,6 +11,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] public ObservableCollection<Unit> UnitsList { get; private set; }
     [SerializeField] public ObservableCollection<Unit> EnemyList { get; private set; }
     [SerializeField] public float walkSpeedModifier { get; private set; }
+    public int InitialEnemyLevel { get; private set; }
 
     [SerializeField] private LevelProgress _levelProgress;
 
@@ -20,11 +21,18 @@ public class UnitController : MonoBehaviour
 
     private void Awake()
     {
+        InitialEnemyLevel = 1;
         UnitsList = new ObservableCollection<Unit>();
         EnemyList = new ObservableCollection<Unit>();
         if (_levelProgress == null) _levelProgress = GetComponent<LevelProgress>();
         _upgradeEnabled = true;
         StartCoroutine(UpgradeEnemies());
+        EventBus.OnBossDeath += SetInitialEnemyLevel;
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.OnBossDeath -= SetInitialEnemyLevel; ;
     }
 
     void Update()
@@ -138,6 +146,14 @@ public class UnitController : MonoBehaviour
         else
         {
             return Mathf.Abs(unit1.Position - unit2.Position);
+        }
+    }
+
+    private void SetInitialEnemyLevel()
+    {
+        foreach (Unit enemy in EnemyList)
+        {
+            if (enemy.isEnemy && enemy.Level > InitialEnemyLevel) InitialEnemyLevel = enemy.Level;
         }
     }
 }

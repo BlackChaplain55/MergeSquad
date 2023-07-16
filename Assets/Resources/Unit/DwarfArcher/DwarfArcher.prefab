@@ -276,9 +276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audio: {fileID: 5655428728358674651}
-  _attackClip: {fileID: 0}
+  _attackClip: {fileID: 8300000, guid: 11559c5899c174940abfc363577de6d1, type: 3}
   _dieClip: {fileID: 0}
-  _hitClip: {fileID: 0}
+  _hitClip: {fileID: 8300000, guid: 0a8a8f0081fdf3d44ab4039a5a5290c5, type: 3}
   _attackVol: 1
   _dieVol: 1
   _hitVol: 1

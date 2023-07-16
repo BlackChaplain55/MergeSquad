@@ -21,7 +21,8 @@ public class LevelProgress : MonoBehaviour
     private float _levelPosition;
     private float _levelInitialPosition;
     private float _heroPosition;
-    private float _levelLength;
+    private float _levelLength;    
+
     [SerializeField] private float _bossOffsetY;
     [SerializeField] private float _bossOffsetX;
     

@@ -51,8 +51,8 @@ public class EnemySpawner : MonoBehaviour
     }
 
     private void Spawn(GameObject unitObject)
-    {
-        _unitSpawner.Spawn(unitObject);
+    {        
+        _unitSpawner.Spawn(unitObject,true, _unitSpawner.GetInitialEnemyLevel());
     }
 
     [Button]
