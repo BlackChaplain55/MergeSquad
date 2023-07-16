@@ -17,9 +17,6 @@ public class ArtifactUnitDecorator : IUnitStatsProvider
     {
         float baseStat = _unit.GetStats(parameterType);
 
-            foreach (Artifact artifact in _artifacts)
-                Debug.Log(artifact.ToString());
-
         float value = baseStat;
 
         foreach (var artifact in _artifacts)

@@ -33,7 +33,7 @@ public class UnitShop : MonoBehaviour
 
     private void TryBuyNewUnit(UnitData unitData, GameObject template)
     {
-        int summonCost = (int)(unitData.SummonCost * _unitTypeCost[unitData.Type].Multiplier);
+        int summonCost = (int)(unitData.SummonCost * (_unitTypeCost[unitData.Type].Multiplier + 1));
         SummonCost cost = _unitTypeCost[unitData.Type];
         float summonProgression = GameController.Game.Settings.UnitSummonCostProgression;
 

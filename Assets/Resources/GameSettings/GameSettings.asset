@@ -16,11 +16,14 @@ MonoBehaviour:
   ItemsBaseLevel: 2
   ItemsPerKill: 3
   StartSouls: 200
-  StartCrystals: 1000
   SoulsPerKill: 5
+  SoulsPerBossKill: 80
+  StartCrystals: 1000
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5
+  ArtifactsBaseCost: 200
+  ArtifactsPerPieceCost: 100
   HPPerLevel:
     _serializedList:
     - Key: 0

@@ -17,6 +17,7 @@ public class MagicSystem : MonoBehaviour
     [field: SerializeField] public ParticleSystem FireBallExplosion { get; private set; }
     [field: SerializeField] public ParticleSystem FireBallExplosionFlipbook { get; private set; }
     [SerializeField] private UnitController unitController;
+    [SerializeField] private Transform canvas;
 
     public void CastMagic(Hero hero, MagicSO magic)
     {
@@ -65,10 +66,16 @@ public class MagicSystem : MonoBehaviour
 
         void OnFireballGrounded()
         {
-            
-            float minRange = GroundPosition.x - magic.BaseRange;
-            float maxRange = GroundPosition.x + magic.BaseRange;
-            Func<Unit, bool> isEnemyInRange = unit => unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
+            float center = GroundPosition.x * canvas.localScale.x;
+            float range = magic.BaseRange / 100;
+            float minRange = center - range;
+            float maxRange = center + range;
+            Func<Unit, bool> isEnemyInRange = unit =>
+            {
+                bool result = unit.isEnemy && unit.Position > minRange && unit.Position < maxRange;
+                Debug.Log($"unit.isEnemy {unit.isEnemy} && unit.Position {unit.Position} > minRange {minRange} && unit.Position {unit.Position} < maxRange {maxRange}");
+                return result;
+            };
             var enemies = unitController.EnemyList.Where(isEnemyInRange).ToList();
             enemies.ForEach(enemy =>
             {

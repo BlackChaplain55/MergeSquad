@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &5149289 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7816340717233912622, guid: b8b4ff97130710c4082b7dc2ac85f9f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 7816340718334652551}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &67973513 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 643447988108971745, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
@@ -867,6 +873,11 @@ PrefabInstance:
       propertyPath: helperImage
       value: 
       objectReference: {fileID: 1296502907}
+    - target: {fileID: 890077397897273726, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 5149289}
     - target: {fileID: 890077397897273726, guid: 155141ad9ee8ebf4fac172f60fb7ec4f,
         type: 3}
       propertyPath: unitController
