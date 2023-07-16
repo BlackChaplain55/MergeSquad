@@ -9,11 +9,14 @@ public class GameSettings : ScriptableObject
     public int ItemsBaseLevel = 1;
     public int ItemsPerKill;
     public int StartSouls;
-    public int StartCrystals;
     public int SoulsPerKill;
+    public int SoulsPerBossKill;
+    public int StartCrystals;
     public int CrystalsPerBossKill;
     public int CrystalsPerFinalBossKill;
     public float UnitSummonCostProgression;
+    public int ArtifactsBaseCost;
+    public int ArtifactsPerPieceCost;
 
     [Header("Items Settings")]
     [SerializedDictionary(nameof(ItemType), nameof(UnitParameterType.HealthPerLevel))]
