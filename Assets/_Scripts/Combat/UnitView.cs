@@ -100,7 +100,7 @@ public class UnitView : MonoBehaviour
         var punchForce = 6f;
         var punchVector = new Vector3(-punchForce, 0.5f*punchForce, 0);
         if (isEnemy) punchVector = new Vector3(punchForce, 0.5f * punchForce, 0);
-        if (_punchTween==null||(_punchTween != null&&!_punchTween.IsPlaying())) transform.DOPunchPosition(punchVector, 0.2f, 1, 0f);
+        if (_punchTween==null||(_punchTween != null&&!_punchTween.IsPlaying())) _punchTween = transform.DOPunchPosition(punchVector, 0.2f, 1, 0.3f);
         var damageEffectSeq = DOTween.Sequence();
         damageEffectSeq.Append(_image.DOColor(Color.red, 0.15f));
         damageEffectSeq.Append(_image.DOColor(Color.white, 0.15f));

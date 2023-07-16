@@ -467,7 +467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3840, y: 170}
+  m_AnchoredPosition: {x: 3840, y: 157}
   m_SizeDelta: {x: 1920, y: 433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &740091940
@@ -6301,7 +6301,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3840, y: 170}
+  m_AnchoredPosition: {x: 1920, y: 170}
   m_SizeDelta: {x: 1920, y: 433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7305102169797124785
@@ -6696,7 +6696,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 170}
+  m_AnchoredPosition: {x: -1920, y: 170}
   m_SizeDelta: {x: 1920, y: 433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7816340716930625235
@@ -6876,7 +6876,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1920, y: 170}
+  m_AnchoredPosition: {x: 0, y: 157}
   m_SizeDelta: {x: 1920, y: 433}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7816340717696728411
@@ -6996,7 +6996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelProgress: {fileID: 299294998}
   _secondsToUpgrade: 20
-  _maxLevel: 99
+  _maxLevelPerBoss: 0
 --- !u!114 &7816340718038077847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7059,6 +7059,9 @@ MonoBehaviour:
   _bossesTemplates:
   - {fileID: 425036865094653353, guid: 194dfeeaf81e0164085ab3169ed9af53, type: 3}
   - {fileID: 425036865094653353, guid: 6c3789fea1d32f541bfaec5b9d49dd42, type: 3}
+  - {fileID: 425036865094653353, guid: 758cf0ba5fb32334b9d014fe298f5f03, type: 3}
+  - {fileID: 425036865094653353, guid: 6c3789fea1d32f541bfaec5b9d49dd42, type: 3}
+  - {fileID: 425036865094653353, guid: 758cf0ba5fb32334b9d014fe298f5f03, type: 3}
   - {fileID: 425036865094653353, guid: 5f6705852e72c6942b54d224f2cc902e, type: 3}
   _currentCanvas: {fileID: 7816340717233912623}
   _hero: {fileID: 702394356}
