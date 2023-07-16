@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DwarfArcher
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
-  <BaseHealth>k__BackingField: 100
-  <BaseAttack>k__BackingField: 10
-  <AttackSpeed>k__BackingField: 0.5
-  <AttackSpeedPerLevel>k__BackingField: 0.05
+  <BaseHealth>k__BackingField: 70
+  <BaseAttack>k__BackingField: 8
+  <AttackSpeed>k__BackingField: 0.7
+  <AttackSpeedPerLevel>k__BackingField: 0.02
   <WalkSpeed>k__BackingField: 0.02
   <AttackDistance>k__BackingField: 1.5
   <SummonCost>k__BackingField: 0
@@ -24,8 +24,8 @@ MonoBehaviour:
   <UpgradeCostPerLevel>k__BackingField: 0
   <MultiAttack>k__BackingField: 0
   <RespawnTime>k__BackingField: 15
-  <AttackPerLevel>k__BackingField: 1.05
-  <HealthPerLevel>k__BackingField: 1.05
+  <AttackPerLevel>k__BackingField: 1.04
+  <HealthPerLevel>k__BackingField: 1.04
   <MainSprite>k__BackingField: {fileID: 0}
   <Icon>k__BackingField: {fileID: 0}
   <ArmorType>k__BackingField: 1

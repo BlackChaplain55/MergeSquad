@@ -195,11 +195,15 @@ MonoBehaviour:
   - {fileID: 8091613586203909835}
   - {fileID: 1323742226756250316}
   - {fileID: 8831118610302173633}
-  _spawnUnitSequence: 020000000200000001000000
+  _spawnUnitSequence: 01000000020000000200000001000000
   _spawnDelaySequence:
-  - 10
+  - 4
   - 2
-  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
   _unitSpawner: {fileID: 0}
 --- !u!114 &2502206377285472962
 MonoBehaviour:

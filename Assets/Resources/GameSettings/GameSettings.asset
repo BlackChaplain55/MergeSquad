@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
-  ItemsBaseLevel: 2
-  ItemsPerKill: 3
-  StartSouls: 200
-  StartCrystals: 1000
+  ItemsBaseLevel: 4
+  ItemsPerKill: 2
+  StartSouls: 45
   SoulsPerKill: 5
+  SoulsPerBossKill: 0
+  StartCrystals: 1000
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5
+  ArtifactsBaseCost: 40
+  ArtifactsPerPieceCost: 20
   HPPerLevel:
     _serializedList:
     - Key: 0
@@ -66,7 +69,7 @@ MonoBehaviour:
   MagicStrengthPerLevel:
     _serializedList:
     - Key: 6
-      Value: 1.2
+      Value: 1.7
   MagicRangePerLevel:
     _serializedList:
     - Key: 6
