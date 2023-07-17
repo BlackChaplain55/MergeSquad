@@ -108,8 +108,7 @@ public class EquipmentSlot : Slot
 
         Color hundred = Color.HSVToRGB(1 / 3f, 0.7f, 1);
         Color zero = Color.HSVToRGB(0, 0.7f, 1);
-        var eqData = (EquipmentSO)CurrentItem;
-        float value = DeathTimer / eqData.DeathTimer;
+        float value = DeathTimer / _maxDeathTimer;
         Color color = Color.Lerp(zero, hundred, value);
         bar.fillAmount = value;
         bar.color = color;

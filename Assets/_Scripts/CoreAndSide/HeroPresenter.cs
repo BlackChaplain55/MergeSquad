@@ -34,8 +34,6 @@ public class HeroPresenter : MonoBehaviour
         GetHeroHard();
         spellSlot.Init(_hero);
         upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(_hero.UnitStats.UpgradeCost);
-
-        spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
     }
 
     public void UpdateText(object sender, PropertyChangedEventArgs e)
@@ -52,11 +50,7 @@ public class HeroPresenter : MonoBehaviour
                 if (magicStrength != null) magicStrength.text = $"Magic {_hero.MagicStrength}";
                 break;
             case nameof(UnitParameterType.UpgradeCost):
-                if (upgradeCost != null)
-                {
-                    upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString();
-                    upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(_hero.UnitStats.UpgradeCost);
-                }
+                if (upgradeCost != null) upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString(); 
                 break;
             case nameof(UnitParameterType.Health):
                 if (hpText != null)
@@ -127,6 +121,8 @@ public class HeroPresenter : MonoBehaviour
 
     private void AddAllListeners()
     {
+        GameController.Game.OnSoulsChanged += SoulsChanged;
+        spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
         _hero.PropertyChanged += UpdateText;
         _hero.GetUnitStatsRef().PropertyChanged += UpdateText;
         upgradeButton.onClick.AddListener(TryUpgradeHero);
@@ -161,12 +157,24 @@ public class HeroPresenter : MonoBehaviour
             _hero.Upgrade();
     }
 
+    private void SoulsChanged(int value)
+    {
+        upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(_hero.UnitStats.UpgradeCost);
+    }
+
     private void RemoveAllListeners()
     {
+        GameController.Game.OnSoulsChanged -= SoulsChanged;
+        spellSlot.OnItemOverlapChanged -= mergeSystem.OverlapChanged;
         _hero.PropertyChanged -= UpdateText;
         _hero.GetUnitStatsRef().PropertyChanged -= UpdateText;
         upgradeButton.onClick.RemoveListener(TryUpgradeHero);
         spellSlot.OnMagicCast -= CastMagic;
         mergeSystem.OnSlotCarryStateChanged -= SetHighlight;
+    }
+
+    private void OnDestroy()
+    {
+        RemoveAllListeners();
     }
 }

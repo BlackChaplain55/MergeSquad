@@ -12,7 +12,8 @@ public class SFXMerge : SFXComponent
 
     private void Start()
     {
-        _mergeSystem = new MergeSystem();
+        _mergeSystem = GetComponent<MergeSystem>();
+        _audioSource = GetComponent<AudioSource>();
 
         _mergeSystem.OnSlotCarryStateChanged += SlotStateChanged;
         _mergeSystem.OnItemMerged += ItemMerged;
@@ -28,6 +29,7 @@ public class SFXMerge : SFXComponent
 
     private void ItemMerged(Slot slot)
     {
+        Debug.Log("merged ");
         var sound = Sounds[MergeActionType.OnItemMerged];
 
         _audioSource.pitch = sound.Pitch;

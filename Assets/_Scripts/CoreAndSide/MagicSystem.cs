@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class MagicSystem : MonoBehaviour
 {
+    public event Action OnMeteorLaunched;
     [field: SerializeField] public Vector3 GroundPosition { get; private set; }
     [field: SerializeField] public float FireBallFallDuration { get; private set; }
     [field: SerializeField] public Vector3 FireBallSpawnPosition { get; private set; }
@@ -33,6 +34,8 @@ public class MagicSystem : MonoBehaviour
 
     private void UseFireBall(Hero hero, MagicSO magic)
     {
+        OnMeteorLaunched?.Invoke();
+
         Transform fireBall = FireBall.transform;
         fireBall.localPosition = FireBallSpawnPosition;
         var fireBallImage = FireBall.GetComponent<Image>();
@@ -42,9 +45,6 @@ public class MagicSystem : MonoBehaviour
         Vector3 direction = (GroundPosition - fireBall.localPosition) / FireBallFallDuration;
         float z = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         fireBall.rotation = Quaternion.Euler(new Vector3(0, 0, z));
-
-        //var emitter = FireBallTrail.main;
-        //emitter.emitterVelocityMode = ParticleSystemEmitterVelocityMode.Transform;
 
         var fireBallFall = fireBall
             .DOLocalMove(
