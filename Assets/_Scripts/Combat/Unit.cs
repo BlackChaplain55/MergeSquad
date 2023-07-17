@@ -270,7 +270,10 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Respawn()
     {
-        if (!_isBoss && gameObject.activeSelf && _host.State != UnitState.Die) StartCoroutine(RespawnCooldown());
+        if (!_isBoss && gameObject.activeSelf)
+        {
+            if (_host.State != UnitState.Die) StartCoroutine(RespawnCooldown());
+        }
         else
         {
             EventBus.OnBossDeath?.Invoke();

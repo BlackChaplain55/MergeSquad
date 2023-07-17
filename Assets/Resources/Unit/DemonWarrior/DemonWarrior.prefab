@@ -273,7 +273,12 @@ PrefabInstance:
     - target: {fileID: -8465058603364349754, guid: 662a26aa6d986d94bb579e6c6c96bf94,
         type: 3}
       propertyPath: _healthSizeY
-      value: 30
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 2630005225110963414, guid: 662a26aa6d986d94bb579e6c6c96bf94,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 3603449059935916930, guid: 662a26aa6d986d94bb579e6c6c96bf94,
         type: 3}

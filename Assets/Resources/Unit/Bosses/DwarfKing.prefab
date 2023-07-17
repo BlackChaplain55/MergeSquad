@@ -198,7 +198,7 @@ MonoBehaviour:
   - {fileID: 8831118610302173633}
   _spawnUnitSequence: 0100000002000000
   _spawnDelaySequence:
-  - 2
+  - 4
   - 2
   - 2
   - 2
