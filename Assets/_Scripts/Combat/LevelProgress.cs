@@ -25,7 +25,7 @@ public class LevelProgress : MonoBehaviour
 
     [SerializeField] private float _bossOffsetY;
     [SerializeField] private float _bossOffsetX;
-    
+
     private bool _heroMoving;
     public bool IsHeroMoving { get { return _heroMoving; } }
     public bool ArmyMoving;
@@ -130,7 +130,7 @@ public class LevelProgress : MonoBehaviour
         boss.transform.localPosition = new Vector3(_bossOffsetX + _levelStep * _levelLength, _bossOffsetY, 0);
         Unit bossUnit = boss.GetComponent<Unit>();
         EnemySpawner bossSpawner = boss.GetComponent<EnemySpawner>();
-        bossUnit.Init(_unitSpawner);
+        bossUnit.Init(_unitSpawner,1+ _levelStep* _unitConroller.BossLevelPerStep);
         _unitConroller.AddUnitToList(bossUnit);
         _unitSpawner.EnemySpawnPoints.Clear();
         for(int i=0; i < boss.transform.childCount; i++)

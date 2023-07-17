@@ -32,6 +32,7 @@ public class UnitView : MonoBehaviour
 
     private void Awake()
     {
+        _punchTween = null;
         if (_healthBar == null) _healthBar = GetComponentInChildren<UnitHealtBar>();
         if (_anim == null) _anim = GetComponent<Animator>();
         if (_unit == null) _unit = GetComponent<Unit>();
@@ -92,7 +93,10 @@ public class UnitView : MonoBehaviour
     public void FadeOutAndRespawn()
     {
         _healthBar.gameObject.SetActive(false);
-        _image.DOKill();
+        //_punchTween.Complete();
+        //_punchTween.Kill();
+        //_punchTween = null;
+        _image.DOComplete();
         _image.DOFade(0, 1).OnComplete(() => { if (gameObject.activeSelf) _unit.Respawn(); });
     }
 

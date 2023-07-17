@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject _damageTextPrefabEnemy;
     [SerializeField] private List<GameObject> _damageTextPoolEnemy;
 
+
     public static CombatManager Combat;
     public bool IsGame;
     
@@ -43,6 +44,11 @@ public class CombatManager : MonoBehaviour
             _damageTextPoolAlly.Add(newDamageText);
             _damageTextPoolEnemy.Add(newDamageTextEnemy);
         }
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 
     public GameObject GetDamageText(bool isEnemy)

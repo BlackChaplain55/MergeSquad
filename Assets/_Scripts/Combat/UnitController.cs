@@ -17,6 +17,7 @@ public class UnitController : MonoBehaviour
 
     [SerializeField] private float _secondsToUpgrade;
     [SerializeField] private int _maxLevelPerBoss;
+    [SerializeField] public int BossLevelPerStep = 1;
     private int _maxLevel;
     private bool _upgradeEnabled;
 

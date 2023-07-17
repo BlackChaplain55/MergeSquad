@@ -31,7 +31,7 @@ public class SpawnEffects : MonoBehaviour
 
     private void BlinkSpawnCirle(Transform parent, GameObject currentCircle,bool isEnemy)
     {
-        currentCircle.transform.parent = parent;
+        currentCircle.transform.SetParent(parent);
         currentCircle.transform.SetAsFirstSibling();
         currentCircle.transform.position = parent.position;
         currentCircle.transform.Translate(_offsetX* currentCircle.transform.lossyScale.x,_offsetY* currentCircle.transform.lossyScale.y, 0);

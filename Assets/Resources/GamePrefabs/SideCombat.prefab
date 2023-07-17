@@ -6996,7 +6996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelProgress: {fileID: 299294998}
   _secondsToUpgrade: 20
-  _maxLevelPerBoss: 8
+  _maxLevelPerBoss: 5
+  BossLevelPerStep: 3
 --- !u!114 &7816340718038077847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7465,6 +7466,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _healthSizeY
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2630005225110963414, guid: 662a26aa6d986d94bb579e6c6c96bf94,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 3603449059935916930, guid: 662a26aa6d986d94bb579e6c6c96bf94,
         type: 3}

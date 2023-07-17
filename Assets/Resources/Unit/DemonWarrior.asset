@@ -21,7 +21,7 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 0.15
   <SummonCost>k__BackingField: 20
   <BaseUpgradeCost>k__BackingField: 10
-  <UpgradeCostPerLevel>k__BackingField: 1.8
+  <UpgradeCostPerLevel>k__BackingField: 1.5
   <MultiAttack>k__BackingField: 0
   <RespawnTime>k__BackingField: 10
   <AttackPerLevel>k__BackingField: 1.25
