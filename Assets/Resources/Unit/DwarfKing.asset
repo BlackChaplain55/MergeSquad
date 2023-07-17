@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DwarfKing
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <BaseHealth>k__BackingField: 1000
-  <BaseAttack>k__BackingField: 20
+  <BaseHealth>k__BackingField: 1800
+  <BaseAttack>k__BackingField: 50
   <AttackSpeed>k__BackingField: 1
   <AttackSpeedPerLevel>k__BackingField: 0.05
   <WalkSpeed>k__BackingField: 0

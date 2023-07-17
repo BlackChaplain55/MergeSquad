@@ -196,15 +196,20 @@ MonoBehaviour:
   - {fileID: 8091613586203909835}
   - {fileID: 1323742226756250316}
   - {fileID: 8831118610302173633}
-  _spawnUnitSequence: 0200000002000000
+  _spawnUnitSequence: 0100000002000000
   _spawnDelaySequence:
   - 2
   - 2
   - 2
-  - 4
-  - 6
-  - 6
-  - 6
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 10
+  - 10
+  - 10
   _unitSpawner: {fileID: 0}
 --- !u!82 &4346781896176494707
 AudioSource:

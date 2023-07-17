@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
-  ItemsBaseLevel: 4
-  ItemsPerKill: 2
-  StartSouls: 45
-  SoulsPerKill: 5
-  SoulsPerBossKill: 0
-  StartCrystals: 1000
+  ItemsBaseLevel: 2
+  ItemsPerKill: 1
+  StartSouls: 55
+  SoulsPerKill: 6
+  SoulsPerBossKill: 50
+  StartCrystals: 55
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5
@@ -27,13 +27,13 @@ MonoBehaviour:
   HPPerLevel:
     _serializedList:
     - Key: 0
-      Value: 0.2
+      Value: 0.3
     - Key: 1
-      Value: 0.175
+      Value: 0.15
     - Key: 2
       Value: 0.15
     - Key: 3
-      Value: 0
+      Value: 0.15
     - Key: 4
       Value: 0
     - Key: 5
@@ -41,15 +41,15 @@ MonoBehaviour:
   AttackPerLevel:
     _serializedList:
     - Key: 0
-      Value: 0.05
+      Value: 0.15
     - Key: 1
-      Value: 0.075
+      Value: 0.15
     - Key: 2
       Value: 0.1
     - Key: 3
-      Value: 0.14
+      Value: 0.15
     - Key: 4
-      Value: 0.12
+      Value: 0.2
     - Key: 5
       Value: 0.1
   AttackSpeedPerLevel:
@@ -61,20 +61,20 @@ MonoBehaviour:
     - Key: 2
       Value: 1
     - Key: 3
-      Value: 0.97
+      Value: 1
     - Key: 4
-      Value: 0.98
+      Value: 1
     - Key: 5
-      Value: 0.985
+      Value: 1
   MagicStrengthPerLevel:
     _serializedList:
     - Key: 6
-      Value: 1.7
+      Value: 2.1
   MagicRangePerLevel:
     _serializedList:
     - Key: 6
-      Value: 10
-  ItemsDeathTimerPerLevel: 4
+      Value: 9
+  ItemsDeathTimerPerLevel: 10
   ItemsPlaceholders:
     _serializedList:
     - Key: 0
