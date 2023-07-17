@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using System.ComponentModel;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Image))]
@@ -37,12 +36,7 @@ public class UnitView : MonoBehaviour
         if (_anim == null) _anim = GetComponent<Animator>();
         if (_unit == null) _unit = GetComponent<Unit>();
         if (_image == null) _image = GetComponent<Image>();
-        if (_healthBar != null)
-        {
-            _healthBar.Init(_image.rectTransform.sizeDelta);
-            _healthBar.SetLevel(_unit.Level);
-            _unit.PropertyChanged += UpdateUnitData;
-        }
+        if (_healthBar != null) _healthBar.Init(_image.rectTransform.sizeDelta);
     }
 
     public void ChangeAnimation(UnitState state)
@@ -93,11 +87,8 @@ public class UnitView : MonoBehaviour
     public void FadeOutAndRespawn()
     {
         _healthBar.gameObject.SetActive(false);
-        //_punchTween.Complete();
-        //_punchTween.Kill();
-        //_punchTween = null;
-        _image.DOComplete();
-        _image.DOFade(0, 1).OnComplete(() => { if (gameObject.activeSelf) _unit.Respawn(); });
+        _image.DOKill();
+        _image.DOFade(0, 1).OnComplete(() => { _unit.Respawn(); });
     }
 
     public void UpdateHealth(float amount)
@@ -105,10 +96,9 @@ public class UnitView : MonoBehaviour
         _healthBar.SetHealthBar(amount);
     }
 
-    public void UpdateUnitData(object sender, PropertyChangedEventArgs e)
+    public void UpdateLevel(int level)
     {
-        if (e.PropertyName == nameof(Unit.Level))
-            _healthBar.SetLevel(_unit.Level);
+        _healthBar.SetLevel(level);
     }
 
     public void DamageEffect(float damage,bool isEnemy)
@@ -146,10 +136,5 @@ public class UnitView : MonoBehaviour
         damageText.DOFade(0, 3f).OnComplete(() => { damageTextObject.SetActive(false);});
         //damageText.DOFade(0, 1f).OnComplete(() => { _unit.Respawn()                  ; });
         //.OnComplete(() => { _unit.Respawn()      damageTextObject.SetActive(false);            ; });
-    }
-
-    private void OnDestroy()
-    {
-        _unit.PropertyChanged -= UpdateUnitData;
     }
 }

@@ -20,10 +20,10 @@ public class SFXGlobalEvents : MonoBehaviour
             Debug.Log($"{nameof(SFXGlobalEvents)} : {sub.Method.Name},");
         }
         
-        EventBus.OnFinalBossDeath += () => PlaySFX(GlobalEventType.Victory);
-        EventBus.OnHeroDeath += () => PlaySFX(GlobalEventType.Defeat);
-        EventBus.OnBossDeath += () => PlaySFX(GlobalEventType.OnCrystalGathered);
-        EventBus.OnUnitDeath += unit => { if (unit.isEnemy) PlaySFX(GlobalEventType.OnUnitDeath); };
+        //EventBus.OnFinalBossDeath += () => PlaySFX(GlobalEventType.Victory);
+        //EventBus.OnHeroDeath += () => PlaySFX(GlobalEventType.Defeat);
+        //EventBus.OnBossDeath += () => PlaySFX(GlobalEventType.OnCrystalGathered);
+        //EventBus.OnUnitDeath += unit => { if (unit.isEnemy) PlaySFX(GlobalEventType.OnUnitDeath); };
     }
 
     private void PlaySFX(GlobalEventType eventType)
@@ -39,9 +39,9 @@ public class SFXGlobalEvents : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventBus.OnFinalBossDeath -= () => PlaySFX(GlobalEventType.Victory);
-        EventBus.OnHeroDeath -= () => PlaySFX(GlobalEventType.Defeat);
-        EventBus.OnBossDeath -= () => PlaySFX(GlobalEventType.OnCrystalGathered);
+        //EventBus.OnFinalBossDeath -= () => PlaySFX(GlobalEventType.Victory);
+        //EventBus.OnHeroDeath -= () => PlaySFX(GlobalEventType.Defeat);
+        //EventBus.OnBossDeath -= () => PlaySFX(GlobalEventType.OnCrystalGathered);
     }
 }
 

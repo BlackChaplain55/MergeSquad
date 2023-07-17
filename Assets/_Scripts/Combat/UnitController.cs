@@ -17,12 +17,14 @@ public class UnitController : MonoBehaviour
 
     [SerializeField] private float _secondsToUpgrade;
     [SerializeField] private int _maxLevelPerBoss;
-    [SerializeField] public int BossLevelPerStep = 1;
+    public int BossLevelPerStep;
     private int _maxLevel;
+    public int MaxLevel { get { return _maxLevel; } }
     private bool _upgradeEnabled;
 
     private void Awake()
     {
+        _maxLevel = _maxLevelPerBoss;
         InitialEnemyLevel = 1;
         UnitsList = new ObservableCollection<Unit>();
         EnemyList = new ObservableCollection<Unit>();

@@ -1,7 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(UnitView))]
 [RequireComponent(typeof(UnitSound))]
@@ -89,7 +92,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     private void OnDestroy()
     {
-        EventBus.OnNextStepReached -= UpdateOnLevelStep;
+        EventBus.OnNextStepReached += UpdateOnLevelStep;
     }
 
     public Unit(bool isEnemy = false)
@@ -164,7 +167,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         if (_host != null)
         {
             if (_host.State == UnitState.Die) return;
-            transform.SetParent(_unitSpawner.GetSpawnPoint(isEnemy));
+            transform.parent = _unitSpawner.GetSpawnPoint(isEnemy);
             transform.position = transform.parent.position;
         }
         _unitSpawner.SpawnEffect(this);
@@ -173,6 +176,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         //Position = transform.position.x;
         UpdatePosition(transform.position.x);
         _view.UpdateHealth(1);
+        _view.UpdateLevel(Level);
         _view.FadeIn();
     }
 
@@ -253,7 +257,8 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         else
         {
             EventBus.OnUnitDeath?.Invoke(this);
-            if (isEnemy) Upgrade();
+            if (isEnemy&&Level < _unitController.MaxLevel) Upgrade();
+            //if (isEnemy) Upgrade();
             _view.FadeOutAndRespawn();
         }
         _sound.PlaySound(UnitSound.UnitSFXType.Die);
@@ -265,15 +270,13 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         float prevMaxHealth = _unitStats.MaxHealth;
         _unitStats.SetSnapshot(_statsProvider);
         _view.SetAttackSpeed(_unitStats.AttackSpeed);
+        _view.UpdateLevel(Level);
         Health += _unitStats.MaxHealth - prevMaxHealth;
     }
 
     public void Respawn()
     {
-        if (!_isBoss && gameObject.activeSelf)
-        {
-            if (_host.State != UnitState.Die) StartCoroutine(RespawnCooldown());
-        }
+        if (!_isBoss&&gameObject.activeSelf) StartCoroutine(RespawnCooldown());
         else
         {
             EventBus.OnBossDeath?.Invoke();
@@ -299,7 +302,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         float timeStep = 0.1f;
         WaitForSeconds wait = new(timeStep);
         RespawnTimer = _unitData.RespawnTime;
-        while (RespawnTimer > 0&&gameObject.activeSelf)
+        while (RespawnTimer > 0)
         {
             RespawnTimer -= timeStep;
             yield return wait;
@@ -320,16 +323,11 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
         var artifactsRepo = GameController.Game.ArtifactsRepository;
         artifacts = artifactsRepo[_unitData.Type];
 
-        _statsProvider = _unitData;
-
-        if (!isEnemy)
-        {
-            _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
-            _armorStats = new ArtifactItemDecorator(_armorStats, artifacts);
-            _weaponStats = new ArtifactItemDecorator(_weaponStats, artifacts);
-        }
+        _statsProvider = new ArtifactUnitDecorator(_unitData, artifacts);
         _statsProvider = new UnitLevelDecorator(_statsProvider, this);
+        _armorStats = new ArtifactItemDecorator(_armorStats, artifacts);
         _armorStats = new ArmorLevelDecorator(this);
+        _weaponStats = new ArtifactItemDecorator(_weaponStats, artifacts);
         _weaponStats = new WeaponLevelDecorator(this);
         _statsProvider = new CombineUnitItemDecorator(_statsProvider, _weaponStats, _armorStats);
         _unitStats = new UnitStats(_unitData);

@@ -12,7 +12,7 @@ public class Parallax : MonoBehaviour
     [SerializeField] private List<Transform> _childs;
     [SerializeField] private Canvas _currentCanvas;
 
-    //private int _levelStep = 0;
+    private int _levelStep = 0;
     private int _currentChild = 0;
     private float _width;
     private float _levelLength;
@@ -29,11 +29,12 @@ public class Parallax : MonoBehaviour
 
     private void OnDisable()
     {
-        EventBus.onHeroMove -= SetPosition;
+        
     }
 
     private void OnDestroy()
     {
+        EventBus.onHeroMove -= SetPosition;
         EventBus.OnNextStepReached -= ShiftBackground;
     }
 

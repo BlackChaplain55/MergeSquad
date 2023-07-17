@@ -47,7 +47,7 @@ public class UnitSpawner : MonoBehaviour
             return line;         
         }
         
-       // return transform;
+        return transform;
     }
 
     public void SpawnEffect(Unit unit)
@@ -70,6 +70,7 @@ public class UnitSpawner : MonoBehaviour
         else newUnitObject = unitObject;
         Unit newUnit = newUnitObject.GetComponent<Unit>();
         newUnit.Init(this,level);
+        //newUnit.Init(this);
         _unitController.AddUnitToList(newUnit);
         //_spawnEffects.SpawnEffect(newUnit.transform.parent, newUnit.isEnemy);
     }

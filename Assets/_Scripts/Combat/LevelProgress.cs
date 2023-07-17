@@ -25,7 +25,7 @@ public class LevelProgress : MonoBehaviour
 
     [SerializeField] private float _bossOffsetY;
     [SerializeField] private float _bossOffsetX;
-
+    
     private bool _heroMoving;
     public bool IsHeroMoving { get { return _heroMoving; } }
     public bool ArmyMoving;
@@ -40,9 +40,13 @@ public class LevelProgress : MonoBehaviour
         if (_unitSpawner == null) _unitSpawner = GetComponent<UnitSpawner>();
         if (_unitConroller == null) _unitConroller = GetComponent<UnitController>();
         if (_levelProgressView == null) _levelProgressView = GetComponent<LevelView>();        
-        EventBus.OnBossDeath += BossDeath;
         Init();
         _levelProgressView.Init(_bossesTemplates.Count);
+    }
+
+    private void Awake()
+    {
+        EventBus.OnBossDeath += BossDeath;
     }
 
     private void OnDestroy()
@@ -53,8 +57,6 @@ public class LevelProgress : MonoBehaviour
     public void Init()
     {
         _levelLength = _currentCanvas.renderingDisplaySize.x;
-        Debug.Log($"level length {_levelLength}, canvas scale {_currentCanvas.scaleFactor}, transform scale {_currentCanvas.transform.localScale}, ");
-        _bossOffsetX = -_hero.transform.localPosition.x;
         _levelInitialPosition = _hero.transform.localPosition.x;
         if (_bossesTemplates.Count > 0)
         {
@@ -126,11 +128,11 @@ public class LevelProgress : MonoBehaviour
     public void InitCurrentBoss()
     {
         GameObject boss = Instantiate(_bossesTemplates[_levelStep],transform.parent);
-        //boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX*_levelLength + _levelStep*_levelLength,_bossOffsetY,0);
-        boss.transform.localPosition = new Vector3(_bossOffsetX + _levelStep * _levelLength, _bossOffsetY, 0);
+        boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX*_levelLength + _levelStep*_levelLength,_bossOffsetY,0);
         Unit bossUnit = boss.GetComponent<Unit>();
         EnemySpawner bossSpawner = boss.GetComponent<EnemySpawner>();
         bossUnit.Init(_unitSpawner,1+ _levelStep* _unitConroller.BossLevelPerStep);
+        //bossUnit.Init(_unitSpawner);
         _unitConroller.AddUnitToList(bossUnit);
         _unitSpawner.EnemySpawnPoints.Clear();
         for(int i=0; i < boss.transform.childCount; i++)
