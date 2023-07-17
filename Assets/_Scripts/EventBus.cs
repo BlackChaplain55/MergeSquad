@@ -7,6 +7,7 @@ public static class EventBus
 {
     public static Action<int> onSceneChange;
     public static Action<Unit> OnUnitDeath;
+    public static Action CrystalGathered;
     public static Action OnBossDeath;
     public static Action OnNextStepReached;
     public static Action OnHeroDeath;

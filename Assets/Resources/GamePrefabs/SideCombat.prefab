@@ -6996,7 +6996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelProgress: {fileID: 299294998}
   _secondsToUpgrade: 20
-  _maxLevelPerBoss: 0
+  _maxLevelPerBoss: 8
 --- !u!114 &7816340718038077847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7272,7 +7272,7 @@ MonoBehaviour:
   _health: 0
   _level: 0
   _host: {fileID: 0}
-  _healthRegen: 100
+  _healthRegen: 10
 --- !u!114 &8359689101812860884
 MonoBehaviour:
   m_ObjectHideFlags: 0

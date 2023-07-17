@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     private SoundController _sound;
     private int _souls;
     private bool _isPaused;
+    private bool _saveCancletion;
 
     public void StartMusic(int sceneIndex) => _sound?.StartMusic(sceneIndex);
     public void StartMusic(AudioClip clip) => _sound?.StartMusic(clip);
@@ -62,7 +63,7 @@ public class GameController : MonoBehaviour
     public bool TrySpendSouls(int value)
     {
         int remainSouls = Souls - value;
-        if (remainSouls < 0)
+        if (!CheckAbleSpendSouls(value))
             return false;
 
         Souls = remainSouls;
@@ -77,6 +78,12 @@ public class GameController : MonoBehaviour
 
         GameProgress.Crystals = remainCrystals;
         return true;
+    }
+
+    public bool CheckAbleSpendSouls(int value)
+    {
+        int remainSouls = Souls - value;
+        return remainSouls >= 0;
     }
 
     public void SetPause(bool flag)
@@ -118,17 +125,23 @@ public class GameController : MonoBehaviour
         MergeData.InitResources();
     }
 
-    private IEnumerator Start() {
+    private void Start() {
         Application.targetFrameRate = 60;
 
-        _sound?.StartMusic((int)Game.GameState);
+        if (_sound == null) _sound = GetComponent<SoundController>();
+        _sound.StartMusic((int)GameState);
         
         SceneManager.activeSceneChanged += ChangeSceneState;
         OnSceneChanged += _new => EverySceneChanged();
         OnSceneChanged += StartMusic;
-    
-        WaitForSeconds wait = new WaitForSeconds(3);
-        while (true)
+
+        StartCoroutine(BeginSave(3));
+    }
+
+    private IEnumerator BeginSave(float timeStep)
+    {
+        WaitForSeconds wait = new(timeStep);
+        while (!_saveCancletion)
         {
             SaveSystem.Instance.TrySaveGame("saves", gameProgress);
             yield return wait;
@@ -137,15 +150,18 @@ public class GameController : MonoBehaviour
 
     private void EverySceneChanged()
     {
+        Debug.Log("EverySceneChanged");
         GameState = (GameStates)SceneManager.GetActiveScene().buildIndex;
         Souls = Settings.StartSouls;
     }
 
     private void ChangeSceneState(Scene oldScene, Scene newScene)
     {
+        Debug.Log("Scene Changed ChangeSceneState ");
+        Debug.Log(GameState.ToString());
         GameState = (GameStates)newScene.buildIndex;
 
-        _sound?.StartMusic(newScene.buildIndex);
+        _sound.StartMusic(newScene.buildIndex);
         OnSceneChanged?.Invoke(newScene.buildIndex);
     }
 

@@ -16,7 +16,7 @@ MonoBehaviour:
   Power: 10
   ItemSprite: {fileID: 21300000, guid: 0121040fbb0d76748970725d15e06980, type: 3}
   Type: 3
-  DeathTimer: 15
-  BaseHP: 0
+  DeathTimer: 10
+  BaseHP: 0.1
   BaseAttack: 0.1
   BaseAttackSpeed: 1

@@ -33,6 +33,7 @@ public class HeroPresenter : MonoBehaviour
         unitController.UnitsList.CollectionChanged += FindHero;
         GetHeroHard();
         spellSlot.Init(_hero);
+        upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(_hero.UnitStats.UpgradeCost);
 
         spellSlot.OnItemOverlapChanged += mergeSystem.OverlapChanged;
     }
@@ -51,7 +52,11 @@ public class HeroPresenter : MonoBehaviour
                 if (magicStrength != null) magicStrength.text = $"Magic {_hero.MagicStrength}";
                 break;
             case nameof(UnitParameterType.UpgradeCost):
-                if (upgradeCost != null) upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString();
+                if (upgradeCost != null)
+                {
+                    upgradeCost.text = _hero.UnitStats.UpgradeCost.ToString();
+                    upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(_hero.UnitStats.UpgradeCost);
+                }
                 break;
             case nameof(UnitParameterType.Health):
                 if (hpText != null)

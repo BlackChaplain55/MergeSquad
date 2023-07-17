@@ -13,6 +13,7 @@ public class MergeSystem : MonoBehaviour
         set { _carryingItemSlot = value; }
     }
     public Action<Slot, bool> OnSlotCarryStateChanged;
+    public Action<Slot> OnItemMerged;
     [SerializeField] private InputReader input;
     [SerializeField] private SlotSpawner slotSpawner;
     [SerializeField] private Canvas canvas;
@@ -153,6 +154,8 @@ public class MergeSystem : MonoBehaviour
         _carryingItemSlot.GetItemTransform().SetParent(_carryingItemSlot.transform, false);
         carryingItemSlot.SetItem(null);
         _carryingItemSlot.SetInteractable(true);
+
+        OnItemMerged?.Invoke(targetSlot);
     }
 
     private void OnItemCarryFail(Slot slot)

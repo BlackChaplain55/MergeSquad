@@ -10,6 +10,7 @@ public class SoundController : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioClip[] _soundtracks;
+    [SerializeField] private AudioClip _comicsTrack;
     [SerializeField] private AudioClip _menuTrack;
     [SerializeField] private AudioClip _mapTrack;
     [SerializeField] private AudioSource _audioSource;
@@ -25,6 +26,7 @@ public class SoundController : MonoBehaviour
 
         var clipsToPlay = new AudioClip[]
         {
+            _comicsTrack,
             _menuTrack,
             _menuTrack,
             _mapTrack,

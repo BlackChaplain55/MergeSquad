@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 [RequireComponent(typeof(UnitView))]
 [RequireComponent(typeof(UnitSound))]
@@ -92,7 +89,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     private void OnDestroy()
     {
-        EventBus.OnNextStepReached += UpdateOnLevelStep;
+        EventBus.OnNextStepReached -= UpdateOnLevelStep;
     }
 
     public Unit(bool isEnemy = false)
@@ -273,7 +270,7 @@ public class Unit : MonoBehaviour, INotifyPropertyChanged
 
     public void Respawn()
     {
-        if (!_isBoss&&gameObject.activeSelf) StartCoroutine(RespawnCooldown());
+        if (!_isBoss && gameObject.activeSelf && _host.State != UnitState.Die) StartCoroutine(RespawnCooldown());
         else
         {
             EventBus.OnBossDeath?.Invoke();

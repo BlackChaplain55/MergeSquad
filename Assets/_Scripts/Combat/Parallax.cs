@@ -31,6 +31,12 @@ public class Parallax : MonoBehaviour
     {
         EventBus.onHeroMove -= SetPosition;
     }
+
+    private void OnDestroy()
+    {
+        EventBus.OnNextStepReached -= ShiftBackground;
+    }
+
     private void OnValidate()
     {
         if (_childs.Count == 0)

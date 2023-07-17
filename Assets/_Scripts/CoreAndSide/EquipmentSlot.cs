@@ -20,6 +20,8 @@ public class EquipmentSlot : Slot
     [SerializeField] private Image highlight;
     [SerializeField] protected Image bar;
     [SerializeField] protected Image barBackground;
+    private IItemStatsProvider _equipmentStatsProvider;
+    private float _maxDeathTimer;
     private float _deathTimer;
     private Sprite _placeHolder;
     private Color _placeHolderColor;
@@ -66,9 +68,15 @@ public class EquipmentSlot : Slot
         barBackground.enabled = isItemExist;
     }
 
-    public void ResetDeathTimer(IItemStatsProvider itemStats)
+    public void ResetDeathTimer()
     {
-        DeathTimer = itemStats.GetStats(ItemParameterType.DeathTimer);
+        DeathTimer = _maxDeathTimer;
+    }
+
+    public void SetStatsProvider(IItemStatsProvider equipmentStats)
+    {
+        _equipmentStatsProvider = equipmentStats;
+        _maxDeathTimer = equipmentStats.GetStats(ItemParameterType.DeathTimer);
     }
 
     public override bool TryPlace(Slot slot)

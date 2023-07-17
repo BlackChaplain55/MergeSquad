@@ -27,13 +27,13 @@ public class UnitShop : MonoBehaviour
             OnUnitsCostChanged += summonButton.SetSummonCost;
             
             if (!_unitTypeCost.ContainsKey(unitType.Key))
-                _unitTypeCost.Add(unitType.Key, new());
+                _unitTypeCost.Add(unitType.Key, new(1, 1));
         }
     }
 
     private void TryBuyNewUnit(UnitData unitData, GameObject template)
     {
-        int summonCost = (int)(unitData.SummonCost * (_unitTypeCost[unitData.Type].Multiplier + 1));
+        int summonCost = (int)(unitData.SummonCost * (_unitTypeCost[unitData.Type].Multiplier));
         SummonCost cost = _unitTypeCost[unitData.Type];
         float summonProgression = GameController.Game.Settings.UnitSummonCostProgression;
 
@@ -55,7 +55,7 @@ public class UnitShop : MonoBehaviour
         public int UnitsCount;
         public float Multiplier;
 
-        public SummonCost(int unitsCount = 0, float multiplier = 1)
+        public SummonCost(int unitsCount = 1, float multiplier = 1)
         {
             UnitsCount = unitsCount;
             Multiplier = multiplier;

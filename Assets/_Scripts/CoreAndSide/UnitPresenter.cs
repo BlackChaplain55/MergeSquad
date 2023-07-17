@@ -80,17 +80,25 @@ public class UnitPresenter : MonoBehaviour
         if (attackSpeed != null) attackSpeed.text = Unit.UnitStats.AttackSpeed.ToString("0.00");
         if (health != null) health.text = Mathf.Ceil(Unit.Health).ToString();
         if (upgradeCost != null) upgradeCost.text = Unit.UnitStats.UpgradeCost.ToString();
+        OnSoulsChanged(-1);
     }
 
     private void AddAllListeners()
     {
+        GameController.Game.OnSoulsChanged += OnSoulsChanged;
         Unit.PropertyChanged += UpdateText;
         Unit.GetUnitStatsRef().PropertyChanged += UpdateText;
         OnUpgradeRequest += TryUpgradeUnit;
     }
 
+    private void OnSoulsChanged(int value)
+    {
+        upgradeButton.interactable = GameController.Game.CheckAbleSpendSouls(Unit.UnitStats.UpgradeCost);
+    }
+
     private void RemoveAllListeners()
     {
+        GameController.Game.OnSoulsChanged -= OnSoulsChanged;
         Unit.PropertyChanged -= UpdateText;
         Unit.GetUnitStatsRef().PropertyChanged -= UpdateText;
         OnUpgradeRequest -= TryUpgradeUnit;
@@ -103,7 +111,8 @@ public class UnitPresenter : MonoBehaviour
         if (item is EquipmentSO equipment)
         {
             Unit.SetWeapon(equipment);
-            weapon.ResetDeathTimer(Unit.WeaponStats);
+            weapon.SetStatsProvider(Unit.WeaponStats);
+            weapon.ResetDeathTimer();
             return;
         }
         Unit.SetWeapon(Resources.Load<EquipmentSO>("Items/NullWeapon"));
@@ -114,7 +123,8 @@ public class UnitPresenter : MonoBehaviour
         if (item is EquipmentSO equipment)
         {
             Unit.SetArmor(equipment);
-            armor.ResetDeathTimer(Unit.ArmorStats);
+            armor.SetStatsProvider(Unit.ArmorStats);
+            armor.ResetDeathTimer();
             return;
         }
         Unit.SetArmor(Resources.Load<EquipmentSO>("Items/NullArmor"));
@@ -163,5 +173,10 @@ public class UnitPresenter : MonoBehaviour
         {
             el.SetActive(flag);
         }
+    }
+
+    private void OnDestroy()
+    {
+        RemoveAllListeners();
     }
 }

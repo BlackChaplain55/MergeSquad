@@ -12,6 +12,9 @@ public static class MergeData
         foreach (int i in types)
         {
             var type = (ItemType)i;
+            if (itemsDictionary.ContainsKey(type))
+                continue;
+
             ItemResources gameResources = Resources.Load<ItemResources>("Items/"+ type.ToString());
             itemsDictionary.Add(type, gameResources);
         };

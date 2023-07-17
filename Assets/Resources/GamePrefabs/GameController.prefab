@@ -99,11 +99,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1916124118900888408, guid: 501b25cfb3455a44faf2b1439303b3ae,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 56b7e397bb12dca4d9bd77547344b9e8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -199,9 +199,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioMixer: {fileID: 24100000, guid: 501b25cfb3455a44faf2b1439303b3ae, type: 2}
   _soundtracks:
-  - {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
-  - {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
+  - {fileID: 8300000, guid: 56b7e397bb12dca4d9bd77547344b9e8, type: 3}
+  - {fileID: 8300000, guid: 35ff082562c8a4c45b71823b5db8599e, type: 3}
   - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
-  _menuTrack: {fileID: 8300000, guid: 9c31a524899775a43b42c251eba15471, type: 3}
+  - {fileID: 8300000, guid: a28e0aa63f68458bb6aa7d2740cca9db, type: 3}
+  _comicsTrack: {fileID: 8300000, guid: 56b7e397bb12dca4d9bd77547344b9e8, type: 3}
+  _menuTrack: {fileID: 8300000, guid: 35ff082562c8a4c45b71823b5db8599e, type: 3}
   _mapTrack: {fileID: 8300000, guid: 02d944296accb9349a789eadf93b6eac, type: 3}
   _audioSource: {fileID: 8642106774913183280}

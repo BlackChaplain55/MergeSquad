@@ -13,6 +13,7 @@ public class SoulsCounter : MonoBehaviour
 
     private void Awake()
     {
+        textComponent.SetText(GameController.Game.Souls.ToString());
         GameController.Game.OnSoulsChanged += UpdateText;
     }
 

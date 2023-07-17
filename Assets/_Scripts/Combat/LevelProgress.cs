@@ -53,6 +53,8 @@ public class LevelProgress : MonoBehaviour
     public void Init()
     {
         _levelLength = _currentCanvas.renderingDisplaySize.x;
+        Debug.Log($"level length {_levelLength}, canvas scale {_currentCanvas.scaleFactor}, transform scale {_currentCanvas.transform.localScale}, ");
+        _bossOffsetX = -_hero.transform.localPosition.x;
         _levelInitialPosition = _hero.transform.localPosition.x;
         if (_bossesTemplates.Count > 0)
         {
@@ -124,7 +126,8 @@ public class LevelProgress : MonoBehaviour
     public void InitCurrentBoss()
     {
         GameObject boss = Instantiate(_bossesTemplates[_levelStep],transform.parent);
-        boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX*_levelLength + _levelStep*_levelLength,_bossOffsetY,0);
+        //boss.transform.localPosition = new Vector3(_levelLength/2-_bossOffsetX*_levelLength + _levelStep*_levelLength,_bossOffsetY,0);
+        boss.transform.localPosition = new Vector3(_bossOffsetX + _levelStep * _levelLength, _bossOffsetY, 0);
         Unit bossUnit = boss.GetComponent<Unit>();
         EnemySpawner bossSpawner = boss.GetComponent<EnemySpawner>();
         bossUnit.Init(_unitSpawner);

@@ -196,7 +196,7 @@ MonoBehaviour:
   State: 1
   currentEnemy: {fileID: 0}
   <CanMove>k__BackingField: 0
-  _unitData: {fileID: 11400000, guid: 7ad10b8de4dcd3a45abbf84f3873a3ab, type: 2}
+  _unitData: {fileID: 11400000, guid: dbe5a3a087c9ab24996ef8b8b5b7e2ea, type: 2}
   _health: 0
   _level: 0
   _host: {fileID: 0}
@@ -249,12 +249,12 @@ MonoBehaviour:
   - {fileID: 46431900}
   _spawnUnitSequence: 010000000100000002000000
   _spawnDelaySequence:
-  - 5
-  - 2
-  - 2
+  - 4
+  - 4
+  - 10
+  - 10
+  - 12
   - 15
-  - 2
-  - 2
   _unitSpawner: {fileID: 0}
 --- !u!82 &5228657601323774409
 AudioSource:

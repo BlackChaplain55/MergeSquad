@@ -126,7 +126,7 @@ MonoBehaviour:
   State: 1
   currentEnemy: {fileID: 0}
   <CanMove>k__BackingField: 0
-  _unitData: {fileID: 11400000, guid: 9288f8ba85d11684496a7cbce9b55801, type: 2}
+  _unitData: {fileID: 11400000, guid: b018b566287d8c945b450160628d2599, type: 2}
   _health: 0
   _level: 0
   _host: {fileID: 0}
@@ -195,11 +195,18 @@ MonoBehaviour:
   - {fileID: 8091613586203909835}
   - {fileID: 1323742226756250316}
   - {fileID: 8831118610302173633}
-  _spawnUnitSequence: 020000000200000001000000
+  _spawnUnitSequence: 01000000020000000200000001000000
   _spawnDelaySequence:
+  - 2
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
+  - 3
   - 10
-  - 2
-  - 2
+  - 10
   _unitSpawner: {fileID: 0}
 --- !u!114 &2502206377285472962
 MonoBehaviour:

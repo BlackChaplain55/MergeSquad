@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: DwarfWarrior
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <BaseHealth>k__BackingField: 200
-  <BaseAttack>k__BackingField: 20
-  <AttackSpeed>k__BackingField: 1
-  <AttackSpeedPerLevel>k__BackingField: 0.05
+  <BaseHealth>k__BackingField: 80
+  <BaseAttack>k__BackingField: 7
+  <AttackSpeed>k__BackingField: 0.7
+  <AttackSpeedPerLevel>k__BackingField: 0.01
   <WalkSpeed>k__BackingField: 0.025
   <AttackDistance>k__BackingField: 0.15
   <SummonCost>k__BackingField: 0
   <BaseUpgradeCost>k__BackingField: 0
   <UpgradeCostPerLevel>k__BackingField: 0
   <MultiAttack>k__BackingField: 0
-  <RespawnTime>k__BackingField: 30
-  <AttackPerLevel>k__BackingField: 1.05
-  <HealthPerLevel>k__BackingField: 1.05
+  <RespawnTime>k__BackingField: 12
+  <AttackPerLevel>k__BackingField: 1.09
+  <HealthPerLevel>k__BackingField: 1.09
   <MainSprite>k__BackingField: {fileID: 0}
   <Icon>k__BackingField: {fileID: 0}
   <ArmorType>k__BackingField: 0

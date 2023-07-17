@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 2
   <BaseHealth>k__BackingField: 100
-  <BaseAttack>k__BackingField: 10
-  <AttackSpeed>k__BackingField: 1
-  <AttackSpeedPerLevel>k__BackingField: 0.05
-  <WalkSpeed>k__BackingField: 0.02
+  <BaseAttack>k__BackingField: 15
+  <AttackSpeed>k__BackingField: 0.7
+  <AttackSpeedPerLevel>k__BackingField: 0.1
+  <WalkSpeed>k__BackingField: 0.023
   <AttackDistance>k__BackingField: 1.5
   <SummonCost>k__BackingField: 25
   <BaseUpgradeCost>k__BackingField: 10
   <UpgradeCostPerLevel>k__BackingField: 1.8
   <MultiAttack>k__BackingField: 0
-  <RespawnTime>k__BackingField: 15
+  <RespawnTime>k__BackingField: 10
   <AttackPerLevel>k__BackingField: 1.25
   <HealthPerLevel>k__BackingField: 1.25
   <MainSprite>k__BackingField: {fileID: 21300000, guid: e156e044e997d1342a3057369e9c02ca,

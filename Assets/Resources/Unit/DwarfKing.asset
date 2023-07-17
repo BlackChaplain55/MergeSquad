@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: DwarfKing
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 1
-  <BaseHealth>k__BackingField: 1000
-  <BaseAttack>k__BackingField: 20
+  <BaseHealth>k__BackingField: 1800
+  <BaseAttack>k__BackingField: 50
   <AttackSpeed>k__BackingField: 1
   <AttackSpeedPerLevel>k__BackingField: 0.05
   <WalkSpeed>k__BackingField: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   <UpgradeCostPerLevel>k__BackingField: 1
   <MultiAttack>k__BackingField: 0
   <RespawnTime>k__BackingField: 5
-  <AttackPerLevel>k__BackingField: 1.01
+  <AttackPerLevel>k__BackingField: 1.05
   <HealthPerLevel>k__BackingField: 1.05
   <MainSprite>k__BackingField: {fileID: 0}
   <Icon>k__BackingField: {fileID: 0}

@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxItemLevel: 9
   ItemsBaseLevel: 2
-  ItemsPerKill: 3
-  StartSouls: 200
-  SoulsPerKill: 5
-  SoulsPerBossKill: 80
-  StartCrystals: 1000
+  ItemsPerKill: 1
+  StartSouls: 55
+  SoulsPerKill: 6
+  SoulsPerBossKill: 50
+  StartCrystals: 55
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5
-  ArtifactsBaseCost: 200
-  ArtifactsPerPieceCost: 100
+  ArtifactsBaseCost: 40
+  ArtifactsPerPieceCost: 20
   HPPerLevel:
     _serializedList:
     - Key: 0
-      Value: 0.2
+      Value: 0.3
     - Key: 1
-      Value: 0.175
+      Value: 0.15
     - Key: 2
       Value: 0.15
     - Key: 3
-      Value: 0
+      Value: 0.15
     - Key: 4
       Value: 0
     - Key: 5
@@ -41,15 +41,15 @@ MonoBehaviour:
   AttackPerLevel:
     _serializedList:
     - Key: 0
-      Value: 0.05
+      Value: 0.15
     - Key: 1
-      Value: 0.075
+      Value: 0.15
     - Key: 2
       Value: 0.1
     - Key: 3
-      Value: 0.14
+      Value: 0.15
     - Key: 4
-      Value: 0.12
+      Value: 0.2
     - Key: 5
       Value: 0.1
   AttackSpeedPerLevel:
@@ -61,20 +61,20 @@ MonoBehaviour:
     - Key: 2
       Value: 1
     - Key: 3
-      Value: 0.97
+      Value: 1.02
     - Key: 4
-      Value: 0.98
+      Value: 1.03
     - Key: 5
-      Value: 0.985
+      Value: 1.05
   MagicStrengthPerLevel:
     _serializedList:
     - Key: 6
-      Value: 1.2
+      Value: 2.1
   MagicRangePerLevel:
     _serializedList:
     - Key: 6
-      Value: 10
-  ItemsDeathTimerPerLevel: 4
+      Value: 9
+  ItemsDeathTimerPerLevel: 10
   ItemsPlaceholders:
     _serializedList:
     - Key: 0
