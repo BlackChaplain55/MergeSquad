@@ -18,7 +18,7 @@ MonoBehaviour:
   StartSouls: 55
   SoulsPerKill: 6
   SoulsPerBossKill: 50
-  StartCrystals: 55
+  StartCrystals: 110
   CrystalsPerBossKill: 10
   CrystalsPerFinalBossKill: 45
   UnitSummonCostProgression: 1.5

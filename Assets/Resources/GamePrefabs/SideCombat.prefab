@@ -6996,8 +6996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelProgress: {fileID: 299294998}
   _secondsToUpgrade: 20
-  _maxLevelPerBoss: 5
-  BossLevelPerStep: 3
+  _maxLevelPerBoss: 3
+  BossLevelPerStep: 2
 --- !u!114 &7816340718038077847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8002,6 +8002,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7816340717233912622}
     m_Modifications:
+    - target: {fileID: 420306150186077055, guid: 8d537da7399c9fb4ea341b88573015ce,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 9900.99
+      objectReference: {fileID: 0}
     - target: {fileID: 4944650857655681293, guid: 8d537da7399c9fb4ea341b88573015ce,
         type: 3}
       propertyPath: m_Name

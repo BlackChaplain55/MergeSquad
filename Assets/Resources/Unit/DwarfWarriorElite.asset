@@ -16,7 +16,7 @@ MonoBehaviour:
   <BaseHealth>k__BackingField: 800
   <BaseAttack>k__BackingField: 20
   <AttackSpeed>k__BackingField: 1
-  <AttackSpeedPerLevel>k__BackingField: 0.02
+  <AttackSpeedPerLevel>k__BackingField: 0
   <WalkSpeed>k__BackingField: 0
   <AttackDistance>k__BackingField: 0.25
   <SummonCost>k__BackingField: 1
